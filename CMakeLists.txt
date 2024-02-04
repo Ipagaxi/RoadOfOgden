@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
-project(Test_SFML LANGUAGES CXX)
+project(PnC LANGUAGES CXX)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
@@ -13,14 +13,14 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable (
- Test_SFML
+ PnC
  src/main.cpp
 )
 
 add_subdirectory(src/draw)
 
-target_link_libraries(Test_SFML PUBLIC sfml-graphics Draw)
+target_link_libraries(PnC PUBLIC sfml-graphics Draw)
 target_link_libraries(Draw sfml-graphics)
-target_compile_features(Test_SFML PRIVATE cxx_std_17)
+target_compile_features(PnC PRIVATE cxx_std_17)
 
-install(TARGETS Test_SFML)
+install(TARGETS PnC)
