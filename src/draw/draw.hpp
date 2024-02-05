@@ -1,3 +1,3 @@
 #include <SFML/Graphics.hpp>
 
-sf::Texture draw();
+void draw(sf::RenderWindow& window);

@@ -5,8 +5,6 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -18,11 +16,7 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
-        sf::Texture texture = draw();
-        sf::Sprite sprite;
-        sprite.setTexture(texture);
-        window.draw(sprite);
+        draw(window);
         window.display();
     }
     return 0;

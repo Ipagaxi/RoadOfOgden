@@ -4,10 +4,12 @@
 
 using namespace std;
 
-    sf::Texture draw() {
+    void draw(sf::RenderWindow& window) {
         sf::Texture texture;
         if (!texture.loadFromFile("../../src/ressources/start_background.png")) {
             cout << "load image" << endl;
         }
-        return texture;
+        sf::Sprite sprite;
+        sprite.setTexture(texture);
+        window.draw(sprite);
     }
