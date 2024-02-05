@@ -4,7 +4,6 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB source_files
     "src/*.cpp"
-    "src/draw/*.cpp"
 )
 set(SOURCES ${source_files})
 
