@@ -1,5 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
-project(PnC LANGUAGES CXX)
+set(PROJECT_NAME PnC)
+project(${PROJECT_NAME} LANGUAGES CXX)
+
+file(GLOB source_files
+    "src/*.cpp"
+    "src/draw/*.cpp"
+)
+set(SOURCES ${source_files})
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -13,14 +20,12 @@ FetchContent_Declare(SFML
 FetchContent_MakeAvailable(SFML)
 
 add_executable (
- PnC
- src/main.cpp
+    ${PROJECT_NAME}
+    ${SOURCES}
 )
 
-add_subdirectory(src/draw)
+target_include_directories(${PROJECT_NAME} PRIVATE "include")
+target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
-target_link_libraries(PnC PUBLIC sfml-graphics Draw)
-target_link_libraries(Draw sfml-graphics)
-target_compile_features(PnC PRIVATE cxx_std_17)
-
-install(TARGETS PnC)
+install(TARGETS ${PROJECT_NAME})
