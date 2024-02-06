@@ -1,12 +1,17 @@
-#include "FightActivity.hpp";
+#include "FightActivity.hpp"
 #include <iostream>
+#include <algorithm>
 
-void FightActivity::displayActivity(sf::RenderWindow& window) {
-    sf::Texture texture;
-    if (!texture.loadFromFile("../../src/ressources/start_background.png")) {
-        cout << "load image" << endl;
-    }
+using namespace std;
+
+void FightActivity::displayActivity(sf::RenderWindow& window, sf::Texture &background) {
+    sf::Vector2u winSize = window.getSize();
+    sf::Vector2u imgSize = background.getSize();
     sf::Sprite sprite;
-    sprite.setTexture(texture);
+    sprite.setTexture(background);
+    /* Tried to scale manually
+        int scale = max(winSize.x/imgSize.x, winSize.y/imgSize.y);
+        sprite.scale(scale, scale);
+    */
     window.draw(sprite);
 }

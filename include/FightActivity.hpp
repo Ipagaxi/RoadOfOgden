@@ -6,5 +6,5 @@ using namespace std;
 class FightActivity: public Activity {
     string nameEnemy = "Enemy";
   public:
-    void displayActivity(sf::RenderWindow &window);
+    void displayActivity(sf::RenderWindow &window, sf::Texture &background);
 };
