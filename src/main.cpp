@@ -1,10 +1,11 @@
 
 #include <SFML/Graphics.hpp>
 #include "draw.hpp"
+#include "FightActivity.hpp"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1600, 1200), "SFML works!");
 
     while (window.isOpen()) {
         sf::Event event;
@@ -16,7 +17,8 @@ int main()
         }
 
         window.clear();
-        draw(window);
+        FightActivity activity;
+        activity.displayActivity(window);
         window.display();
     }
     return 0;

@@ -4,6 +4,7 @@ project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB source_files
     "src/*.cpp"
+    "src/Activities/*.cpp"
 )
 set(SOURCES ${source_files})
 
