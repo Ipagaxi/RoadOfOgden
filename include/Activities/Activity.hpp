@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
+#include <string>
+#include <iostream>
 
 class Activity {
   public:
-    void displayActivity(sf::RenderWindow &window);
+    virtual void displayActivity(sf::RenderWindow &window, sf::Texture &background, sf::Texture &gear);
 };

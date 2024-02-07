@@ -1,9 +1,13 @@
-#include "Activities/Activity.hpp"
+#include "Activities/FightActivity.hpp"
 
 class GameState {
-    Activity currentActivity;
+  private:
+    vector<sf::Texture> initTextures ();
+
   public:
-    void initGameState() {
+    Textures
+
+    GameState() {
       
     }
 };

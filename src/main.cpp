@@ -1,8 +1,5 @@
 
-#include <SFML/Graphics.hpp>
-#include "draw.hpp"
-#include "FightActivity.hpp"
-#include <iostream>
+#include "GameState.hpp"
 
 using namespace std;
 
@@ -15,6 +12,13 @@ int main()
     if (!background.loadFromFile("../../src/ressources/start_background.png")) {
         cout << "load image" << endl;
     }
+    sf::Texture gear;
+    if (!gear.loadFromFile("../../src/ressources/zahnrad.png")) {
+        cout << "load image" << endl;
+    }
+
+    GameState gameState;
+    FightActivity fightActivity;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -26,8 +30,7 @@ int main()
         }
 
         window.clear();
-        FightActivity activity;
-        activity.displayActivity(window, background);
+        fightActivity.displayActivity(window, background, gear);
         window.display();
     }
     return 0;
