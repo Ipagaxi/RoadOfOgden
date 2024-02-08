@@ -5,10 +5,12 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC ");
 
     GameState gameState = GameState(window);
     FightActivity fightActivity;
+    Activity activity;
+    activity = fightActivity;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -20,7 +22,7 @@ int main()
         }
 
         window.clear();
-        fightActivity.displayActivity(*(gameState.gameWindow), gameState.textures.background, gameState.textures.gear);
+        gameState.startActivity(*(gameState.gameWindow), gameState.textures.background, gameState.textures.gear);
         window.display();
     }
     return 0;

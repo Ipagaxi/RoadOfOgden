@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
 
 #include "Activities/FightActivity.hpp"
 #include "Activities/Activity.hpp"
@@ -10,13 +11,17 @@
 
 class GameState {
   private:
-    //std::vector<sf::Texture> initTextures ();
+    
 
   public:
+    std::unique_ptr<Activity> currentActivity;
     Textures textures;
     sf::RenderWindow* gameWindow;
 
     GameState(sf::RenderWindow &window);
+
+    void changeActivity(std::unique_ptr<Activity> newActivity);
+    void startActivity(sf::RenderWindow &window, sf::Texture &background, sf::Texture &gear);
 };
 
 #endif
