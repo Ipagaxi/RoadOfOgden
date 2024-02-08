@@ -1,7 +1,6 @@
 
 #include "GameState.hpp"
-
-using namespace std;
+#include "SFML/Graphics.hpp"
 
 
 int main()
@@ -10,11 +9,11 @@ int main()
 
     sf::Texture background;
     if (!background.loadFromFile("../../src/ressources/start_background.png")) {
-        cout << "load image" << endl;
+        std::cout << "load image" << std::endl;
     }
     sf::Texture gear;
-    if (!gear.loadFromFile("../../src/ressources/zahnrad.png")) {
-        cout << "load image" << endl;
+    if (!gear.loadFromFile("../../src/ressources/gear.png")) {
+        std::cout << "load image" << std::endl;
     }
 
     GameState gameState;

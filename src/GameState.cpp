@@ -1,5 +1,5 @@
 #include "GameState.hpp"
 
-vector<sf::Texture> GameState::initTextures() {
+std::vector<sf::Texture> GameState::initTextures() {
     
 }

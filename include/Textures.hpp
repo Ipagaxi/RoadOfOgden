@@ -1,3 +1,6 @@
+#ifndef TEXTURES
+#define TEXTURES
+
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
@@ -14,3 +17,5 @@ class Textures {
 
         Textures();
 };
+
+#endif

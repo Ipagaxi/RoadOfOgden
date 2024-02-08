@@ -1,8 +1,4 @@
 #include "Activities/FightActivity.hpp"
-#include <iostream>
-#include <algorithm>
-
-using namespace std;
 
 void FightActivity::displayActivity(sf::RenderWindow& window, sf::Texture &background, sf::Texture &gear) {
     sf::Vector2u winSize = window.getSize();
