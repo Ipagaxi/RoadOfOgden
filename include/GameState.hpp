@@ -6,16 +6,17 @@
 
 #include "Activities/FightActivity.hpp"
 #include "Activities/Activity.hpp"
+#include "Textures.hpp"
 
 class GameState {
   private:
-    std::vector<sf::Texture> initTextures ();
+    //std::vector<sf::Texture> initTextures ();
 
   public:
+    Textures textures;
+    sf::RenderWindow* gameWindow;
 
-    GameState() {
-      
-    }
+    GameState(sf::RenderWindow &window);
 };
 
 #endif

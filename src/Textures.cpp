@@ -7,3 +7,8 @@ sf::Texture Textures::getTexture(string textureName) {
     }
     return texture;
 }
+
+Textures::Textures() {
+    Textures::background = getTexture("background.png");
+    Textures::gear = getTexture("gear.png");
+}

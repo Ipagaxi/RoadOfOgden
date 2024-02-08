@@ -9,11 +9,11 @@ using namespace std;
 
 class Textures {
     private:
+        sf::Texture getTexture(string textureName);
+
+    public:
         sf::Texture background;
         sf::Texture gear;
-
-        sf::Texture getTexture(string textureName);
-    public:
 
         Textures();
 };

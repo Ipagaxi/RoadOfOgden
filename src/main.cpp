@@ -5,18 +5,9 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "SFML works!");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC");
 
-    sf::Texture background;
-    if (!background.loadFromFile("../../src/ressources/start_background.png")) {
-        std::cout << "load image" << std::endl;
-    }
-    sf::Texture gear;
-    if (!gear.loadFromFile("../../src/ressources/gear.png")) {
-        std::cout << "load image" << std::endl;
-    }
-
-    GameState gameState;
+    GameState gameState = GameState(window);
     FightActivity fightActivity;
 
     while (window.isOpen()) {
@@ -29,7 +20,7 @@ int main()
         }
 
         window.clear();
-        fightActivity.displayActivity(window, background, gear);
+        fightActivity.displayActivity(*(gameState.gameWindow), gameState.textures.background, gameState.textures.gear);
         window.display();
     }
     return 0;
