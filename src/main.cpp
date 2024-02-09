@@ -8,6 +8,7 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC ");
+    window.setFramerateLimit(60);
 
     ActivityEnum activity = Fight;
     GameState gameState = GameState(window, Fight);
@@ -24,6 +25,7 @@ int main()
         window.clear();
         ActivityManager::runCurrentActivity(gameState);
         window.display();
+        
     }
     return 0;
 }
