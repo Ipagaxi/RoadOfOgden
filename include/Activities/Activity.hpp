@@ -5,9 +5,11 @@
 #include <string>
 #include <iostream>
 
+class GameState;
+
 class Activity {
   public:
-    virtual void displayActivity(sf::RenderWindow &window, sf::Texture &background, sf::Texture &gear);
+    virtual void displayActivity(GameState &gameState);
 };
 
 #endif

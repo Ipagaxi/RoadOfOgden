@@ -5,15 +5,16 @@ std::vector<sf::Texture> GameState::initTextures() {
     
 }*/
 
-GameState::GameState(sf::RenderWindow &window) : currentActivity(std::make_unique<FightActivity>()){
+GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
     gameWindow = &window;
     textures = Textures();
+    currentActivity = activity;
 }
 
-void GameState::changeActivity(std::unique_ptr<Activity> newActivity) {
+/*void GameState::changeActivity(std::unique_ptr<Activity> newActivity) {
     currentActivity = std::move(newActivity);
-}
+}*/
 
-void GameState::startActivity(sf::RenderWindow &window, sf::Texture &background, sf::Texture &gear) {
-    currentActivity->displayActivity(window, background, gear);
-}
+/*void GameState::displayCurrentActivity() {
+    currentActivity->displayActivity(*this);
+}*/

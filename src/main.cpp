@@ -1,16 +1,15 @@
 
 #include "GameState.hpp"
 #include "SFML/Graphics.hpp"
+#include "ActivityManager.hpp"
 
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC ");
 
-    GameState gameState = GameState(window);
-    FightActivity fightActivity;
-    Activity activity;
-    activity = fightActivity;
+    ActivityEnum activity = Fight;
+    GameState gameState = GameState(window, Fight);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -22,7 +21,7 @@ int main()
         }
 
         window.clear();
-        gameState.startActivity(*(gameState.gameWindow), gameState.textures.background, gameState.textures.gear);
+        displayCurrentActivity(gameState);
         window.display();
     }
     return 0;

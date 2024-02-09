@@ -14,6 +14,7 @@ class Textures {
     public:
         sf::Texture background;
         sf::Texture gear;
+        sf::Texture menuBackground;
 
         Textures();
 };

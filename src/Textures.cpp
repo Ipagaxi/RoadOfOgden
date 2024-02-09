@@ -11,4 +11,5 @@ sf::Texture Textures::getTexture(string textureName) {
 Textures::Textures() {
     Textures::background = getTexture("background.png");
     Textures::gear = getTexture("gear.png");
+    Textures::menuBackground = getTexture("menu_background.png");
 }

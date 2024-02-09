@@ -5,23 +5,24 @@
 #include <vector>
 #include <memory>
 
-#include "Activities/FightActivity.hpp"
-#include "Activities/Activity.hpp"
+//#include "Activities/FightActivity.hpp"
+//#include "Activities/Activity.hpp"
 #include "Textures.hpp"
+#include "ActivityEnum.hpp"
 
 class GameState {
   private:
-    
+    //std::unique_ptr<Activity> currentActivity;
 
   public:
-    std::unique_ptr<Activity> currentActivity;
+    ActivityEnum currentActivity;
     Textures textures;
     sf::RenderWindow* gameWindow;
 
-    GameState(sf::RenderWindow &window);
+    GameState(sf::RenderWindow &window, ActivityEnum activity);
 
-    void changeActivity(std::unique_ptr<Activity> newActivity);
-    void startActivity(sf::RenderWindow &window, sf::Texture &background, sf::Texture &gear);
+    //void changeActivity(std::unique_ptr<Activity> newActivity);
+    //void displayCurrentActivity();
 };
 
 #endif

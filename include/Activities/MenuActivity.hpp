@@ -1,18 +1,14 @@
-#ifndef FIGHTACTIVITY_HPP
-#define FIGHTACTIVITY_HPP
+#ifndef MENUACTIVITY_HPP
+#define MENUACTIVITY_HPP
 
-#include <string>
 #include <iostream>
 #include <algorithm>
 #include <SFML/Graphics.hpp>
 
 #include "Activities/Activity.hpp"
 #include "GameState.hpp"
-//#include "Activities/MenuActivity.hpp"
 
-
-class FightActivity: public Activity {
-    std::string nameEnemy = "Enemy";
+class MenuActivity: public Activity {
   public:
     void displayActivity(GameState &gameState) override;
 };
