@@ -6,24 +6,26 @@
 #include "Activities/FightActivity.hpp"
 #include "Activities/MenuActivity.hpp"
 
-void displayCurrentActivity(GameState gameState) {
+namespace ActivityManager {
+    void runCurrentActivity(GameState &gameState) {
 
-    Activity* activity = nullptr;
-    switch (gameState.currentActivity) {
-    case Fight:
-        activity = new FightActivity();
-        break;
-    case Menu:
-        activity = new MenuActivity();
-        break;
-    
-    default:
-        break;
-    }
+        Activity* activity = nullptr;
+        switch (gameState.currentActivity) {
+        case Fight:
+            activity = new FightActivity();
+            break;
+        case Menu:
+            activity = new MenuActivity();
+            break;
+        
+        default:
+            break;
+        }
 
-    if (activity != nullptr) {
-        activity->displayActivity(gameState);
-        delete activity;
+        if (activity != nullptr) {
+            activity->displayActivity(gameState);
+            delete activity;
+        }
     }
 }
 

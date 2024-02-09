@@ -14,5 +14,5 @@ void FightActivity::displayActivity(GameState &gameState) {
     */
     window->draw(sprite);
     window->draw(gearSprite);
-    //gameState.changeActivity(std::make_unique<MenuActivity>());
+    gameState.currentActivity = Menu;
 }

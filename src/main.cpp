@@ -1,3 +1,4 @@
+#include <iostream>
 
 #include "GameState.hpp"
 #include "SFML/Graphics.hpp"
@@ -21,7 +22,7 @@ int main()
         }
 
         window.clear();
-        displayCurrentActivity(gameState);
+        ActivityManager::runCurrentActivity(gameState);
         window.display();
     }
     return 0;
