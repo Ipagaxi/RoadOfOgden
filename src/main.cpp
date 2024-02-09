@@ -4,7 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "ActivityManager.hpp"
 
-// Test
+
 
 int main()
 {
