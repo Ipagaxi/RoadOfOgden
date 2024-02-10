@@ -1,11 +1,15 @@
 #include "Activities/MenuActivity.hpp"
 
+MenuActivity::MenuActivity() {
+    MenuActivity::background.loadFromFile("../../src/ressources/menu_background.png"); //= getTexture("menu_background.png");
+}
+
 void MenuActivity::displayActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u winSize = window->getSize();
-    sf::Vector2u imgSize = gameState.textures.menuBackground.getSize();
+    sf::Vector2u imgSize = MenuActivity::background.getSize();
     sf::Sprite sprite;
-    sprite.setTexture(gameState.textures.menuBackground);
+    sprite.setTexture(MenuActivity::background);
     /* Tried to scale manually
         int scale = max(winSize.x/imgSize.x, winSize.y/imgSize.y);
         sprite.scale(scale, scale);

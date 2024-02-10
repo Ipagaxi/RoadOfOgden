@@ -5,7 +5,6 @@
 #include <vector>
 #include <memory>
 
-#include "Textures.hpp"
 #include "ActivityEnum.hpp"
 #include "Activities/Activity.hpp"
 
@@ -13,8 +12,7 @@ class GameState {
   public:
     std::unique_ptr<Activity> currentActivity;
     int counter;
-    
-    Textures textures;
+
     sf::RenderWindow* gameWindow;
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);

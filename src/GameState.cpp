@@ -2,7 +2,6 @@
 
 GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
     gameWindow = &window;
-    textures = Textures();
     //currentActivity = activity;
     counter = 0;
 }

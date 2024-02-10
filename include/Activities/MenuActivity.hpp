@@ -10,7 +10,11 @@
 #include "Activities/FightActivity.hpp"
 
 class MenuActivity: public Activity {
+  private:
+    sf::Texture background;
   public:
+    MenuActivity();
+
     void displayActivity(GameState &gameState) override;
 };
 
