@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "ActivityManager.hpp"
 #include "Activities/FightActivity.hpp"
+#include "Activities/MenuActivity.hpp"
 
 
 
@@ -14,9 +15,10 @@ int main()
 
     ActivityEnum activity = Fight;
     GameState gameState = GameState(window, Fight);
-    std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();
 
-    gameState.setCurrentActivity(std::move(fight));
+    std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();
+    std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
+    gameState.setCurrentActivity(std::move(menu));
 
     while (window.isOpen()) {
         sf::Event event;
@@ -28,7 +30,9 @@ int main()
         }
 
         window.clear();
-        gameState.curActivity->displayActivity(gameState);
+        gameState.currentActivity->displayActivity(gameState);
+        //gameState.setCurrentActivity(std::move(menu));
+        //gameState.performActivity();
         //ActivityManager::runCurrentActivity(gameState);
         window.display();
     }

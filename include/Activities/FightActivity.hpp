@@ -9,6 +9,7 @@
 #include "Activities/Activity.hpp"
 #include "GameState.hpp"
 #include "ActivityEnum.hpp"
+#include "Activities/MenuActivity.hpp"
 
 class FightActivity: public Activity {
     std::string nameEnemy = "Enemy";

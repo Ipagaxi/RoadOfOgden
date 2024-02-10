@@ -11,9 +11,9 @@
 
 class GameState {
   public:
-    std::unique_ptr<Activity> curActivity;
-
-    ActivityEnum currentActivity;
+    std::unique_ptr<Activity> currentActivity;
+    int counter;
+    
     Textures textures;
     sf::RenderWindow* gameWindow;
 

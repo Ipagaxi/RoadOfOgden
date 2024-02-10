@@ -14,5 +14,10 @@ void FightActivity::displayActivity(GameState &gameState) {
     */
     window->draw(sprite);
     window->draw(gearSprite);
-    gameState.currentActivity = Menu;
+    gameState.counter++;
+    if (gameState.counter == 120) {
+        gameState.counter = 0;
+        std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
+        gameState.setCurrentActivity(std::move(menu));
+    }
 }

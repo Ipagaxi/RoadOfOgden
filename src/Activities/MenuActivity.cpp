@@ -11,4 +11,10 @@ void MenuActivity::displayActivity(GameState &gameState) {
         sprite.scale(scale, scale);
     */
     window->draw(sprite);
+    gameState.counter++;
+    if (gameState.counter == 180) {
+        gameState.counter = 0;
+        std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();
+        gameState.setCurrentActivity(std::move(fight));
+    }
 }
