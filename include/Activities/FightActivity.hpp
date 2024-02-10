@@ -10,6 +10,7 @@
 #include "GameState.hpp"
 #include "ActivityEnum.hpp"
 #include "Activities/MenuActivity.hpp"
+#include "Defines.hpp"
 
 class FightActivity: public Activity {
   private:

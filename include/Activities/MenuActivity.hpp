@@ -8,6 +8,7 @@
 #include "Activities/Activity.hpp"
 #include "GameState.hpp"
 #include "Activities/FightActivity.hpp"
+#include "Defines.hpp"
 
 class MenuActivity: public Activity {
   private:
