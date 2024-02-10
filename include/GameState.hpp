@@ -7,14 +7,19 @@
 
 #include "Textures.hpp"
 #include "ActivityEnum.hpp"
+#include "Activities/Activity.hpp"
 
 class GameState {
   public:
+    std::unique_ptr<Activity> curActivity;
+
     ActivityEnum currentActivity;
     Textures textures;
     sf::RenderWindow* gameWindow;
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
+
+    void setCurrentActivity(std::unique_ptr<Activity> newActivity);
 };
 
 #endif

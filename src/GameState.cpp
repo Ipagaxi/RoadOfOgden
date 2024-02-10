@@ -5,3 +5,7 @@ GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
     textures = Textures();
     currentActivity = activity;
 }
+
+void GameState::setCurrentActivity(std::unique_ptr<Activity> newActivity) {
+    curActivity = std::make_unique<Activity>(*newActivity);
+}
