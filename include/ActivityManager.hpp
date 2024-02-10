@@ -6,6 +6,7 @@
 #include "Activities/FightActivity.hpp"
 #include "Activities/MenuActivity.hpp"
 
+/*
 namespace ActivityManager {
     void runCurrentActivity(GameState &gameState) {
 
@@ -27,6 +28,6 @@ namespace ActivityManager {
             delete activity;
         }
     }
-}
+}*/
 
 #endif

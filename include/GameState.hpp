@@ -5,16 +5,19 @@
 #include <vector>
 #include <memory>
 
-#include "Textures.hpp"
 #include "ActivityEnum.hpp"
+#include "Activities/Activity.hpp"
 
 class GameState {
   public:
-    ActivityEnum currentActivity;
-    Textures textures;
+    std::unique_ptr<Activity> currentActivity;
+    int counter;
+
     sf::RenderWindow* gameWindow;
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
+
+    void setCurrentActivity(std::unique_ptr<Activity> newActivity);
 };
 
 #endif
