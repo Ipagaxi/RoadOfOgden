@@ -7,11 +7,20 @@
 
 #include "ActivityEnum.hpp"
 #include "Activities/Activity.hpp"
+#include "Defines.hpp"
 
 class GameState {
   public:
     std::unique_ptr<Activity> currentActivity;
     int counter;
+    bool mouseMoved;
+    bool mousePressed;
+    bool mouseReleased;
+
+    sf::Vector2f pressedPos;
+    sf::Vector2f releasedPos;
+
+    sf::Texture buttonTX;
 
     sf::RenderWindow* gameWindow;
 

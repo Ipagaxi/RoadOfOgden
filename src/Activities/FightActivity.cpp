@@ -6,7 +6,7 @@ FightActivity::FightActivity() {
     FightActivity::gear.loadFromFile(RESOURCE_PATH "gear_small.png");
 }
 
-void FightActivity::displayActivity(GameState &gameState) {
+void FightActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u winSize = window->getSize();
     sf::Vector2u imgSize = FightActivity::background.getSize();

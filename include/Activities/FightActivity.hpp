@@ -22,7 +22,7 @@ class FightActivity: public Activity {
   public:
     FightActivity();
   
-    void displayActivity(GameState &gameState) override;
+    void executeActivity(GameState &gameState) override;
 };
 
 #endif
