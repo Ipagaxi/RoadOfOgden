@@ -3,20 +3,15 @@
 UIButton::UIButton() {}
 
 UIButton::UIButton(std::string filePath, float x, float y) {
+    std::string buttonsPath = RESOURCE_PATH "buttons/";
     std::cout << "UIButton constructor called" << std::endl;
     int sep_pos = filePath.find(".");
     std::string fileName = filePath.substr(0, sep_pos);
     std::string fileType = filePath.substr(sep_pos + 1);
 
-    if(!this->basicTX.loadFromFile(RESOURCE_PATH + filePath)) {
-        std::cout << "Error loading " << filePath << std::endl;
-    }
-    if(!this->clickedTX.loadFromFile(RESOURCE_PATH  + fileName + "_click." + fileType)) {
-        std::cout << "Error loading " << fileName << "_click" << fileType << std::endl;
-    }
-    if(!this->hoveredTX.loadFromFile(RESOURCE_PATH + fileName + "_hover." + fileType)) {
-        std::cout << "Error loading " << fileName << "_click" << fileType << std::endl;
-    }
+    this->basicTX.loadFromFile(buttonsPath + filePath);
+    this->clickedTX.loadFromFile(buttonsPath + fileName + "_click." + fileType);
+    this->hoveredTX.loadFromFile(buttonsPath + fileName + "_hover." + fileType);
 
     this->buttonSP.setTexture(this->basicTX);
     this->buttonSP.setPosition(x, y);

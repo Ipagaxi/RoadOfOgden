@@ -1,7 +1,7 @@
 #include "Activities/MenuActivity.hpp"
 
 MenuActivity::MenuActivity() {
-    this->background.loadFromFile(RESOURCE_PATH "menu_background.png");
+    this->background.loadFromFile(RESOURCE_PATH "backgrounds/menuBG.png");
 }
 
 void MenuActivity::executeActivity(GameState &gameState) {
