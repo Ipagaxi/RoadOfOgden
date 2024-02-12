@@ -44,6 +44,7 @@ void UIButton::hoverListener(GameState &gameState) {
 }
 
 bool UIButton::clicked(GameState &gameState) {
+    this->hoverListener(gameState);
     if (gameState.mousePressed && this->buttonSP.getGlobalBounds().contains(gameState.pressedPos)) {
         this->pressed = true;
     } else if (gameState.mousePressed){

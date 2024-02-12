@@ -17,6 +17,8 @@ class UIButton {
         sf::Texture clickedTX;
         sf::Texture hoveredTX;
 
+        void hoverListener(GameState &gameState);
+
 
 
     public:
@@ -25,7 +27,6 @@ class UIButton {
         UIButton();
         UIButton(std::string fileName, float x, float y);
 
-        void hoverListener(GameState &gameState);
         bool clicked(GameState &gameState);
 };
 

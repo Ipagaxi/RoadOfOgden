@@ -14,8 +14,7 @@
 class MenuActivity: public Activity {
   private:
     sf::Texture background;
-    UIButton button;
-    UIButton button2;
+    UIButton button = UIButton("button1.png", 50., 100.);
 
   public:
     MenuActivity();
