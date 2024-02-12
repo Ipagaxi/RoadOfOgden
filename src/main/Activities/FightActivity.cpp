@@ -2,8 +2,8 @@
 
 
 FightActivity::FightActivity() {
-    FightActivity::background.loadFromFile(RESOURCE_PATH "background.png");
-    FightActivity::gear.loadFromFile(RESOURCE_PATH "gear_small.png");
+    FightActivity::background.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
+    FightActivity::gear.loadFromFile(RESOURCE_PATH "deco/gear_small.png");
 }
 
 void FightActivity::executeActivity(GameState &gameState) {

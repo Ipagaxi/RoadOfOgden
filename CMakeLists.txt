@@ -3,9 +3,9 @@ set(PROJECT_NAME PnC)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB source_files
-    "src/*.cpp"
-    "src/Activities/*.cpp"
-    "src/UIElements/*.cpp"
+    "src/main/*.cpp"
+    "src/main/Activities/*.cpp"
+    "src/main/UIElements/*.cpp"
 )
 set(SOURCES ${source_files})
 
@@ -25,7 +25,7 @@ add_executable (
     ${SOURCES}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE "include")
+target_include_directories(${PROJECT_NAME} PRIVATE "src/include")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 

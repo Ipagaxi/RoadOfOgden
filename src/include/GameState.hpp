@@ -19,9 +19,7 @@ class GameState {
 
     sf::Vector2f pressedPos;
     sf::Vector2f releasedPos;
-
-    sf::Texture buttonTX;
-
+    
     sf::RenderWindow* gameWindow;
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
