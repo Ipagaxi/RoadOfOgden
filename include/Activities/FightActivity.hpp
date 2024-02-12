@@ -10,6 +10,7 @@
 #include "GameState.hpp"
 #include "ActivityEnum.hpp"
 #include "Activities/MenuActivity.hpp"
+#include "Defines.hpp"
 
 class FightActivity: public Activity {
   private:
@@ -21,7 +22,7 @@ class FightActivity: public Activity {
   public:
     FightActivity();
   
-    void displayActivity(GameState &gameState) override;
+    void executeActivity(GameState &gameState) override;
 };
 
 #endif

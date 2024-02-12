@@ -2,6 +2,6 @@
 
 
 
-void Activity::displayActivity(GameState &gameState) {
+void Activity::executeActivity(GameState &gameState) {
     std::cout << "Activity is called" << std::endl;
 }

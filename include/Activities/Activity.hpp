@@ -9,7 +9,7 @@ class GameState;
 
 class Activity {
   public:
-    virtual void displayActivity(GameState &gameState);
+    virtual void executeActivity(GameState &gameState);
 };
 
 #endif

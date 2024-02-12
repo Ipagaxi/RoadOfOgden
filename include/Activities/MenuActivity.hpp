@@ -8,14 +8,18 @@
 #include "Activities/Activity.hpp"
 #include "GameState.hpp"
 #include "Activities/FightActivity.hpp"
+#include "Defines.hpp"
+#include "UIElements/UIButton.hpp"
 
 class MenuActivity: public Activity {
   private:
     sf::Texture background;
+    UIButton button = UIButton("button1.png", 50., 100.);
+
   public:
     MenuActivity();
 
-    void displayActivity(GameState &gameState) override;
+    void executeActivity(GameState &gameState) override;
 };
 
 #endif
