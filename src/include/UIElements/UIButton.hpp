@@ -13,6 +13,11 @@ class UIButton {
         bool hovered;
         bool pressed;
 
+        sf::Texture basicTX;
+        sf::Texture clickedTX;
+        sf::Texture hoveredTX;
+        sf::Sprite buttonSP;
+
         void hoverListener(GameState &gameState);
 
         bool buttonContainsMouse(GameState &gameState);
@@ -20,11 +25,6 @@ class UIButton {
 
 
     public:
-        sf::Texture basicTX;
-        sf::Texture clickedTX;
-        sf::Texture hoveredTX;
-        sf::Sprite buttonSP;
-        
         sf::Font font;
         sf::Text label;
 
@@ -34,6 +34,9 @@ class UIButton {
         bool clicked(GameState &gameState);
 
         void setPosition(float x, float y);
+        sf::Vector2u getSize();
+
+        void drawButton(GameState &gameState);
 };
 
 #endif

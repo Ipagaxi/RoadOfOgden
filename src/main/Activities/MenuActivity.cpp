@@ -8,13 +8,12 @@ MenuActivity::MenuActivity() {
 void MenuActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u windowSize = window->getSize();
-    sf::Vector2u buttonSize = this->button.basicTX.getSize();
+    sf::Vector2u buttonSize = this->button.getSize();
 
     window->draw(this->backgroundSP);
 
     this->button.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
-    window->draw(this->button.buttonSP);
-    window->draw(this->button.label);
+    this->button.drawButton(gameState);
 
     if (button.clicked(gameState)) {
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();

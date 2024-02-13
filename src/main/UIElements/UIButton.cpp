@@ -1,7 +1,15 @@
 #include "UIElements/UIButton.hpp"
 
+sf::Vector2u UIButton::getSize() {
+    return this->basicTX.getSize();
+}
+
+void UIButton::drawButton(GameState &gameState) {
+    gameState.gameWindow->draw(this->buttonSP);
+    gameState.gameWindow->draw(this->label);
+}
+
 void UIButton::setPosition(float x, float y) {
-    this->buttonSP.setTexture(this->basicTX);
     this->buttonSP.setPosition(x, y);
 
     sf::Vector2u buttonSize = this->basicTX.getSize();
