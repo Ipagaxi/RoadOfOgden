@@ -65,6 +65,7 @@ int main()
         window.display();
         gameState.mousePressed = false;
         gameState.mouseReleased = false;
+        gameState.mouseMoved = false;
     }
     return 0;
 }

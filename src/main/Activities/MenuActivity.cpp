@@ -1,15 +1,18 @@
 #include "Activities/MenuActivity.hpp"
 
 MenuActivity::MenuActivity() {
-    this->background.loadFromFile(RESOURCE_PATH "backgrounds/menuBG.png");
+    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/menuBG.png");
+    this->backgroundSP.setTexture(this->backgroundTX);
 }
 
 void MenuActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
-    sf::Sprite backgroundSp;
-    backgroundSp.setTexture(MenuActivity::background);
-    window->draw(backgroundSp);
+    sf::Vector2u windowSize = window->getSize();
+    sf::Vector2u buttonSize = this->button.basicTX.getSize();
 
+    window->draw(this->backgroundSP);
+
+    this->button.buttonSP.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
     window->draw(this->button.buttonSP);
 
     if (button.clicked(gameState)) {

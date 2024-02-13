@@ -20,19 +20,22 @@ UIButton::UIButton(std::string filePath, float x, float y) {
     this->pressed = false;
 }
 
+bool UIButton::buttonContainsMouse(GameState &gameState) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*(gameState.gameWindow));
+    sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+    return this->buttonSP.getGlobalBounds().contains(mousePosF);
+}
+
 
 void UIButton::hoverListener(GameState &gameState) {
     if (gameState.mouseMoved) {
-        sf::Vector2i mousePos = sf::Mouse::getPosition(*(gameState.gameWindow));
-        sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-        if(this->buttonSP.getGlobalBounds().contains(mousePosF)) {
+        if(this->buttonContainsMouse(gameState)) {
             this->buttonSP.setTexture(this->hoveredTX);
             this->hovered = true;
         } else {
             this->buttonSP.setTexture(this->basicTX);
             this->hovered = false;
         }
-        gameState.mouseMoved = false;
     } else if(this->hovered) {
         this->buttonSP.setTexture(this->hoveredTX);
     }
@@ -45,9 +48,14 @@ bool UIButton::clicked(GameState &gameState) {
     } else if (gameState.mousePressed){
         this->pressed = false;
     }
-    if (this->pressed && gameState.mouseReleased) {
-        this->pressed = false;
-        return this->buttonSP.getGlobalBounds().contains(gameState.releasedPos);
+    if (this->pressed) {
+        if (this->buttonContainsMouse(gameState)) {
+            this->buttonSP.setTexture(this->clickedTX);
+        }
+        if (gameState.mouseReleased) {
+            this->pressed = false;
+            return this->buttonSP.getGlobalBounds().contains(gameState.releasedPos);
+        }
     }
     return false;
 }

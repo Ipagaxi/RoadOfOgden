@@ -13,15 +13,17 @@ class UIButton {
         bool hovered;
         bool pressed;
 
-        sf::Texture basicTX;
-        sf::Texture clickedTX;
-        sf::Texture hoveredTX;
-
         void hoverListener(GameState &gameState);
+
+        bool buttonContainsMouse(GameState &gameState);
 
 
 
     public:
+        sf::Texture basicTX;
+        sf::Texture clickedTX;
+        sf::Texture hoveredTX;
+
         sf::Sprite buttonSP;
 
         UIButton();
