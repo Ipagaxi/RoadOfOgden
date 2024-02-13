@@ -12,8 +12,9 @@ void MenuActivity::executeActivity(GameState &gameState) {
 
     window->draw(this->backgroundSP);
 
-    this->button.buttonSP.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
+    this->button.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
     window->draw(this->button.buttonSP);
+    window->draw(this->button.label);
 
     if (button.clicked(gameState)) {
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();

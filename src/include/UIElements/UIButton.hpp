@@ -23,13 +23,17 @@ class UIButton {
         sf::Texture basicTX;
         sf::Texture clickedTX;
         sf::Texture hoveredTX;
-
         sf::Sprite buttonSP;
+        
+        sf::Font font;
+        sf::Text label;
 
         UIButton();
-        UIButton(std::string fileName, float x, float y);
+        UIButton(std::string labelText, std::string fileName, float x, float y);
 
         bool clicked(GameState &gameState);
+
+        void setPosition(float x, float y);
 };
 
 #endif
