@@ -1,4 +1,5 @@
 # PnC
+The game is still under development but stay tuned!
 ## Usage
 ### Build
 ```bash
