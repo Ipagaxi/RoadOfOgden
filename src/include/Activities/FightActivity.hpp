@@ -16,8 +16,11 @@ class FightActivity: public Activity {
   private:
     std::string nameEnemy = "Enemy";
 
-    sf::Texture background;
-    sf::Texture gear;
+    sf::Texture backgroundTX;
+    sf::Texture gearTX;
+
+    sf::Sprite backgroundSP;
+    sf::Sprite gearSP;
 
   public:
     FightActivity();

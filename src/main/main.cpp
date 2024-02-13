@@ -18,9 +18,8 @@ int main()
     sf::Vector2i mousePos;            
     sf::Vector2f mousePosF;
 
-    std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
-    gameState.setCurrentActivity(std::move(fight));
+    gameState.setCurrentActivity(std::move(menu));
 
     while (window.isOpen()) {
         sf::Event event;
@@ -65,6 +64,7 @@ int main()
         window.display();
         gameState.mousePressed = false;
         gameState.mouseReleased = false;
+        gameState.mouseMoved = false;
     }
     return 0;
 }
