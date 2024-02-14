@@ -32,7 +32,7 @@ class UIButton: public UIElement {
         UIButton();
         UIButton(std::string labelText, std::string fileName, float x, float y);
 
-        bool clicked(GameState &gameState);
+        bool clickListener(GameState &gameState);
 
         void setPosition(float x, float y) override;
         sf::Vector2u getSize() override;

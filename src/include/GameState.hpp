@@ -18,6 +18,8 @@ class GameState {
 
     sf::Vector2f pressedPos;
     sf::Vector2f releasedPos;
+
+    sf::Font mainFont;
     
     sf::RenderWindow* gameWindow;
 

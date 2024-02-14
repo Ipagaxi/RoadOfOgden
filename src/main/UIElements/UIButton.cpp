@@ -1,5 +1,28 @@
 #include "UIElements/UIButton.hpp"
 
+UIButton::UIButton() {}
+
+UIButton::UIButton(std::string labelText, std::string filePath, float x, float y) {
+    std::string buttonsPath = RESOURCE_PATH "buttons/";
+    int sep_pos = filePath.find(".");
+    std::string fileName = filePath.substr(0, sep_pos);
+    std::string fileType = filePath.substr(sep_pos + 1);
+
+    this->basicTX.loadFromFile(buttonsPath + filePath);
+    this->clickedTX.loadFromFile(buttonsPath + fileName + "_click." + fileType);
+    this->hoveredTX.loadFromFile(buttonsPath + fileName + "_hover." + fileType);
+
+    sf::Vector2u buttonSize = this->basicTX.getSize();
+    this->font.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
+    this->label.setFont(this->font);
+    this->label.setString(labelText);
+    this->label.setCharacterSize(buttonSize.y * 0.5);
+    this->label.setFillColor(sf::Color::Black);
+
+    this->hovered = false;
+    this->pressed = false;
+}
+
 sf::Vector2u UIButton::getSize() {
     sf::FloatRect size = this->buttonSP.getGlobalBounds();
     return sf::Vector2u(size.width, size.height);
@@ -42,7 +65,7 @@ void UIButton::hoverListener(GameState &gameState) {
     }
 }
 
-bool UIButton::clicked(GameState &gameState) {
+bool UIButton::clickListener(GameState &gameState) {
     this->hoverListener(gameState);
     if (gameState.mousePressed && this->buttonSP.getGlobalBounds().contains(gameState.pressedPos)) {
         this->pressed = true;
@@ -59,27 +82,4 @@ bool UIButton::clicked(GameState &gameState) {
         }
     }
     return false;
-}
-
-UIButton::UIButton() {}
-
-UIButton::UIButton(std::string labelText, std::string filePath, float x, float y) {
-    std::string buttonsPath = RESOURCE_PATH "buttons/";
-    int sep_pos = filePath.find(".");
-    std::string fileName = filePath.substr(0, sep_pos);
-    std::string fileType = filePath.substr(sep_pos + 1);
-
-    this->basicTX.loadFromFile(buttonsPath + filePath);
-    this->clickedTX.loadFromFile(buttonsPath + fileName + "_click." + fileType);
-    this->hoveredTX.loadFromFile(buttonsPath + fileName + "_hover." + fileType);
-
-    sf::Vector2u buttonSize = this->basicTX.getSize();
-    this->font.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
-    this->label.setFont(this->font);
-    this->label.setString(labelText);
-    this->label.setCharacterSize(buttonSize.y * 0.5);
-    this->label.setFillColor(sf::Color::Black);
-
-    this->hovered = false;
-    this->pressed = false;
 }

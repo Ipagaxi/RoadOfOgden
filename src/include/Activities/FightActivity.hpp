@@ -20,11 +20,15 @@ class FightActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     UIColorBox colorBox = UIColorBox("rainbow_clusters.png", "borderMetal.png");
+    sf::Text colorText;
+
+    sf::Color pickedColor;
 
   public:
-    FightActivity();
+    FightActivity(GameState &gameState);
   
     void executeActivity(GameState &gameState) override;
+    void runFight(GameState &gameState);
 };
 
 #endif
