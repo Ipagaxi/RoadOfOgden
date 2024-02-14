@@ -5,10 +5,11 @@
 #include <string>
 #include <iostream>
 
+#include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
 #include "GameState.hpp"
 
-class UIButton {
+class UIButton: public UIElement {
     private:
         bool hovered;
         bool pressed;
@@ -33,10 +34,10 @@ class UIButton {
 
         bool clicked(GameState &gameState);
 
-        void setPosition(float x, float y);
-        sf::Vector2u getSize();
+        void setPosition(float x, float y) override;
+        sf::Vector2u getSize() override;
 
-        void drawButton(GameState &gameState);
+        void draw(sf::RenderWindow &window) override;
 };
 
 #endif

@@ -2,7 +2,6 @@
 
 GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
     gameWindow = &window;
-    counter = 0;
     mouseMoved = false;
     mousePressed = false;
     mouseReleased = false;

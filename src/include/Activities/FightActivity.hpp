@@ -10,6 +10,7 @@
 #include "GameState.hpp"
 #include "ActivityEnum.hpp"
 #include "Activities/MenuActivity.hpp"
+#include "UIElements/UIColorBox.hpp"
 #include "Defines.hpp"
 
 class FightActivity: public Activity {
@@ -17,10 +18,8 @@ class FightActivity: public Activity {
     std::string nameEnemy = "Enemy";
 
     sf::Texture backgroundTX;
-    sf::Texture gearTX;
-
     sf::Sprite backgroundSP;
-    sf::Sprite gearSP;
+    UIColorBox colorBox = UIColorBox("rainbow_clusters.png", "borderMetal.png");
 
   public:
     FightActivity();

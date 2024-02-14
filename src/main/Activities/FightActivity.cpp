@@ -3,20 +3,14 @@
 
 FightActivity::FightActivity() {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
-    this->gearTX.loadFromFile(RESOURCE_PATH "deco/gear_small.png");
-
     this->backgroundSP.setTexture(this->backgroundTX);
-    this->gearSP.setTexture(this->gearTX);
 }
 
 void FightActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
+    sf::Vector2u windowSize = window->getSize();
+    sf::Vector2u colorBoxSize = this->colorBox.getSize();
     window->draw(this->backgroundSP);
-    window->draw(this->gearSP);
-    gameState.counter++;
-    if (gameState.counter == 120) {
-        gameState.counter = 0;
-        std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
-        gameState.setCurrentActivity(std::move(menu));
-    }
+    this->colorBox.setPosition((windowSize.x - colorBoxSize.x)/2, (windowSize.y - colorBoxSize.y)/2);
+    this->colorBox.draw(*gameState.gameWindow);
 }

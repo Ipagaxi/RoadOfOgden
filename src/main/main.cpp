@@ -53,12 +53,6 @@ int main()
                 break;
             }
         }
-        if (gameState.mousePressed) {
-            std::cout << "Pressed" << std::endl;
-        }
-        if (gameState.mouseReleased) {
-            std::cout << "Released" << std::endl;
-        }
         window.clear();
         gameState.currentActivity->executeActivity(gameState);
         window.display();
