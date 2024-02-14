@@ -1,12 +1,13 @@
 #include "UIElements/UIButton.hpp"
 
 sf::Vector2u UIButton::getSize() {
-    return this->basicTX.getSize();
+    sf::FloatRect size = this->buttonSP.getGlobalBounds();
+    return sf::Vector2u(size.width, size.height);
 }
 
-void UIButton::drawButton(GameState &gameState) {
-    gameState.gameWindow->draw(this->buttonSP);
-    gameState.gameWindow->draw(this->label);
+void UIButton::draw(sf::RenderWindow &window) {
+    window.draw(this->buttonSP);
+    window.draw(this->label);
 }
 
 void UIButton::setPosition(float x, float y) {
@@ -64,7 +65,6 @@ UIButton::UIButton() {}
 
 UIButton::UIButton(std::string labelText, std::string filePath, float x, float y) {
     std::string buttonsPath = RESOURCE_PATH "buttons/";
-    std::cout << "UIButton constructor called" << std::endl;
     int sep_pos = filePath.find(".");
     std::string fileName = filePath.substr(0, sep_pos);
     std::string fileType = filePath.substr(sep_pos + 1);

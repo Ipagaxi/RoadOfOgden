@@ -12,7 +12,6 @@
 class GameState {
   public:
     std::unique_ptr<Activity> currentActivity;
-    int counter;
     bool mouseMoved;
     bool mousePressed;
     bool mouseReleased;
