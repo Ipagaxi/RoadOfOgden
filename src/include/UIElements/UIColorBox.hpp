@@ -19,8 +19,6 @@ class UIColorBox: public UIElement {
 
     bool pressed;
 
-    sf::Vector2u clickListener(GameState &gameState);
-
   public:
     UIColorBox(std::string imagePath, std::string borderPath);
 
@@ -28,7 +26,9 @@ class UIColorBox: public UIElement {
     void setPosition(float x, float y) override;
     sf::Vector2u getSize() override;
 
-    void updateClickedPixelColor(GameState &gameState, sf::Color &color_out);
+    bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
+
+    sf::Color getPixelColor(sf::Vector2f pos);
 };
 
 #endif

@@ -31,7 +31,17 @@ sf::Vector2u UIColorBox::getSize() {
     return sf::Vector2u(size.width, size.height);
 }
 
-sf::Vector2u UIColorBox::clickListener(GameState &gameState) {
+sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {
+    sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
+    sf::Vector2f offset = this->colorSP.getPosition() - sf::Vector2f(colorRect.width/2, colorRect.height/2);
+    sf::Vector2f scale = this->colorSP.getScale();
+    sf::Vector2f posImg = (pos - offset);
+    posImg.x /= scale.x;
+    posImg.y /= scale.y;
+    return this->colorBoxIMG.getPixel(posImg.x, posImg.y);
+}
+
+bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
     if (gameState.mousePressed && this->colorSP.getGlobalBounds().contains(gameState.pressedPos)) {
         this->pressed = true;
     } else if (gameState.mousePressed){
@@ -41,14 +51,11 @@ sf::Vector2u UIColorBox::clickListener(GameState &gameState) {
         if (gameState.mouseReleased) {
             this->pressed = false;
             if (this->colorSP.getGlobalBounds().contains(gameState.releasedPos)) {
-                return sf::Vector2u(int(gameState.releasedPos.x), int(gameState.releasedPos.y));
+                clickedPos = sf::Vector2f(gameState.releasedPos.x, gameState.releasedPos.y);
+                return true;
             }
         }
     }
-    return sf::Vector2u(0, 0);
-}
-
-void UIColorBox::updateClickedPixelColor(GameState &gameState, sf::Color &color_out) {
-    sf::Vector2u getClickPos = this->clickListener(gameState);
-    color_out = this->colorBoxIMG.getPixel(getClickPos.x, getClickPos.y);
+    clickedPos = sf::Vector2f(0., 0.);
+    return false;
 }

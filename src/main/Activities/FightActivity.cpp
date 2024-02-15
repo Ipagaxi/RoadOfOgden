@@ -16,9 +16,11 @@ FightActivity::FightActivity(GameState &gameState) {
 }
 
 void FightActivity::runFight(GameState &gameState) {
-    this->colorBox.updateClickedPixelColor(gameState, this->pickedColor);
-    std::cout << "Blue: " << std::to_string(this->pickedColor.b) << std::endl;
-    this->colorText.setString("(" + std::to_string(this->pickedColor.r) +  ", " + std::to_string(this->pickedColor.g) + ", " + std::to_string(this->pickedColor.b) + ")");
+    sf::Vector2f clickedPos;
+    if (this->colorBox.clickListener(gameState, clickedPos)) {
+        this->pickedColor = this->colorBox.getPixelColor(clickedPos);
+        this->colorText.setString("(" + std::to_string(this->pickedColor.r) +  ", " + std::to_string(this->pickedColor.g) + ", " + std::to_string(this->pickedColor.b) + ")");
+    }
 }
 
 void FightActivity::executeActivity(GameState &gameState) {
