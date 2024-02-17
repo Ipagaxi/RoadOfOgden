@@ -2,6 +2,7 @@
 
 #include "GameState.hpp"
 #include "SFML/Graphics.hpp"
+#include "SFML/Audio.hpp"
 #include "Activities/FightActivity.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "GenerateColorIMG.hpp"
@@ -24,6 +25,10 @@ int main()
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
     gameState.setCurrentActivity(std::move(menu));
 
+    gameState.backgroundMusic.openFromFile(RESOURCE_PATH "music/menu_background_music.wav");
+    gameState.backgroundMusic.setLoop(true);
+    gameState.backgroundMusic.play();
+
     while (window.isOpen()) {
         sf::Event event;
 
@@ -31,6 +36,7 @@ int main()
 
             switch (event.type) {
             case sf::Event::Closed:
+                gameState.backgroundMusic.stop();
                 window.close();
                 break;
 
