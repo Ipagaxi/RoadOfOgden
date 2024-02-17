@@ -12,6 +12,7 @@
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorBox.hpp"
 #include "Defines.hpp"
+#include "PerlinNoise.hpp"
 
 class FightActivity: public Activity {
   private:
@@ -19,12 +20,16 @@ class FightActivity: public Activity {
 
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
-    UIColorBox colorBox = UIColorBox("rainbow_clusters.png", "borderMetal.png");
+    UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "borderMetal.png");
+    sf::Text colorText;
+
+    sf::Color pickedColor;
 
   public:
-    FightActivity();
+    FightActivity(GameState &gameState);
   
     void executeActivity(GameState &gameState) override;
+    void runFight(GameState &gameState);
 };
 
 #endif

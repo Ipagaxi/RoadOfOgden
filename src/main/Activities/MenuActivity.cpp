@@ -15,8 +15,8 @@ void MenuActivity::executeActivity(GameState &gameState) {
     this->button.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
     this->button.draw(*gameState.gameWindow);
 
-    if (button.clicked(gameState)) {
-        std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>();
+    if (button.clickListener(gameState)) {
+        std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
         gameState.setCurrentActivity(std::move(fight));
     }
 }

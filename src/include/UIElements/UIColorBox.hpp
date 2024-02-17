@@ -7,6 +7,7 @@
 
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
+#include "GameState.hpp"
 
 class UIColorBox: public UIElement {
   private:
@@ -16,12 +17,19 @@ class UIColorBox: public UIElement {
     sf::Sprite borderSP;
     sf::Image colorBoxIMG;
 
+    bool pressed;
+
   public:
     UIColorBox(std::string imagePath, std::string borderPath);
+    UIColorBox(sf::Image image, std::string borderPath);
 
     void draw(sf::RenderWindow &window) override;
-    void setPosition(float x, float y);
-    sf::Vector2u getSize();
+    void setPosition(float x, float y) override;
+    sf::Vector2u getSize() override;
+
+    bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
+
+    sf::Color getPixelColor(sf::Vector2f pos);
 };
 
 #endif

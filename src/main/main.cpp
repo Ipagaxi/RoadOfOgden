@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include "Activities/FightActivity.hpp"
 #include "Activities/MenuActivity.hpp"
+#include "GenerateColorIMG.hpp"
 
 
 
@@ -17,6 +18,8 @@ int main()
 
     sf::Vector2i mousePos;            
     sf::Vector2f mousePosF;
+
+    generateTexture();
 
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
     gameState.setCurrentActivity(std::move(menu));
