@@ -21,6 +21,7 @@ class UIColorBox: public UIElement {
 
   public:
     UIColorBox(std::string imagePath, std::string borderPath);
+    UIColorBox(sf::Image image, std::string borderPath);
 
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;

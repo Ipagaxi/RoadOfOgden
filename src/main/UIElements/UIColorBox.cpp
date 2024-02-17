@@ -15,6 +15,22 @@ UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
     this->colorBoxIMG.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
 }
 
+UIColorBox::UIColorBox(sf::Image image, std::string borderPath) {
+    this->colorTX.loadFromImage(image);
+    this->colorSP.setTexture(this->colorTX);
+
+    this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
+    this->borderSP.setTexture(this->borderTX);
+
+    sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
+    this->colorSP.setOrigin(colorRect.width/2, colorRect.height/2);
+
+    // For a save small overlap
+    this->borderSP.scale(0.97, 0.97);
+
+    this->colorBoxIMG = image;
+}
+
 void UIColorBox::draw(sf::RenderWindow &window) {
     window.draw(this->colorSP);
     window.draw(this->borderSP);
