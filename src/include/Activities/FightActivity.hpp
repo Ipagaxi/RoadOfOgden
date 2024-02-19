@@ -11,6 +11,7 @@
 #include "ActivityEnum.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIButton.hpp"
 #include "Defines.hpp"
 #include "PerlinNoise.hpp"
 
@@ -21,6 +22,8 @@ class FightActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "borderMetal.png");
+    UIButton exitButton = UIButton("buttonClose/buttonClose.png");
+
     sf::Text colorText;
 
     sf::Color pickedColor;

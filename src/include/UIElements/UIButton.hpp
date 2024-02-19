@@ -2,6 +2,7 @@
 #define UIBUTTON_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 
@@ -19,8 +20,14 @@ class UIButton: public UIElement {
         sf::Texture hoveredTX;
         sf::Sprite buttonSP;
 
-        void hoverListener(GameState &gameState);
+        sf::SoundBuffer pressSoundBuffer;
+        sf::SoundBuffer releaseSoundBuffer;
+        sf::Sound pressSound;
+        sf::Sound releaseSound;
 
+
+        void init(std::string fileName);
+        void hoverListener(GameState &gameState);
         bool buttonContainsMouse(GameState &gameState);
 
 
@@ -30,7 +37,8 @@ class UIButton: public UIElement {
         sf::Text label;
 
         UIButton();
-        UIButton(std::string labelText, std::string fileName, float x, float y);
+        UIButton(std::string labelText, std::string fileName);
+        UIButton(std::string fileName);
 
         bool clickListener(GameState &gameState);
 
