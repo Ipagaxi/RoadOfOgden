@@ -16,7 +16,7 @@ class MenuActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
 
-    UIButton button = UIButton("Fight!", "button1/button1.png", 50., 100.);
+    UIButton button = UIButton("Fight!", "button1/button1.png");
 
   public:
     MenuActivity();

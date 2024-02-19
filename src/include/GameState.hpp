@@ -2,6 +2,7 @@
 #define GAMESTATE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <memory>
 
@@ -20,6 +21,8 @@ class GameState {
     sf::Vector2f releasedPos;
 
     sf::Font mainFont;
+
+    sf::Music backgroundMusic;
     
     sf::RenderWindow* gameWindow;
 
