@@ -22,13 +22,17 @@ class FightActivity: public Activity {
 
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
-    UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "borderMetal.png");
     UIButton exitButton = UIButton("buttonClose/buttonClose.png");
-    UIBox characterStatsBox = UIBox();
 
+    UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "borderMetal.png");
     sf::Text colorText;
-
     sf::Color pickedColor;
+
+    UIBox characterStatsBox = UIBox();
+    sf::Text playerName;
+    sf::Text playerHealthLabel;
+    sf::Text playerHealthValue;
+
 
   public:
     FightActivity(GameState &gameState);

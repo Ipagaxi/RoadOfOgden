@@ -28,6 +28,10 @@ void UIBox::setPosition(float x, float y) {
     this->backgroundREC.setPosition(x + (borderSize.x/2), y + (borderSize.y/2));
 }
 
+sf::Vector2f UIBox::getPosition() {
+    return this->borderSP.getPosition();
+}
+
 void UIBox::scale(float x, float y) {
     this->borderSP.scale(sf::Vector2f(x, y));
     this->backgroundREC.scale(sf::Vector2f(x, y));

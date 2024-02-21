@@ -25,6 +25,7 @@ class UIColorBox: public UIElement {
 
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;
+    sf::Vector2f getPosition() override;
     sf::Vector2u getSize() override;
     void scale(float x, float y) override;
 

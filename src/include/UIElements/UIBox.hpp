@@ -17,10 +17,11 @@ class UIBox : UIElement {
         sf::Sprite borderSP;
 
     public:
-        void draw(sf::RenderWindow &window);
-        void setPosition(float x, float y);
-        sf::Vector2u getSize();
-        void scale(float x, float y);
+        void draw(sf::RenderWindow &window) override;
+        void setPosition(float x, float y) override;
+        sf::Vector2f getPosition() override;
+        sf::Vector2u getSize() override;
+        void scale(float x, float y) override;
 
     UIBox();
 };

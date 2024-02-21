@@ -42,6 +42,10 @@ void UIColorBox::setPosition(float x, float y) {
     this->colorSP.setPosition(x + (borderSize.x/2), y + (borderSize.y/2));
 }
 
+sf::Vector2f UIColorBox::getPosition() {
+    return this->borderSP.getPosition();
+}
+
 sf::Vector2u UIColorBox::getSize() {
     sf::FloatRect size = this->borderSP.getGlobalBounds();
     return sf::Vector2u(size.width, size.height);

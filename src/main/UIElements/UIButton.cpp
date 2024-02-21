@@ -62,6 +62,10 @@ void UIButton::setPosition(float x, float y) {
     this->label.setPosition(buttonPos.x + buttonSize.x/2, buttonPos.y + buttonSize.y/2);
 }
 
+sf::Vector2f UIButton::getPosition() {
+    return this->buttonSP.getPosition();
+}
+
 
 bool UIButton::buttonContainsMouse(GameState &gameState) {
     sf::Vector2i mousePos = sf::Mouse::getPosition(*(gameState.gameWindow));
