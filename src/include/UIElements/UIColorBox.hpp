@@ -26,6 +26,7 @@ class UIColorBox: public UIElement {
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;
     sf::Vector2u getSize() override;
+    void scale(float x, float y) override;
 
     bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
 

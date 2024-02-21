@@ -46,6 +46,8 @@ class UIButton: public UIElement {
         sf::Vector2u getSize() override;
 
         void draw(sf::RenderWindow &window) override;
+
+        void scale(float x, float y) override;
 };
 
 #endif

@@ -14,6 +14,7 @@ FightActivity::FightActivity(GameState &gameState) {
     sf::FloatRect textRec = this->colorText.getGlobalBounds();
     this->colorText.setOrigin(textRec.width/2, textRec.height/2);
     this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
+    this->colorBox.scale(0.6, 0.6);
 }
 
 void FightActivity::runFight(GameState &gameState) {
@@ -33,10 +34,17 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.x, windowSize.x * 0.01);
     this->runFight(gameState);
     window->draw(this->backgroundSP);
-    this->colorBox.setPosition((windowSize.x - colorBoxSize.x)/2, (windowSize.y - colorBoxSize.y)/2);
+
+    this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.y)/2);
     this->colorBox.draw(*gameState.gameWindow);
+
     window->draw(this->colorText);
+
     this->exitButton.draw(*gameState.gameWindow);
+
+    sf::Vector2u statsBoxSize = this->characterStatsBox.getSize();
+    this->characterStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - statsBoxSize.y)/2);
+    this->characterStatsBox.draw(*gameState.gameWindow);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();

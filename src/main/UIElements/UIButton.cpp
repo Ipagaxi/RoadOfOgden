@@ -41,6 +41,12 @@ sf::Vector2u UIButton::getSize() {
     return sf::Vector2u(size.width, size.height);
 }
 
+void UIButton::scale(float x, float y) {
+    this->buttonSP.scale(sf::Vector2f(x, y));
+    sf::Vector2u buttonSize = this->getSize();
+    this->label.setCharacterSize(buttonSize.y * 0.5);
+}
+
 void UIButton::draw(sf::RenderWindow &window) {
     window.draw(this->buttonSP);
     window.draw(this->label);

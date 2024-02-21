@@ -47,6 +47,11 @@ sf::Vector2u UIColorBox::getSize() {
     return sf::Vector2u(size.width, size.height);
 }
 
+void UIColorBox::scale(float x, float y) {
+    this->borderSP.scale(sf::Vector2f(x, y));
+    this->colorSP.scale(sf::Vector2f(x, y));
+}
+
 sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {
     sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
     sf::Vector2f offset = this->colorSP.getPosition() - sf::Vector2f(colorRect.width/2, colorRect.height/2);
