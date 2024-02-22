@@ -13,6 +13,7 @@
 #include "UIElements/UIColorBox.hpp"
 #include "UIElements/UIButton.hpp"
 #include "UIElements/UIBox.hpp"
+#include "Actors/Player.hpp"
 #include "Defines.hpp"
 #include "PerlinNoise.hpp"
 
