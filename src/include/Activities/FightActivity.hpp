@@ -33,6 +33,8 @@ class FightActivity: public Activity {
     sf::Text playerName;
     sf::Text playerHealthLabel;
     sf::Text playerHealthValue;
+    sf::Text playerAttackStrengthLabel;
+    sf::Text playerAttackStrengthValue;
 
 
   public:

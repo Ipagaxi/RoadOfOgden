@@ -15,7 +15,7 @@ class Actor {
     public:
         std::string name;
         int health;
-        RGB offense;
+        int attackStrength;
         RGB defense;
 
     Actor();

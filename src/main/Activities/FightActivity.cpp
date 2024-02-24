@@ -15,35 +15,6 @@ FightActivity::FightActivity(GameState &gameState) {
     this->colorText.setOrigin(textRec.width/2, textRec.height/2);
     this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
     this->colorBox.scale(0.6, 0.6);
-
-    this->playerName.setFont(gameState.mainFont);
-    this->playerName.setString(gameState.player.name);
-    this->playerName.setCharacterSize(windowSize.y*0.03);
-    this->playerName.setFillColor(sf::Color::White);
-
-    this->playerHealthLabel.setFont(gameState.mainFont);
-    this->playerHealthLabel.setString("Health: ");
-    this->playerHealthLabel.setCharacterSize(windowSize.y * 0.025);
-    this->playerHealthLabel.setFillColor(sf::Color::White);
-
-    this->playerHealthValue.setFont(gameState.mainFont);
-    this->playerHealthValue.setString(std::to_string(gameState.player.health));
-    this->playerHealthValue.setCharacterSize(windowSize.y * 0.025);
-    this->playerHealthValue.setFillColor(sf::Color::Yellow);
-
-
-    sf::Vector2u playerStatsBoxSize = this->characterStatsBox.getSize();
-    this->characterStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - playerStatsBoxSize.y)/2);
-
-    sf::Vector2f playerStatsBoxPosition = this->characterStatsBox.getPosition();
-    sf::FloatRect playerNameRec = this->playerName.getGlobalBounds();
-    this->playerName.setPosition(playerStatsBoxPosition.x + (playerStatsBoxSize.x - playerNameRec.width)/2, playerStatsBoxPosition.y + playerStatsBoxSize.y * 0.1);
-
-    sf::FloatRect playerHealthLabelRec = this->playerHealthLabel.getGlobalBounds();
-    this->playerHealthLabel.setPosition(playerStatsBoxPosition.x + playerStatsBoxSize.x * 0.1, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
-
-    sf::FloatRect playerHealthValueRec = this->playerHealthValue.getGlobalBounds();
-    this->playerHealthValue.setPosition(playerStatsBoxPosition.x + playerStatsBoxSize.x * 0.5, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
 }
 
 void FightActivity::runFight(GameState &gameState) {
