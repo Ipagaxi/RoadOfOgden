@@ -38,17 +38,16 @@ void UIColorBox::draw(sf::RenderWindow &window) {
 
 void UIColorBox::setPosition(float x, float y) {
     this->borderSP.setPosition(x, y);
-    sf::Vector2u borderSize = this->getSize();
-    this->colorSP.setPosition(x + (borderSize.x/2), y + (borderSize.y/2));
+    sf::FloatRect borderSize = this->getSize();
+    this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
 }
 
 sf::Vector2f UIColorBox::getPosition() {
     return this->borderSP.getPosition();
 }
 
-sf::Vector2u UIColorBox::getSize() {
-    sf::FloatRect size = this->borderSP.getGlobalBounds();
-    return sf::Vector2u(size.width, size.height);
+sf::FloatRect UIColorBox::getSize() {
+    return this->borderSP.getGlobalBounds();
 }
 
 void UIColorBox::scale(float x, float y) {

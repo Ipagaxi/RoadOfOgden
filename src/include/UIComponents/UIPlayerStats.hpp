@@ -4,16 +4,9 @@
 #include "UIComponents/UIComponent.hpp"
 #include "UIElements/UIBox.hpp"
 #include "GameState.hpp"
+#include <iostream>
 
 class UIPlayerStats: public UIComponent {
-    private:
-        UIBox characterStatsBox = UIBox();
-        sf::Text playerName;
-        sf::Text playerHealthLabel;
-        sf::Text playerHealthValue;
-        sf::Text playerAttackStrengthLabel;
-        sf::Text playerAttackStrengthValue;
-        
     public:
         UIPlayerStats(GameState &gameState);
 
@@ -21,6 +14,15 @@ class UIPlayerStats: public UIComponent {
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;
         sf::FloatRect getSize() override;
+    
+    private:
+        UIBox characterStatsBox;
+        sf::Text playerName;
+        sf::Text playerHealthLabel;
+        sf::Text playerHealthValue;
+        sf::Text playerAttackStrengthLabel;
+        sf::Text playerAttackStrengthValue;
+        float statsTextHeight;
 };
 
 #endif

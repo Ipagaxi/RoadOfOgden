@@ -1,17 +1,13 @@
 #include "UIComponents/UIPlayerStats.hpp"
 
+
 UIPlayerStats::UIPlayerStats(GameState &gameState) {
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
-    float statsTextHeight = windowSize.y * 0.025;
     sf::Color statsValueFontColor = sf::Color::Yellow;
     sf::Color statsLabelFontColor = sf::Color::White;
     int numStats = 2;
-    sf::Vector2u playerStatsBoxSize = this->characterStatsBox.getSize();
     sf::Vector2f playerStatsBoxPosition = this->characterStatsBox.getPosition();
-    float statsLabelPosX = playerStatsBoxPosition.x + playerStatsBoxSize.x * 0.1;
-    float statsValuePosX = playerStatsBoxPosition.x + playerStatsBoxSize.x * 0.5;
-
-    this->characterStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - playerStatsBoxSize.y)/2);
+    this->statsTextHeight = windowSize.y * 0.025;;
 
     this->playerName.setFont(gameState.mainFont);
     this->playerName.setString(gameState.player.name);
@@ -29,7 +25,7 @@ UIPlayerStats::UIPlayerStats(GameState &gameState) {
     this->playerHealthValue.setFillColor(statsValueFontColor);
 
     this->playerAttackStrengthLabel.setFont(gameState.mainFont);
-    this->playerAttackStrengthLabel.setString("Attack Strength:");
+    this->playerAttackStrengthLabel.setString("ATK:");
     this->playerAttackStrengthLabel.setCharacterSize(statsTextHeight);
     this->playerAttackStrengthLabel.setFillColor(statsLabelFontColor);
 
@@ -38,18 +34,38 @@ UIPlayerStats::UIPlayerStats(GameState &gameState) {
     this->playerAttackStrengthValue.setCharacterSize(statsTextHeight);
     this->playerAttackStrengthValue.setFillColor(statsValueFontColor);
 
+    this->setPosition(0., 0.);
+}
+
+void UIPlayerStats::draw(sf::RenderWindow &gameWindow) {
+    this->characterStatsBox.draw(gameWindow);
+    gameWindow.draw(this->playerName);
+    gameWindow.draw(this->playerHealthLabel);
+    gameWindow.draw(this->playerHealthValue);
+    gameWindow.draw(this->playerAttackStrengthLabel);
+    gameWindow.draw(this->playerAttackStrengthValue);
+}
+
+sf::Vector2f UIPlayerStats::getPosition() {
+    return this->characterStatsBox.getPosition();
+}
+void UIPlayerStats::setPosition(float x, float y) {
+    this->characterStatsBox.setPosition(x, y);
+
+    sf::Vector2f playerStatsBoxPosition = this->characterStatsBox.getPosition();
+    sf::FloatRect playerStatsBoxSize = this->characterStatsBox.getSize();
+    float statsLabelPosX = playerStatsBoxPosition.x + playerStatsBoxSize.width * 0.1;
+    float statsValuePosX = playerStatsBoxPosition.x + playerStatsBoxSize.width * 0.5;
+    float statsOffsetY = playerStatsBoxSize.height * 0.25;
+    float statsSeparationPaddingY = playerStatsBoxSize.height * 0.1;
+
     sf::FloatRect playerNameRec = this->playerName.getGlobalBounds();
-    this->playerName.setPosition(playerStatsBoxPosition.x + (playerStatsBoxSize.x - playerNameRec.width)/2, playerStatsBoxPosition.y + playerStatsBoxSize.y * 0.1);
-
-    sf::FloatRect playerHealthLabelRec = this->playerHealthLabel.getGlobalBounds();
-    this->playerHealthLabel.setPosition(statsLabelPosX, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
-
-    sf::FloatRect playerHealthValueRec = this->playerHealthValue.getGlobalBounds();
-    this->playerHealthValue.setPosition(statsValuePosX, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
-
-    sf::FloatRect playerAttackStrengthLabelRec = this->playerAttackStrengthLabel.getGlobalBounds();
-    this->playerAttackStrengthLabel.setPosition(statsLabelPosX, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
-
-    sf::FloatRect playerAttackStrengthValueRec = this->playerAttackStrengthValue.getGlobalBounds();
-    this->playerHealthValue.setPosition(statsValuePosX, playerStatsBoxPosition.y + playerNameRec.height + 2*(playerStatsBoxSize.y * 0.1));
+    this->playerName.setPosition(x + (playerStatsBoxSize.width - playerNameRec.width)/2, y + playerStatsBoxSize.height * 0.1);
+    this->playerHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
+    this->playerHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
+    this->playerAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
+    this->playerHealthValue.setPosition(statsValuePosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
+}
+sf::FloatRect UIPlayerStats::getSize() {
+    return this->characterStatsBox.getSize();
 }

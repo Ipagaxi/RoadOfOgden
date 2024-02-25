@@ -13,11 +13,18 @@
 #include "UIElements/UIColorBox.hpp"
 #include "UIElements/UIButton.hpp"
 #include "UIElements/UIBox.hpp"
+#include "UIComponents/UIPlayerStats.hpp"
 #include "Actors/Player.hpp"
 #include "Defines.hpp"
 #include "PerlinNoise.hpp"
 
 class FightActivity: public Activity {
+  public:
+    FightActivity(GameState &gameState);
+  
+    void executeActivity(GameState &gameState) override;
+    void runFight(GameState &gameState);
+
   private:
     std::string nameEnemy = "Enemy";
 
@@ -28,20 +35,7 @@ class FightActivity: public Activity {
     UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "borderMetal.png");
     sf::Text colorText;
     sf::Color pickedColor;
-
-    UIBox characterStatsBox = UIBox();
-    sf::Text playerName;
-    sf::Text playerHealthLabel;
-    sf::Text playerHealthValue;
-    sf::Text playerAttackStrengthLabel;
-    sf::Text playerAttackStrengthValue;
-
-
-  public:
-    FightActivity(GameState &gameState);
-  
-    void executeActivity(GameState &gameState) override;
-    void runFight(GameState &gameState);
+    UIPlayerStats playerStatsBox;
 };
 
 #endif

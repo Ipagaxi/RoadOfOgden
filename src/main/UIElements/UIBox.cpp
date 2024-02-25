@@ -17,15 +17,14 @@ void UIBox::draw(sf::RenderWindow &window) {
     window.draw(this->borderSP);
 }
 
-sf::Vector2u UIBox::getSize() {
-    sf::FloatRect borderRect = this->borderSP.getGlobalBounds();
-    return sf::Vector2u(borderRect.width, borderRect.height);
+sf::FloatRect UIBox::getSize() {
+    return this->borderSP.getGlobalBounds();
 }
         
 void UIBox::setPosition(float x, float y) {
     this->borderSP.setPosition(x, y);
-    sf::Vector2u borderSize = this->getSize();
-    this->backgroundREC.setPosition(x + (borderSize.x/2), y + (borderSize.y/2));
+    sf::FloatRect borderSize = this->getSize();
+    this->backgroundREC.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
 }
 
 sf::Vector2f UIBox::getPosition() {

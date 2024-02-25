@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -15,6 +15,8 @@ FightActivity::FightActivity(GameState &gameState) {
     this->colorText.setOrigin(textRec.width/2, textRec.height/2);
     this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
     this->colorBox.scale(0.6, 0.6);
+
+    this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
 }
 
 void FightActivity::runFight(GameState &gameState) {
@@ -28,24 +30,21 @@ void FightActivity::runFight(GameState &gameState) {
 void FightActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u windowSize = window->getSize();
-    sf::Vector2u colorBoxSize = this->colorBox.getSize();
-    sf::Vector2u buttonSize = this->exitButton.getSize();
+    sf::FloatRect colorBoxSize = this->colorBox.getSize();
+    sf::FloatRect buttonSize = this->exitButton.getSize();
     
-    this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.x, windowSize.x * 0.01);
+    this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
     this->runFight(gameState);
     window->draw(this->backgroundSP);
+    this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+    this->playerStatsBox.draw(*window);
 
-    this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.y)/2);
+    this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.height)/2);
     this->colorBox.draw(*gameState.gameWindow);
 
     window->draw(this->colorText);
 
     this->exitButton.draw(*gameState.gameWindow);
-
-    this->characterStatsBox.draw(*gameState.gameWindow);
-    window->draw(this->playerName);
-    window->draw(this->playerHealthLabel);
-    window->draw(this->playerHealthValue);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();

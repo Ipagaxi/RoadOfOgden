@@ -44,7 +44,7 @@ class UIButton: public UIElement {
 
         void setPosition(float x, float y) override;
         sf::Vector2f getPosition() override;
-        sf::Vector2u getSize() override;
+        sf::FloatRect getSize() override;
 
         void draw(sf::RenderWindow &window) override;
 

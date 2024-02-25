@@ -8,11 +8,11 @@ MenuActivity::MenuActivity() {
 void MenuActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u windowSize = window->getSize();
-    sf::Vector2u buttonSize = this->button.getSize();
+    sf::FloatRect buttonSize = this->button.getSize();
 
     window->draw(this->backgroundSP);
 
-    this->button.setPosition((windowSize.x - buttonSize.x)/2, (windowSize.y - buttonSize.y)/2);
+    this->button.setPosition((windowSize.x - buttonSize.width)/2, (windowSize.y - buttonSize.height)/2);
     this->button.draw(*gameState.gameWindow);
 
     if (button.clickListener(gameState)) {
