@@ -83,3 +83,8 @@ bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
     clickedPos = sf::Vector2f(0., 0.);
     return false;
 }
+
+void UIColorBox::setColorBox(std::string picPath, std::string borderPath) {
+    this->colorTX.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+    this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
+}

@@ -30,8 +30,8 @@ class UIColorBox: public UIElement {
     void scale(float x, float y) override;
 
     bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
-
     sf::Color getPixelColor(sf::Vector2f pos);
+    void setColorBox(std::string picPath, std::string borderPath);
 };
 
 #endif

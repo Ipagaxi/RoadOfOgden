@@ -10,8 +10,6 @@ struct RGB {
 };
 
 class Actor {
-    private:
-
     public:
         std::string name;
         int health;
@@ -19,6 +17,9 @@ class Actor {
         RGB defense;
 
     Actor();
+
+    private:
+
 };
 
 #endif

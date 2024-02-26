@@ -17,6 +17,19 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState) {
     this->colorBox.scale(0.6, 0.6);
 
     this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+
+    this->colorBox.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
+    sf::FloatRect colorBoxSize = this->colorBox.getSize();
+    this->colorBox.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
+
+    this->enemyPicTX.loadFromFile(RESOURCE_PATH "monster_pics/" + this->enemy.picPath);
+    this->enemyPicSP.setTexture(this->enemyPicTX);
+    sf::FloatRect enemyPicSize = this->enemyPicSP.getGlobalBounds();
+    this->enemyPicSP.setOrigin(enemyPicSize.width/2, 0);
+    sf::Vector2f colorBoxPos = this->colorBox.getPosition();
+    std::cout << "colorBox Pos x (later): " << colorBoxPos.x << std::endl;
+    this->enemyPicSP.setPosition(colorBoxPos.x + colorBoxSize.width*0.5, windowSize.y * 0.01);
+    this->enemyPicSP.scale(0.5, 0.5);
 }
 
 void FightActivity::runFight(GameState &gameState) {
@@ -39,10 +52,11 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
     this->playerStatsBox.draw(*window);
 
-    this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.height)/2);
+    //this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.height)/2);
     this->colorBox.draw(*gameState.gameWindow);
 
     window->draw(this->colorText);
+    window->draw(this->enemyPicSP);
 
     this->exitButton.draw(*gameState.gameWindow);
 

@@ -24,11 +24,7 @@ class GameState {
     sf::Music backgroundMusic;
     sf::RenderWindow* gameWindow;
 
-    Player player = Player();
-
-    
-
-
+    Player player = Player("Ipagaxi", 20, 12, {100, 100, 100});
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
 

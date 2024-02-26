@@ -8,8 +8,8 @@ class Player: public Actor {
     private:
 
     public:
-
-    Player();
+        Player();
+        Player(std::string name, int health, int attackStrength, RGB defense);
 };
 
 #endif

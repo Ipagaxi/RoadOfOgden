@@ -57,14 +57,14 @@ void UIPlayerStats::setPosition(float x, float y) {
     float statsLabelPosX = playerStatsBoxPosition.x + playerStatsBoxSize.width * 0.1;
     float statsValuePosX = playerStatsBoxPosition.x + playerStatsBoxSize.width * 0.5;
     float statsOffsetY = playerStatsBoxSize.height * 0.25;
-    float statsSeparationPaddingY = playerStatsBoxSize.height * 0.1;
+    float statsSeparationPaddingY = playerStatsBoxSize.height * 0.05;
 
     sf::FloatRect playerNameRec = this->playerName.getGlobalBounds();
     this->playerName.setPosition(x + (playerStatsBoxSize.width - playerNameRec.width)/2, y + playerStatsBoxSize.height * 0.1);
     this->playerHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
     this->playerHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
     this->playerAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
-    this->playerHealthValue.setPosition(statsValuePosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
+    this->playerAttackStrengthValue.setPosition(statsValuePosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
 }
 sf::FloatRect UIPlayerStats::getSize() {
     return this->characterStatsBox.getSize();
