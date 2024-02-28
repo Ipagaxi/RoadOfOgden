@@ -7,9 +7,9 @@
 #include "GameState.hpp"
 #include <iostream>
 
-class UIPlayerStats: public UIComponent {
+class UIStats: public UIComponent {
     public:
-        UIPlayerStats(GameState &gameState, Actor actor);
+        UIStats(GameState &gameState, Actor actor);
 
         void draw(sf::RenderWindow &gameWindow) override;
         sf::Vector2f getPosition() override;
@@ -17,12 +17,12 @@ class UIPlayerStats: public UIComponent {
         sf::FloatRect getSize() override;
     
     private:
-        UIBox characterStatsBox;
-        sf::Text playerName;
-        sf::Text playerHealthLabel;
-        sf::Text playerHealthValue;
-        sf::Text playerAttackStrengthLabel;
-        sf::Text playerAttackStrengthValue;
+        UIBox actorStatsBox;
+        sf::Text actorName;
+        sf::Text actorHealthLabel;
+        sf::Text actorHealthValue;
+        sf::Text actorAttackStrengthLabel;
+        sf::Text actorAttackStrengthValue;
         float statsTextHeight;
 };
 

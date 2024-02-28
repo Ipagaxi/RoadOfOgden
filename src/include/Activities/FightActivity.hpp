@@ -8,7 +8,7 @@
 
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
-#include "UIComponents/UIPlayerStats.hpp"
+#include "UIComponents/UIStats.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorBox.hpp"
 #include "UIElements/UIButton.hpp"
@@ -36,8 +36,8 @@ class FightActivity: public Activity {
     UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "border_color_square.png");
     sf::Text colorText;
     sf::Color pickedColor;
-    UIPlayerStats playerStatsBox;
-    UIPlayerStats enemyStatsBox;
+    UIStats playerStatsBox;
+    UIStats enemyStatsBox;
 
     Enemy enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_damon.png", "colorPIC_1.png", "borderMetal.png");
     sf::Texture enemyPicTX;
