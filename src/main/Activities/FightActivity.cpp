@@ -5,8 +5,11 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
-    sf::Vector2u windowSize = gameState.gameWindow->getSize();
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+    sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 
+    sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
+    this->backgroundSP.scale(backgroundScale);
     this->colorText.setFont(gameState.mainFont);
     this->colorText.setString("(0, 0, 0)");
     this->colorText.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
@@ -16,8 +19,10 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
     this->colorBox.scale(0.6, 0.6);
 
-    this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
-    this->enemyStatsBox.setPosition(windowSize.x * 0.6, ((windowSize.y - this->playerStatsBox.getSize().height)/2));
+    float relativeOuterPaddingStatBoxes = 0.02;
+    this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+    sf::FloatRect enemyStatsBoxSize = this->enemyStatsBox.getSize();
+    this->enemyStatsBox.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - enemyStatsBoxSize.width, ((windowSize.y - this->playerStatsBox.getSize().height)/2));
 
     this->colorBox.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
     sf::FloatRect colorBoxSize = this->colorBox.getSize();
@@ -50,11 +55,9 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
     this->runFight(gameState);
     window->draw(this->backgroundSP);
-    this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
     this->playerStatsBox.draw(*window);
     this->enemyStatsBox.draw(*window);
 
-    //this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.height)/2);
     this->colorBox.draw(*gameState.gameWindow);
 
     window->draw(this->colorText);
@@ -63,7 +66,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.draw(*gameState.gameWindow);
 
     if (this->exitButton.clickListener(gameState)) {
-        std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
+        std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
         gameState.setCurrentActivity(std::move(menu));
     }
 }

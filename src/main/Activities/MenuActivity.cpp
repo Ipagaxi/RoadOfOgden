@@ -1,8 +1,13 @@
 #include "Activities/MenuActivity.hpp"
 
-MenuActivity::MenuActivity() {
+MenuActivity::MenuActivity(GameState &gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/menuBG.png");
     this->backgroundSP.setTexture(this->backgroundTX);
+
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+    sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
+    sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
+    this->backgroundSP.scale(backgroundScale);
 }
 
 void MenuActivity::executeActivity(GameState &gameState) {

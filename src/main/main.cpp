@@ -11,7 +11,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "PnC ");
+    sf::RenderWindow window(sf::VideoMode(), "PnC", sf::Style::Fullscreen);
     window.setFramerateLimit(60);
 
     ActivityEnum activity = Fight;
@@ -22,7 +22,7 @@ int main()
 
     generateTexture();
 
-    std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>();
+    std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
     gameState.setCurrentActivity(std::move(menu));
 
     gameState.backgroundMusic.openFromFile(RESOURCE_PATH "music/menu_background_music.wav");

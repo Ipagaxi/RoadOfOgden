@@ -19,7 +19,7 @@ class MenuActivity: public Activity {
     UIButton button = UIButton("Fight!", "button1/button1.png");
 
   public:
-    MenuActivity();
+    MenuActivity(GameState &gameState);
 
     void executeActivity(GameState &gameState) override;
 };
