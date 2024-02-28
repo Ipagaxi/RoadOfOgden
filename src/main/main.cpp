@@ -20,7 +20,7 @@ int main()
     sf::Vector2i mousePos;            
     sf::Vector2f mousePosF;
 
-    generateTexture();
+    //generateTexture();
 
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
     gameState.setCurrentActivity(std::move(menu));

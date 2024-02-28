@@ -23,6 +23,8 @@ class UIStats: public UIComponent {
         sf::Text actorHealthValue;
         sf::Text actorAttackStrengthLabel;
         sf::Text actorAttackStrengthValue;
+        sf::Text actorRGBDefenseLabel;
+        sf::Text actorRGBDefenseValues;
         float statsTextHeight;
 };
 

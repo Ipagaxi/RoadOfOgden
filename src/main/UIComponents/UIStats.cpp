@@ -7,11 +7,11 @@ UIStats::UIStats(GameState &gameState, Actor actor) {
     sf::Color statsLabelFontColor = sf::Color::White;
     int numStats = 2;
     sf::Vector2f actorStatsBoxPosition = this->actorStatsBox.getPosition();
-    this->statsTextHeight = windowSize.y * 0.025;;
+    this->statsTextHeight = windowSize.y * 0.015;;
 
     this->actorName.setFont(gameState.mainFont);
     this->actorName.setString(actor.name);
-    this->actorName.setCharacterSize(windowSize.y*0.03);
+    this->actorName.setCharacterSize(windowSize.y*0.02);
     this->actorName.setFillColor(sf::Color::White);
 
     this->actorHealthLabel.setFont(gameState.mainFont);
@@ -34,6 +34,16 @@ UIStats::UIStats(GameState &gameState, Actor actor) {
     this->actorAttackStrengthValue.setCharacterSize(statsTextHeight);
     this->actorAttackStrengthValue.setFillColor(statsValueFontColor);
 
+    this->actorRGBDefenseLabel.setFont(gameState.mainFont);
+    this->actorRGBDefenseLabel.setString("DEF:");
+    this->actorRGBDefenseLabel.setCharacterSize(statsTextHeight);
+    this->actorRGBDefenseLabel.setFillColor(statsLabelFontColor);
+
+    this->actorRGBDefenseValues.setFont(gameState.mainFont);
+    this->actorRGBDefenseValues.setString("(" + std::to_string(actor.defense.red) + ", " + std::to_string(actor.defense.green) + ", " + std::to_string(actor.defense.blue) + ")");
+    this->actorRGBDefenseValues.setCharacterSize(statsTextHeight);
+    this->actorRGBDefenseValues.setFillColor(statsValueFontColor);
+
     this->setPosition(0., 0.);
 }
 
@@ -44,6 +54,8 @@ void UIStats::draw(sf::RenderWindow &gameWindow) {
     gameWindow.draw(this->actorHealthValue);
     gameWindow.draw(this->actorAttackStrengthLabel);
     gameWindow.draw(this->actorAttackStrengthValue);
+    gameWindow.draw(this->actorRGBDefenseLabel);
+    gameWindow.draw(this->actorRGBDefenseValues);
 }
 
 sf::Vector2f UIStats::getPosition() {
@@ -55,7 +67,7 @@ void UIStats::setPosition(float x, float y) {
     sf::Vector2f actorStatsBoxPosition = this->actorStatsBox.getPosition();
     sf::FloatRect actorStatsBoxSize = this->actorStatsBox.getSize();
     float statsLabelPosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.1;
-    float statsValuePosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.5;
+    float statsValuePosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.4;
     float statsOffsetY = actorStatsBoxSize.height * 0.25;
     float statsSeparationPaddingY = actorStatsBoxSize.height * 0.05;
 
@@ -65,6 +77,8 @@ void UIStats::setPosition(float x, float y) {
     this->actorHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
     this->actorAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
     this->actorAttackStrengthValue.setPosition(statsValuePosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
+    this->actorRGBDefenseLabel.setPosition(statsLabelPosX, y + statsOffsetY + (statsTextHeight + statsSeparationPaddingY)*2);
+    this->actorRGBDefenseValues.setPosition(statsValuePosX, y + statsOffsetY + (statsTextHeight + statsSeparationPaddingY)*2);
 }
 sf::FloatRect UIStats::getSize() {
     return this->actorStatsBox.getSize();
