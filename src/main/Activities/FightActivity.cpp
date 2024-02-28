@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyStatsBox(gameState, Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_damon.png", "colorPIC_1.png", "borderMetal.png")) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -17,6 +17,7 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState) {
     this->colorBox.scale(0.6, 0.6);
 
     this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+    this->enemyStatsBox.setPosition(windowSize.x * 0.6, ((windowSize.y - this->playerStatsBox.getSize().height)/2));
 
     this->colorBox.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
     sf::FloatRect colorBoxSize = this->colorBox.getSize();
@@ -51,6 +52,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     window->draw(this->backgroundSP);
     this->playerStatsBox.setPosition(windowSize.x * 0.1, (windowSize.y - this->playerStatsBox.getSize().height)/2);
     this->playerStatsBox.draw(*window);
+    this->enemyStatsBox.draw(*window);
 
     //this->colorBox.setPosition(windowSize.x * 0.6, (windowSize.y - colorBoxSize.height)/2);
     this->colorBox.draw(*gameState.gameWindow);

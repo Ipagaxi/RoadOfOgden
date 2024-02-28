@@ -1,7 +1,7 @@
 #include "UIComponents/UIPlayerStats.hpp"
 
 
-UIPlayerStats::UIPlayerStats(GameState &gameState) {
+UIPlayerStats::UIPlayerStats(GameState &gameState, Actor actor) {
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
     sf::Color statsValueFontColor = sf::Color::Yellow;
     sf::Color statsLabelFontColor = sf::Color::White;
@@ -10,7 +10,7 @@ UIPlayerStats::UIPlayerStats(GameState &gameState) {
     this->statsTextHeight = windowSize.y * 0.025;;
 
     this->playerName.setFont(gameState.mainFont);
-    this->playerName.setString(gameState.player.name);
+    this->playerName.setString(actor.name);
     this->playerName.setCharacterSize(windowSize.y*0.03);
     this->playerName.setFillColor(sf::Color::White);
 
@@ -20,7 +20,7 @@ UIPlayerStats::UIPlayerStats(GameState &gameState) {
     this->playerHealthLabel.setFillColor(statsLabelFontColor);
 
     this->playerHealthValue.setFont(gameState.mainFont);
-    this->playerHealthValue.setString(std::to_string(gameState.player.health));
+    this->playerHealthValue.setString(std::to_string(actor.health));
     this->playerHealthValue.setCharacterSize(statsTextHeight);
     this->playerHealthValue.setFillColor(statsValueFontColor);
 
@@ -30,7 +30,7 @@ UIPlayerStats::UIPlayerStats(GameState &gameState) {
     this->playerAttackStrengthLabel.setFillColor(statsLabelFontColor);
 
     this->playerAttackStrengthValue.setFont(gameState.mainFont);
-    this->playerAttackStrengthValue.setString(std::to_string(gameState.player.attackStrength));
+    this->playerAttackStrengthValue.setString(std::to_string(actor.attackStrength));
     this->playerAttackStrengthValue.setCharacterSize(statsTextHeight);
     this->playerAttackStrengthValue.setFillColor(statsValueFontColor);
 

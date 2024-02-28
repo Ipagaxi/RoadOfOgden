@@ -37,6 +37,7 @@ class FightActivity: public Activity {
     sf::Text colorText;
     sf::Color pickedColor;
     UIPlayerStats playerStatsBox;
+    UIPlayerStats enemyStatsBox;
 
     Enemy enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_damon.png", "colorPIC_1.png", "borderMetal.png");
     sf::Texture enemyPicTX;

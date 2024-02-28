@@ -3,12 +3,13 @@
 
 #include "UIComponents/UIComponent.hpp"
 #include "UIElements/UIBox.hpp"
+#include "Actors/Actor.hpp"
 #include "GameState.hpp"
 #include <iostream>
 
 class UIPlayerStats: public UIComponent {
     public:
-        UIPlayerStats(GameState &gameState);
+        UIPlayerStats(GameState &gameState, Actor actor);
 
         void draw(sf::RenderWindow &gameWindow) override;
         sf::Vector2f getPosition() override;
