@@ -15,7 +15,7 @@ class UIColorBox: public UIElement {
     sf::Texture borderTX;
     sf::Sprite colorSP;
     sf::Sprite borderSP;
-    sf::Image colorBoxIMG;
+    sf::Image colorIMG;
 
     bool pressed;
 

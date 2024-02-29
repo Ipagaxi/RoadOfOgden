@@ -1,7 +1,8 @@
 #include "UIElements/UIColorBox.hpp"
 
 UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
-    this->colorTX.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
+    this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
+    this->colorTX.loadFromImage(this->colorIMG);
     this->colorSP.setTexture(this->colorTX);
     this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
     this->borderSP.setTexture(this->borderTX);
@@ -11,8 +12,6 @@ UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
 
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);
-
-    this->colorBoxIMG.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
 }
 
 UIColorBox::UIColorBox(sf::Image image, std::string borderPath) {
@@ -28,7 +27,7 @@ UIColorBox::UIColorBox(sf::Image image, std::string borderPath) {
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);
 
-    this->colorBoxIMG = image;
+    this->colorIMG = image;
 }
 
 void UIColorBox::draw(sf::RenderWindow &window) {
@@ -56,13 +55,13 @@ void UIColorBox::scale(float x, float y) {
 }
 
 sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {
-    sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
-    sf::Vector2f offset = this->colorSP.getPosition() - sf::Vector2f(colorRect.width/2, colorRect.height/2);
+    sf::FloatRect colorSize = this->colorSP.getGlobalBounds();
+    sf::Vector2f offset = this->colorSP.getPosition() - sf::Vector2f(colorSize.width/2, colorSize.height/2);
     sf::Vector2f scale = this->colorSP.getScale();
-    sf::Vector2f posImg = (pos - offset);
+    sf::Vector2f posImg = pos - offset;
     posImg.x /= scale.x;
     posImg.y /= scale.y;
-    return this->colorBoxIMG.getPixel(posImg.x, posImg.y);
+    return this->colorIMG.getPixel(posImg.x, posImg.y);
 }
 
 bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
@@ -85,6 +84,7 @@ bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
 }
 
 void UIColorBox::setColorBox(std::string picPath, std::string borderPath) {
-    this->colorTX.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+    this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+    this->colorTX.loadFromImage(this->colorIMG);
     this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
 }

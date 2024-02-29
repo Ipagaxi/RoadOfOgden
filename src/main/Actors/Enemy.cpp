@@ -5,8 +5,8 @@ Enemy::Enemy() {
     this->health = 0;
     this->attackStrength = 0;
     this->defense = {0, 0, 0};
-    this->picPath = "hamster.png";
-    this->colorPicPath = "colorPIC_gen.png";
+    this->picPath = "default_enemy_quer.png";
+    this->colorPicPath = "color_test.png";
     this->colorPicBorderPath = "borderMetal.png";
 }
 

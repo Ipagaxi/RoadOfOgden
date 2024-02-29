@@ -1,7 +1,7 @@
 #include "Activities/MenuActivity.hpp"
 
 MenuActivity::MenuActivity(GameState &gameState) {
-    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/menuBG.png");
+    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());

@@ -35,13 +35,17 @@ class FightActivity: public Activity {
 
     UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "border_color_square.png");
     sf::Text colorText;
-    sf::Color pickedColor;
     UIStats playerStatsBox;
     UIStats enemyStatsBox;
 
-    Enemy enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_damon.png", "colorPIC_1.png", "borderMetal.png");
+    Enemy enemy;
     sf::Texture enemyPicTX;
     sf::Sprite enemyPicSP;
+
+    sf::Text lastDamage;
+
+    float calculateAttackMult(int pickedRed, int pickedGreen, int pickedBlue);
+    float calculateSingleSummand(int pickedRGBComponent, int defenseRGBComponent);
 };
 
 #endif
