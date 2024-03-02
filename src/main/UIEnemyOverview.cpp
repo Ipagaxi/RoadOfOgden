@@ -12,7 +12,6 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
 
     this->creatureFrame.scale(0.5, 0.5);
     sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
-    //this->creatureFrame.setOrigin(creatureFrameRect.width/2.f, 0);
     sf::Vector2f colorPickerPos = this->colorPicker.getPosition();
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
     this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.18);
@@ -31,7 +30,6 @@ void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
     this->colorPicker.draw(gameWindow);
     gameWindow.draw(this->creatureBackgroundSP);
     this->creatureFrame.draw(gameWindow);
-    //gameWindow.draw(this->creatureSP);
 }
 
 void UIEnemyOverview::changeHealth(int value) {

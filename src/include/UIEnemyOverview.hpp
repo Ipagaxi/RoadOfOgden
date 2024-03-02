@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "UIComponents/UIStats.hpp"
-#include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIBorderedImage.hpp"
 #include "Actors/Enemy.hpp"
 #include "GameState.hpp"
@@ -13,7 +13,7 @@ class UIEnemyOverview {
         UIEnemyOverview(GameState &gameState, Enemy enemy);
         
         Enemy creature;
-        UIColorBox colorPicker = UIColorBox("colorPIC_default.png", "border_color_square.png");
+        UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "border_color_square.png");
         
         void changeHealth(int value);
         void draw(sf::RenderWindow &gameWindow);

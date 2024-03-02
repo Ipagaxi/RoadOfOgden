@@ -13,7 +13,7 @@
 #include "UIComponents/UIStats.hpp"
 #include "UIEnemyOverview.hpp"
 #include "Activities/MenuActivity.hpp"
-#include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIButton.hpp"
 #include "UIElements/UIBox.hpp"
 #include "Actors/Player.hpp"

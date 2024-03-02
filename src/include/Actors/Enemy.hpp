@@ -2,7 +2,7 @@
 #define ENEMY_HPP
 
 #include "Actors/Actor.hpp"
-#include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIColorPicker.hpp"
 #include "Defines.hpp"
 
 class Enemy: public Actor {

@@ -9,7 +9,7 @@
 #include "Defines.hpp"
 #include "GameState.hpp"
 
-class UIColorBox: public UIElement {
+class UIColorPicker: public UIElement {
   private:
     sf::Texture colorTX;
     sf::Texture borderTX;
@@ -20,8 +20,8 @@ class UIColorBox: public UIElement {
     bool pressed;
 
   public:
-    UIColorBox(std::string imagePath, std::string borderPath);
-    UIColorBox(sf::Image image, std::string borderPath);
+    UIColorPicker(std::string imagePath, std::string borderPath);
+    UIColorPicker(sf::Image image, std::string borderPath);
 
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;

@@ -25,12 +25,9 @@ class UIButton: public UIElement {
         sf::Sound pressSound;
         sf::Sound releaseSound;
 
-
         void init(std::string fileName);
         void hoverListener(GameState &gameState);
         bool buttonContainsMouse(GameState &gameState);
-
-
 
     public:
         sf::Font font;

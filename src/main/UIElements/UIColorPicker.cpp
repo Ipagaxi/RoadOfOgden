@@ -1,6 +1,6 @@
-#include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIColorPicker.hpp"
 
-UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
+UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
     this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
     this->colorTX.loadFromImage(this->colorIMG);
     this->colorSP.setTexture(this->colorTX);
@@ -17,7 +17,7 @@ UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
     this->borderSP.scale(0.97, 0.97);
 }
 
-UIColorBox::UIColorBox(sf::Image image, std::string borderPath) {
+UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
     this->colorTX.loadFromImage(image);
     this->colorSP.setTexture(this->colorTX);
 
@@ -33,33 +33,33 @@ UIColorBox::UIColorBox(sf::Image image, std::string borderPath) {
     this->colorIMG = image;
 }
 
-void UIColorBox::draw(sf::RenderWindow &window) {
+void UIColorPicker::draw(sf::RenderWindow &window) {
     window.draw(this->colorSP);
     window.draw(this->borderSP);
 }
 
-void UIColorBox::setPosition(float x, float y) {
+void UIColorPicker::setPosition(float x, float y) {
     this->borderSP.setPosition(x, y);
     sf::FloatRect borderSize = this->getSize();
     this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
 }
 
-sf::Vector2f UIColorBox::getPosition() {
+sf::Vector2f UIColorPicker::getPosition() {
     return this->borderSP.getPosition();
 }
 
-sf::FloatRect UIColorBox::getSize() {
+sf::FloatRect UIColorPicker::getSize() {
     return this->borderSP.getGlobalBounds();
 }
 
-void UIColorBox::scale(float x, float y) {
+void UIColorPicker::scale(float x, float y) {
     sf::Vector2f pos = this->getPosition();
     this->borderSP.scale(sf::Vector2f(x, y));
     this->colorSP.scale(sf::Vector2f(x, y));
     this->setPosition(pos.x, pos.y);
 }
 
-sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {
+sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {
     sf::FloatRect colorSize = this->colorSP.getGlobalBounds();
     sf::Vector2f offset = this->colorSP.getPosition() - sf::Vector2f(colorSize.width/2, colorSize.height/2);
     sf::Vector2f scale = this->colorSP.getScale();
@@ -69,7 +69,7 @@ sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {
     return this->colorIMG.getPixel(posImg.x, posImg.y);
 }
 
-bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
+bool UIColorPicker::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
     if (gameState.mousePressed && this->colorSP.getGlobalBounds().contains(gameState.pressedPos)) {
         this->pressed = true;
     } else if (gameState.mousePressed){
@@ -88,7 +88,7 @@ bool UIColorBox::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
     return false;
 }
 
-void UIColorBox::setColorBox(std::string picPath, std::string borderPath) {
+void UIColorPicker::setColorBox(std::string picPath, std::string borderPath) {
     this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
     this->colorTX.loadFromImage(this->colorIMG);
     this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
