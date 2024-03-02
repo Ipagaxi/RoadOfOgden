@@ -83,3 +83,7 @@ void UIStats::setPosition(float x, float y) {
 sf::FloatRect UIStats::getSize() {
     return this->actorStatsBox.getSize();
 }
+
+void UIStats::updateHealth(int value) {
+    this->actorHealthValue.setString(std::to_string(value));
+}

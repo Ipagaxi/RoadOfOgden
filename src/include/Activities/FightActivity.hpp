@@ -11,6 +11,7 @@
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
 #include "UIComponents/UIStats.hpp"
+#include "UIEnemyOverview.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorBox.hpp"
 #include "UIElements/UIButton.hpp"
@@ -38,14 +39,10 @@ class FightActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     UIButton exitButton = UIButton("buttonClose/buttonClose.png");
-    UIColorBox colorBox = UIColorBox("colorPIC_gen.png", "border_color_square.png");
     sf::Text colorText;
     UIStats playerStatsBox;
-    UIStats enemyStatsBox;
-    sf::Texture enemyPicTX;
-    sf::Sprite enemyPicSP;
+    UIEnemyOverview enemyOverview;
 
-    Enemy enemy;
     sf::Text lastDamage;
     sf::Color pickedColor;
     int maxMultiplier = 2;

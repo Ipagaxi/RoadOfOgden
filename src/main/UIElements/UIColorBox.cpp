@@ -8,7 +8,10 @@ UIColorBox::UIColorBox(std::string imagePath, std::string borderPath) {
     this->borderSP.setTexture(this->borderTX);
 
     sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
+    sf::Vector2f borderPos = this->borderSP.getPosition();
+    sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
     this->colorSP.setOrigin(colorRect.width/2, colorRect.height/2);
+    this->colorSP.setPosition(borderPos.x + (borderSize.width*0.5), borderPos.y + (borderSize.height*0.5));
 
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);

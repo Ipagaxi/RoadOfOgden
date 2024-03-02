@@ -11,14 +11,12 @@ class UIStats: public UIComponent {
     public:
         UIStats(GameState &gameState, Actor actor);
 
-        sf::Text actorHealthValue;
-        sf::Text actorAttackStrengthValue;
-        sf::Text actorRGBDefenseValues;
-
         void draw(sf::RenderWindow &gameWindow) override;
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;
         sf::FloatRect getSize() override;
+
+        void updateHealth(int value);
     
     private:
         UIBox actorStatsBox = UIBox();
@@ -26,6 +24,9 @@ class UIStats: public UIComponent {
         sf::Text actorHealthLabel;
         sf::Text actorAttackStrengthLabel;
         sf::Text actorRGBDefenseLabel;
+        sf::Text actorHealthValue;
+        sf::Text actorAttackStrengthValue;
+        sf::Text actorRGBDefenseValues;
         float statsTextHeight;
 };
 

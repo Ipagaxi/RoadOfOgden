@@ -1,11 +1,11 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyStatsBox(gameState, Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png")) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
-    this->enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png");
+    //this->enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png");
     //enemyStatsBox = UIStats(gameState, this->initEnemy());
 
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
@@ -20,7 +20,6 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     sf::FloatRect textRec = this->colorText.getGlobalBounds();
     this->colorText.setOrigin(textRec.width/2, textRec.height/2);
     this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
-    this->colorBox.scale(0.6, 0.6);
 
     this->lastDamage.setFont(gameState.mainFont);
     this->lastDamage.setString("0");
@@ -29,43 +28,25 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 
     float relativeOuterPaddingStatBoxes = 0.02;
     this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
-    sf::FloatRect enemyStatsBoxSize = this->enemyStatsBox.getSize();
-    this->enemyStatsBox.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - enemyStatsBoxSize.width, ((windowSize.y - this->playerStatsBox.getSize().height)/2));
-
-    std::cout << "Set Color Box" << std::endl;
-    this->colorBox.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
-    sf::FloatRect colorBoxSize = this->colorBox.getSize();
-    this->colorBox.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
-
-    std::cout << "Enemy Pic Path: " << this->enemy.picPath << std::endl;
-    this->enemyPicTX.loadFromFile(RESOURCE_PATH "monster_landscape_cut/" + this->enemy.picPath);
-    this->enemyPicSP.setTexture(this->enemyPicTX);
-    sf::FloatRect enemyPicSize = this->enemyPicSP.getGlobalBounds();
-    this->enemyPicSP.setOrigin(enemyPicSize.width/2, 0);
-    sf::Vector2f colorBoxPos = this->colorBox.getPosition();
-    this->enemyPicSP.setPosition(colorBoxPos.x + colorBoxSize.width*0.5, windowSize.y * 0.1);
-    this->enemyPicSP.scale(0.5, 0.5);
 }
 
 void FightActivity::runFight(GameState &gameState) {
     sf::Vector2f clickedPos;
-    if (this->colorBox.clickListener(gameState, clickedPos)) {
-        this->pickedColor = this->colorBox.getPixelColor(clickedPos);
+    if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
+        this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
         this->colorText.setString("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
         float attackMultiplier = this->calculateAttackMult();
         std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         std::cout << "Damage: " << damage << std::endl;
         this->lastDamage.setString(std::to_string(damage));
-        this->enemy.health = std::max(this->enemy.health - damage, 0);
-        this->enemyStatsBox.actorHealthValue.setString(std::to_string(std::max(this->enemy.health - damage, 0)));
+        this->enemyOverview.changeHealth(damage);
     }
 }
 
 void FightActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
     sf::Vector2u windowSize = window->getSize();
-    sf::FloatRect colorBoxSize = this->colorBox.getSize();
     sf::FloatRect buttonSize = this->exitButton.getSize();
     
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
@@ -73,10 +54,8 @@ void FightActivity::executeActivity(GameState &gameState) {
 
     window->draw(this->backgroundSP);
     this->playerStatsBox.draw(*window);
-    this->enemyStatsBox.draw(*window);
-    this->colorBox.draw(*gameState.gameWindow);
+    this->enemyOverview.draw(*window);
     window->draw(this->colorText);
-    window->draw(this->enemyPicSP);
     this->exitButton.draw(*gameState.gameWindow);
     window->draw(this->lastDamage);
 
@@ -140,7 +119,6 @@ Enemy FightActivity::initEnemy() {
         default:
             break;
     }
-    this->enemy = randomEnemy;
     return randomEnemy;
 }
 
@@ -155,15 +133,15 @@ float FightActivity::counterColorMetric(Color color) {
     switch (color) {
         case RED:
             pickedColorValue = this->pickedColor.r;
-            weakDefenseColorValue = this->enemy.defense.green;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.green;
             break;
         case GREEN:
             pickedColorValue = this->pickedColor.g;
-            weakDefenseColorValue = this->enemy.defense.blue;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.blue;
             break;
         case BLUE:
             pickedColorValue = this->pickedColor.b;
-            weakDefenseColorValue = this->enemy.defense.red;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.red;
             break;
         default:
             break;
@@ -181,18 +159,18 @@ float FightActivity::tugOfWarMetric(Color color) {
     switch (color) {
         case RED:
             pickedColorValue = this->pickedColor.r;
-            weakDefenseColorValue = this->enemy.defense.green;
-            counterDefenseColorValue = this->enemy.defense.blue;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.green;
+            counterDefenseColorValue = this->enemyOverview.creature.defense.blue;
             break;
         case GREEN:
             pickedColorValue = this->pickedColor.g;
-            weakDefenseColorValue = this->enemy.defense.blue;
-            counterDefenseColorValue = this->enemy.defense.red;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.blue;
+            counterDefenseColorValue = this->enemyOverview.creature.defense.red;
             break;
         case BLUE:
             pickedColorValue = this->pickedColor.b;
-            weakDefenseColorValue = this->enemy.defense.red;
-            counterDefenseColorValue = this->enemy.defense.green;
+            weakDefenseColorValue = this->enemyOverview.creature.defense.red;
+            counterDefenseColorValue = this->enemyOverview.creature.defense.green;
             break;
         default:
             break;
