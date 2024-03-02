@@ -8,7 +8,6 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
 
     std::cout << "Set Color Box" << std::endl;
     this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
-    sf::FloatRect colorBoxSize = this->colorPicker.getSize();
     this->colorPicker.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
     this->colorPicker.scale(0.6, 0.6);
 
@@ -18,8 +17,9 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     sf::FloatRect creaturePicSize = this->creatureSP.getGlobalBounds();
     this->creatureSP.setOrigin(creaturePicSize.width/2, 0);
     sf::Vector2f colorBoxPos = this->colorPicker.getPosition();
-    this->creatureSP.scale(0.5, 0.5);
+    sf::FloatRect colorBoxSize = this->colorPicker.getSize();
     this->creatureSP.setPosition(colorBoxPos.x + colorBoxSize.width*0.5, windowSize.y * 0.1);
+    this->creatureSP.scale(0.5, 0.5);
 }
 
 void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
