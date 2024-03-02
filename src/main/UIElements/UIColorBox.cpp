@@ -41,8 +41,6 @@ void UIColorBox::draw(sf::RenderWindow &window) {
 void UIColorBox::setPosition(float x, float y) {
     this->borderSP.setPosition(x, y);
     sf::FloatRect borderSize = this->getSize();
-    sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
-    //this->colorSP.setOrigin(colorRect.width/2, colorRect.height/2);
     this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
 }
 

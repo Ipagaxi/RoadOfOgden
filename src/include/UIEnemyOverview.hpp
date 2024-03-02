@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "UIComponents/UIStats.hpp"
 #include "UIElements/UIColorBox.hpp"
+#include "UIElements/UIBorderedImage.hpp"
 #include "Actors/Enemy.hpp"
 #include "GameState.hpp"
 
@@ -18,9 +19,12 @@ class UIEnemyOverview {
         void draw(sf::RenderWindow &gameWindow);
 
     private:
-        sf::Texture creatureTX;
-        sf::Sprite creatureSP;
+        sf::Texture creatureBackgroundTX;
+        sf::Sprite creatureBackgroundSP;
+        sf::Texture creatureBorderTX;
+        sf::Sprite creatureBorderSP;
         UIStats statsComponent;
+        UIBorderedImage creatureFrame;
 };
 
 #endif
