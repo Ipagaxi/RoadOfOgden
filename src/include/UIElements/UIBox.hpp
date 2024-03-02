@@ -9,13 +9,13 @@
 
 class UIBox : UIElement {
     public:
+        UIBox();
+
         void draw(sf::RenderWindow &window) override;
         void setPosition(float x, float y) override;
         sf::Vector2f getPosition() override;
         sf::FloatRect getSize() override;
         void scale(float x, float y) override;
-
-        UIBox();
 
     private: 
         sf::RectangleShape backgroundREC;

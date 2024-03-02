@@ -2,10 +2,11 @@
 
 
 FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyStatsBox(gameState, Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png")) {
-    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/fightBG.png");
+    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
     this->enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png");
+    //enemyStatsBox = UIStats(gameState, this->initEnemy());
 
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
@@ -31,10 +32,12 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     sf::FloatRect enemyStatsBoxSize = this->enemyStatsBox.getSize();
     this->enemyStatsBox.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - enemyStatsBoxSize.width, ((windowSize.y - this->playerStatsBox.getSize().height)/2));
 
+    std::cout << "Set Color Box" << std::endl;
     this->colorBox.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
     sf::FloatRect colorBoxSize = this->colorBox.getSize();
     this->colorBox.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
 
+    std::cout << "Enemy Pic Path: " << this->enemy.picPath << std::endl;
     this->enemyPicTX.loadFromFile(RESOURCE_PATH "monster_landscape_cut/" + this->enemy.picPath);
     this->enemyPicSP.setTexture(this->enemyPicTX);
     sf::FloatRect enemyPicSize = this->enemyPicSP.getGlobalBounds();
@@ -47,9 +50,9 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 void FightActivity::runFight(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->colorBox.clickListener(gameState, clickedPos)) {
-        sf::Color pickedColor = this->colorBox.getPixelColor(clickedPos);
+        this->pickedColor = this->colorBox.getPixelColor(clickedPos);
         this->colorText.setString("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
-        float attackMultiplier = this->calculateAttackMult(pickedColor.r, pickedColor.g, pickedColor.b);
+        float attackMultiplier = this->calculateAttackMult();
         std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         std::cout << "Damage: " << damage << std::endl;
@@ -83,21 +86,135 @@ void FightActivity::executeActivity(GameState &gameState) {
     }
 }
 
-float FightActivity::calculateSingleSummand(int pickedRGBComponent, int defenseRGBComponent) {
-    int attackDefenseDiff = pickedRGBComponent - defenseRGBComponent;
-    std::cout << "Attack defense difference: " << std::to_string(attackDefenseDiff) << std::endl;
-    float mappedDiff = (attackDefenseDiff + 255) / 510.0;
-    std::cout << "Mapped difference: " << std::to_string(mappedDiff) << std::endl;
-    // The following function is to limit the the effect of the single rgb component to a third.
-    float mappedToOneThird = (2.f/3) * (mappedDiff*mappedDiff) + (1.f/3) * mappedDiff;
-    std::cout << "Mapped to a third: " << std::to_string(mappedToOneThird) << std::endl;
-    return mappedToOneThird;
+Enemy FightActivity::initEnemy() {
+    std::cout << "Init random enemy" << std::endl;
+    std::vector<std::string> enemyNames = {"Zucchini?!?", "Assel", "Hamster", "Mantis Warrior", "Flesh-Fungus"};
+    Enemy randomEnemy;
 
+    std::srand(std::time(nullptr));
+    int randomNum = std::rand() % NUM_ENEMY;
+
+
+    switch (randomNum) {
+        case 0:
+            randomEnemy.name = enemyNames[randomNum];
+            randomEnemy.attackStrength = (std::rand() % 5) + 8;
+            randomEnemy.health = (std::rand() % 12) + 10;
+            randomEnemy.defense = {std::rand() % 150, (std::rand() % 50) + 120, std::rand() % 100};
+            randomEnemy.picPath = "zucchini_demon_quer.png";
+            randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
+            break;
+        case 1:
+            randomEnemy.name = enemyNames[randomNum];
+            randomEnemy.attackStrength = (std::rand() % 3) + 3;
+            randomEnemy.health = (std::rand() % 4) + 20;
+            randomEnemy.defense = {std::rand() % 255, std::rand() % 255, std::rand() % 255};
+            randomEnemy.picPath = "assel_quer.png";
+            randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
+            break;
+        case 2:
+            randomEnemy.name = enemyNames[randomNum];
+            randomEnemy.attackStrength = (std::rand() % 2) + 1;
+            randomEnemy.health = (std::rand() % 2) + 3;
+            randomEnemy.defense = {std::rand() % 100, std::rand() % 100, std::rand() % 100};
+            randomEnemy.picPath = "hamster_quer.png";
+            randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
+            break;
+        case 3:
+            randomEnemy.name = enemyNames[randomNum];
+            randomEnemy.attackStrength = (std::rand() % 6) + 11;
+            randomEnemy.health = (std::rand() % 4) + 13;
+            randomEnemy.defense = {std::rand() % 255, std::rand() % 255, std::rand() % 255};
+            randomEnemy.picPath = "mantis_warrior_quer.png";
+            randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
+            break;
+        case 4:
+            randomEnemy.name = enemyNames[randomNum];
+            randomEnemy.attackStrength = (std::rand() % 2) + 15;
+            randomEnemy.health = (std::rand() % 2) + 3;
+            randomEnemy.defense = {std::rand() % 50, std::rand() % 50, std::rand() % 50};
+            randomEnemy.picPath = "hamster_fungus_quer.png";
+            randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
+            break;
+        
+        default:
+            break;
+    }
+    this->enemy = randomEnemy;
+    return randomEnemy;
 }
 
-float FightActivity::calculateAttackMult(int pickedRed, int pickedGreen, int pickedBlue) {
-    float redSummand = this->calculateSingleSummand(pickedRed, this->enemy.defense.red);
-    float greenSummand = this->calculateSingleSummand(pickedGreen, this->enemy.defense.green);
-    float blueSummand = this->calculateSingleSummand(pickedBlue, this->enemy.defense.blue);
-    return (redSummand + greenSummand + blueSummand) * (2.f/3);
+float FightActivity::mapInInterval(float value) {
+    return (2.f/3) * (value*value) + (1.f/3) * value;
+}
+
+//This metric rewards when hitting the exact counter colors
+float FightActivity::counterColorMetric(Color color) {
+    int pickedColorValue;
+    int weakDefenseColorValue;
+    switch (color) {
+        case RED:
+            pickedColorValue = this->pickedColor.r;
+            weakDefenseColorValue = this->enemy.defense.green;
+            break;
+        case GREEN:
+            pickedColorValue = this->pickedColor.g;
+            weakDefenseColorValue = this->enemy.defense.blue;
+            break;
+        case BLUE:
+            pickedColorValue = this->pickedColor.b;
+            weakDefenseColorValue = this->enemy.defense.red;
+            break;
+        default:
+            break;
+    }
+    int deviationFromOptimal = std::max(pickedColorValue-weakDefenseColorValue, 0);
+    float effectiveness = 1 - (deviationFromOptimal/ 250.f);
+    return effectiveness;
+}
+
+// This metric rewards for hitting the weak spot but punishes high colors with their counter colors
+float FightActivity::tugOfWarMetric(Color color) {
+    int pickedColorValue;
+    int weakDefenseColorValue;
+    int counterDefenseColorValue;
+    switch (color) {
+        case RED:
+            pickedColorValue = this->pickedColor.r;
+            weakDefenseColorValue = this->enemy.defense.green;
+            counterDefenseColorValue = this->enemy.defense.blue;
+            break;
+        case GREEN:
+            pickedColorValue = this->pickedColor.g;
+            weakDefenseColorValue = this->enemy.defense.blue;
+            counterDefenseColorValue = this->enemy.defense.red;
+            break;
+        case BLUE:
+            pickedColorValue = this->pickedColor.b;
+            weakDefenseColorValue = this->enemy.defense.red;
+            counterDefenseColorValue = this->enemy.defense.green;
+            break;
+        default:
+            break;
+    }
+    float optimalValue = std::max((2 * weakDefenseColorValue - counterDefenseColorValue) / 2.f, 0.f);
+    std::cout << "Optimal Value: " << std::to_string(optimalValue) << std::endl;
+    int deviationFromOptimal = std::abs(pickedColorValue-optimalValue);
+    std::cout << "Deviation from optimal: " << std::to_string(deviationFromOptimal) << std::endl;
+    float effectiveness = 1 - (deviationFromOptimal/ 250.f);
+    std::cout << "Effectiveness: " << std::to_string(effectiveness) << std::endl;
+    return effectiveness;
+}
+
+float FightActivity::calculateSingleMultPart(Color color) {
+    // Here is decided with which metric to calculated the multiplier portion
+    float calulatedPortion = this->tugOfWarMetric(color);
+    return mapInInterval(calulatedPortion);
+}
+
+float FightActivity::calculateAttackMult() {
+    float redSummand = this->calculateSingleMultPart(RED);
+    float greenSummand = this->calculateSingleMultPart(GREEN);
+    float blueSummand = this->calculateSingleMultPart(BLUE);
+    return (redSummand + greenSummand + blueSummand) * (this->maxMultiplier/3.f);
 }

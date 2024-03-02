@@ -21,7 +21,7 @@ class UIStats: public UIComponent {
         sf::FloatRect getSize() override;
     
     private:
-        UIBox actorStatsBox;
+        UIBox actorStatsBox = UIBox();
         sf::Text actorName;
         sf::Text actorHealthLabel;
         sf::Text actorAttackStrengthLabel;
