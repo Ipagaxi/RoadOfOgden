@@ -41,6 +41,8 @@ void UIColorBox::draw(sf::RenderWindow &window) {
 void UIColorBox::setPosition(float x, float y) {
     this->borderSP.setPosition(x, y);
     sf::FloatRect borderSize = this->getSize();
+    sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
+    //this->colorSP.setOrigin(colorRect.width/2, colorRect.height/2);
     this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
 }
 
@@ -53,8 +55,10 @@ sf::FloatRect UIColorBox::getSize() {
 }
 
 void UIColorBox::scale(float x, float y) {
+    sf::Vector2f pos = this->getPosition();
     this->borderSP.scale(sf::Vector2f(x, y));
     this->colorSP.scale(sf::Vector2f(x, y));
+    this->setPosition(pos.x, pos.y);
 }
 
 sf::Color UIColorBox::getPixelColor(sf::Vector2f pos) {

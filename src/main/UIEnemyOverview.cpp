@@ -3,8 +3,8 @@
 UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsComponent(gameState, enemy), creature(enemy) {
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
     float relativeOuterPaddingStatBoxes = 0.02;
-    sf::FloatRect enemyStatsBoxSize = this->statsComponent.getSize();
-    this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - enemyStatsBoxSize.width, ((windowSize.y - this->statsComponent.getSize().height)/2));
+    sf::FloatRect statsBoxSize = this->statsComponent.getSize();
+    this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, ((windowSize.y - this->statsComponent.getSize().height)/2));
 
     std::cout << "Set Color Box" << std::endl;
     this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
@@ -15,11 +15,11 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     std::cout << "Enemy Pic Path: " << this->creature.picPath << std::endl;
     this->creatureTX.loadFromFile(RESOURCE_PATH "monster_landscape_cut/" + this->creature.picPath);
     this->creatureSP.setTexture(this->creatureTX);
-    sf::FloatRect enemyPicSize = this->creatureSP.getGlobalBounds();
-    this->creatureSP.setOrigin(enemyPicSize.width/2, 0);
+    sf::FloatRect creaturePicSize = this->creatureSP.getGlobalBounds();
+    this->creatureSP.setOrigin(creaturePicSize.width/2, 0);
     sf::Vector2f colorBoxPos = this->colorPicker.getPosition();
-    this->creatureSP.setPosition(colorBoxPos.x + colorBoxSize.width*0.5, windowSize.y * 0.1);
     this->creatureSP.scale(0.5, 0.5);
+    this->creatureSP.setPosition(colorBoxPos.x + colorBoxSize.width*0.5, windowSize.y * 0.1);
 }
 
 void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
