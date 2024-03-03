@@ -15,6 +15,9 @@ UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
 
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);
+
+    this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/buttonAlpha2.wav");
+    this->releaseSound.setBuffer(this->releaseSoundBuffer);
 }
 
 UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
@@ -80,6 +83,7 @@ bool UIColorPicker::clickListener(GameState &gameState, sf::Vector2f &clickedPos
             this->pressed = false;
             if (this->colorSP.getGlobalBounds().contains(gameState.releasedPos)) {
                 clickedPos = sf::Vector2f(gameState.releasedPos.x, gameState.releasedPos.y);
+                this->releaseSound.play();
                 return true;
             }
         }

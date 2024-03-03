@@ -3,17 +3,13 @@
 UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsComponent(gameState, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
 
-    /*this->backgroundBox.setFillColor(sf::Color(51, 25, 0, 150));
-    this->backgroundBox.setPosition(windowSize.x * 0.55, windowSize.y * 0.15);
-    this->backgroundBox.setSize(sf::Vector2f(windowSize.x * 0.43, windowSize.y * 0.7));*/
-
-    this->backgroundBox.scale(1.5, 1.5);
+    this->backgroundBox.scale(0.95, 0.95);
     sf::FloatRect boxRect = this->backgroundBox.getSize();
-    this->backgroundBox.setPosition(windowSize.x * 0.53, (windowSize.y-boxRect.height) * 0.5);
+    this->backgroundBox.setPosition(windowSize.x * 0.52, (windowSize.y-boxRect.height) * 0.5);
     
     float relativeOuterPaddingStatBoxes = 0.05;
     sf::FloatRect statsBoxSize = this->statsComponent.getSize();
-    this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, ((windowSize.y - this->statsComponent.getSize().height)/2));
+    this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, ((windowSize.y - this->statsComponent.getSize().height)*0.5));
 
     this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
     this->colorPicker.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);

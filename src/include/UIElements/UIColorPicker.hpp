@@ -17,6 +17,9 @@ class UIColorPicker: public UIElement {
     sf::Sprite borderSP;
     sf::Image colorIMG;
 
+    sf::SoundBuffer releaseSoundBuffer;
+    sf::Sound releaseSound;
+
     bool pressed;
 
   public:

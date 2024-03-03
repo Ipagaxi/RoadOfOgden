@@ -63,7 +63,6 @@ void FightActivity::executeActivity(GameState &gameState) {
 }
 
 Enemy FightActivity::initEnemy() {
-    std::cout << "Init random enemy" << std::endl;
     std::vector<std::string> enemyNames = {"Zucchini?!?", "Assel", "Hamster", "Mantis Warrior", "Flesh-Fungus"};
     Enemy randomEnemy;
 
@@ -75,7 +74,7 @@ Enemy FightActivity::initEnemy() {
         case 0:
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 5) + 8;
-            randomEnemy.health = (std::rand() % 12) + 10;
+            randomEnemy.health = (std::rand() % 30) + 120;
             randomEnemy.defense = {std::rand() % 150, (std::rand() % 50) + 120, std::rand() % 100};
             randomEnemy.picPath = "zucchini_demon_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -83,7 +82,7 @@ Enemy FightActivity::initEnemy() {
         case 1:
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 3) + 3;
-            randomEnemy.health = (std::rand() % 4) + 20;
+            randomEnemy.health = (std::rand() % 20) + 160;
             randomEnemy.defense = {std::rand() % 255, std::rand() % 255, std::rand() % 255};
             randomEnemy.picPath = "assel_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -91,7 +90,7 @@ Enemy FightActivity::initEnemy() {
         case 2:
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 2) + 1;
-            randomEnemy.health = (std::rand() % 2) + 3;
+            randomEnemy.health = (std::rand() % 15) + 40;
             randomEnemy.defense = {std::rand() % 100, std::rand() % 100, std::rand() % 100};
             randomEnemy.picPath = "hamster_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -99,14 +98,14 @@ Enemy FightActivity::initEnemy() {
         case 3:
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 6) + 11;
-            randomEnemy.health = (std::rand() % 4) + 13;
+            randomEnemy.health = (std::rand() % 15) + 90;
             randomEnemy.defense = {std::rand() % 255, std::rand() % 255, std::rand() % 255};
             randomEnemy.picPath = "mantis_warrior_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;
         case 4:
             randomEnemy.name = enemyNames[randomNum];
-            randomEnemy.attackStrength = (std::rand() % 2) + 15;
+            randomEnemy.attackStrength = (std::rand() % 10) + 7;
             randomEnemy.health = (std::rand() % 2) + 3;
             randomEnemy.defense = {std::rand() % 50, std::rand() % 50, std::rand() % 50};
             randomEnemy.picPath = "hamster_fungus_quer.png";
