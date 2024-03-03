@@ -16,6 +16,7 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
     this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.18);
 
+    creatureFrameRect = this->creatureFrame.getSize();
     sf::Vector2f creatureFramePos = this->creatureFrame.getPosition();
     this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
     this->creatureBackgroundSP.setTexture(this->creatureBackgroundTX);

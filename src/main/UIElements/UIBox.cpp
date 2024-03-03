@@ -1,13 +1,13 @@
 #include "UIElements/UIBox.hpp"
 
-UIBox::UIBox() {
-    this->borderTX.loadFromFile(RESOURCE_PATH "borders/borderBox.png");
+UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
+    this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
 
     this->borderSP.setTexture(this->borderTX);
 
     sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
     this->backgroundREC.setSize(sf::Vector2f(borderSize.width * 0.96, borderSize.height * 0.93));
-    this->backgroundREC.setFillColor(sf::Color(51, 25, 0, 150));
+    this->backgroundREC.setFillColor(fillColor);
     sf::FloatRect backgroundSize = this->backgroundREC.getGlobalBounds();
     this->backgroundREC.setOrigin(backgroundSize.width/2, backgroundSize.height/2);
 }
