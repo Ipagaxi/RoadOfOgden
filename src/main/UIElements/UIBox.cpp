@@ -6,7 +6,7 @@ UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
     this->borderSP.setTexture(this->borderTX);
 
     sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
-    this->backgroundREC.setSize(sf::Vector2f(borderSize.width * 0.96, borderSize.height * 0.93));
+    this->backgroundREC.setSize(sf::Vector2f(borderSize.width * 0.96, borderSize.height * 0.95));
     this->backgroundREC.setFillColor(fillColor);
     sf::FloatRect backgroundSize = this->backgroundREC.getGlobalBounds();
     this->backgroundREC.setOrigin(backgroundSize.width/2, backgroundSize.height/2);
