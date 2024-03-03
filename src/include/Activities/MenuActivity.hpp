@@ -15,11 +15,16 @@ class MenuActivity: public Activity {
   private:
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
+    sf::Texture buttonsBackgroundTX;
+    sf::Sprite buttonsBackgroundSP;
+    sf::Texture logoTX;
+    sf::Sprite logoSP;
 
-    UIButton button = UIButton("Fight!", "button1/button1.png");
+    UIButton buttonFight = UIButton("Fight!", "button1/button1.png");
+    UIButton buttonExit = UIButton("Exit", "button1/button1.png");
 
   public:
-    MenuActivity();
+    MenuActivity(GameState &gameState);
 
     void executeActivity(GameState &gameState) override;
 };

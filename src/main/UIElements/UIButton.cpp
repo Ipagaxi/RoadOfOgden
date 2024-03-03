@@ -36,9 +36,14 @@ UIButton::UIButton(std::string labelText, std::string filePath) {
     this->label.setFillColor(sf::Color::Black);
 }
 
-sf::Vector2u UIButton::getSize() {
-    sf::FloatRect size = this->buttonSP.getGlobalBounds();
-    return sf::Vector2u(size.width, size.height);
+sf::FloatRect UIButton::getSize() {
+    return this->buttonSP.getGlobalBounds();
+}
+
+void UIButton::scale(float x, float y) {
+    this->buttonSP.scale(sf::Vector2f(x, y));
+    sf::FloatRect buttonSize = this->getSize();
+    this->label.setCharacterSize(buttonSize.height * 0.5);
 }
 
 void UIButton::draw(sf::RenderWindow &window) {
@@ -54,6 +59,10 @@ void UIButton::setPosition(float x, float y) {
     sf::FloatRect textRect = this->label.getLocalBounds();
     this->label.setOrigin(textRect.width/2, textRect.height/2);
     this->label.setPosition(buttonPos.x + buttonSize.x/2, buttonPos.y + buttonSize.y/2);
+}
+
+sf::Vector2f UIButton::getPosition() {
+    return this->buttonSP.getPosition();
 }
 
 

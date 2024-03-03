@@ -9,27 +9,29 @@
 #include "Defines.hpp"
 #include "GameState.hpp"
 
-class UIColorBox: public UIElement {
+class UIColorPicker: public UIElement {
   private:
     sf::Texture colorTX;
     sf::Texture borderTX;
     sf::Sprite colorSP;
     sf::Sprite borderSP;
-    sf::Image colorBoxIMG;
+    sf::Image colorIMG;
 
     bool pressed;
 
   public:
-    UIColorBox(std::string imagePath, std::string borderPath);
-    UIColorBox(sf::Image image, std::string borderPath);
+    UIColorPicker(std::string imagePath, std::string borderPath);
+    UIColorPicker(sf::Image image, std::string borderPath);
 
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;
-    sf::Vector2u getSize() override;
+    sf::Vector2f getPosition() override;
+    sf::FloatRect getSize() override;
+    void scale(float x, float y) override;
 
     bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
-
     sf::Color getPixelColor(sf::Vector2f pos);
+    void setColorBox(std::string picPath, std::string borderPath);
 };
 
 #endif

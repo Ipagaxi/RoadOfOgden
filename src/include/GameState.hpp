@@ -9,6 +9,7 @@
 #include "ActivityEnum.hpp"
 #include "Activities/Activity.hpp"
 #include "Defines.hpp"
+#include "Actors/Player.hpp"
 
 class GameState {
   public:
@@ -19,12 +20,11 @@ class GameState {
 
     sf::Vector2f pressedPos;
     sf::Vector2f releasedPos;
-
     sf::Font mainFont;
-
     sf::Music backgroundMusic;
-    
     sf::RenderWindow* gameWindow;
+
+    Player player = Player("Ipagaxi", 20, 12, {100, 100, 100});
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
 

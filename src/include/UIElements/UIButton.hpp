@@ -25,12 +25,9 @@ class UIButton: public UIElement {
         sf::Sound pressSound;
         sf::Sound releaseSound;
 
-
         void init(std::string fileName);
         void hoverListener(GameState &gameState);
         bool buttonContainsMouse(GameState &gameState);
-
-
 
     public:
         sf::Font font;
@@ -43,9 +40,12 @@ class UIButton: public UIElement {
         bool clickListener(GameState &gameState);
 
         void setPosition(float x, float y) override;
-        sf::Vector2u getSize() override;
+        sf::Vector2f getPosition() override;
+        sf::FloatRect getSize() override;
 
         void draw(sf::RenderWindow &window) override;
+
+        void scale(float x, float y) override;
 };
 
 #endif

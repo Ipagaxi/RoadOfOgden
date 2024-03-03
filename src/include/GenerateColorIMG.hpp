@@ -9,7 +9,6 @@
 
 void generateTexture() {
     std::srand(std::time(nullptr));
-    int random_value = std::rand();
 
     const siv::PerlinNoise::seed_type seedRed = std::rand();
     const siv::PerlinNoise::seed_type seedGreen = rand();
@@ -43,10 +42,11 @@ void generateTexture() {
             pixels[index+3] = 255;	
 		}
 	}
-    //delete[] pixels;
+    int fileNum = std::rand() % 10;
     sf::Image colorIMG;
     colorIMG.create(GEN_IMG_WIDTH, GEN_IMG_HEIGHT, pixels);
-    colorIMG.saveToFile(RESOURCE_PATH "color_textures/colorPIC_gen.png");
+    colorIMG.saveToFile(RESOURCE_PATH "color_textures/colorPIC_" + std::to_string(fileNum) + ".png");
+    delete[] pixels;
 }
 
 #endif

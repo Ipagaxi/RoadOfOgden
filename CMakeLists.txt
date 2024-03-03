@@ -6,6 +6,8 @@ file(GLOB source_files
     "src/main/*.cpp"
     "src/main/Activities/*.cpp"
     "src/main/UIElements/*.cpp"
+    "src/main/UIComponents/*.cpp"
+    "src/main/Actors/*.cpp"
 )
 set(SOURCES ${source_files})
 
@@ -29,12 +31,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE "src/include")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
-if(WIN32)
-    add_custom_command(
-        TARGET ${PROJECT_NAME}
-        COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
-        VERBATIM)
-endif()
+#if(WIN32)
+    #add_custom_command(
+     #   TARGET ${PROJECT_NAME}
+      #  COMMENT "Copy OpenAL DLL"
+       # PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${SFML_SOURCE_DIR}/extlibs/bin/$<IF:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>,x64,x86>/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        #VERBATIM)
+#endif()
 
 install(TARGETS ${PROJECT_NAME})
