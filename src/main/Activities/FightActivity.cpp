@@ -5,9 +5,6 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
-    //this->enemy = Enemy("Zucchini?!?", 20, 5, {100, 190, 30}, "zucchini_demon_quer.png", "colorPIC_0.png", "borderMetal.png");
-    //enemyStatsBox = UIStats(gameState, this->initEnemy());
-
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 

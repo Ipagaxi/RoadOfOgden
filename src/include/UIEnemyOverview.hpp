@@ -14,13 +14,14 @@ class UIEnemyOverview {
         UIEnemyOverview(GameState &gameState, Enemy enemy);
         
         Enemy creature;
-        UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "border_color_square.png");
+        UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "border_square.png");
         
         void changeHealth(int value);
         void draw(sf::RenderWindow &gameWindow);
 
     private:
-        UIBox box = UIBox(sf::Color(51, 25, 0, 150), "borders/borderBox.png");
+        UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_square.png");
+        //sf::RectangleShape backgroundBox;
         sf::Texture creatureBackgroundTX;
         sf::Sprite creatureBackgroundSP;
         sf::Texture creatureBorderTX;
