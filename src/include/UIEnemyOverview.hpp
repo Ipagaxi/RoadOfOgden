@@ -20,8 +20,7 @@ class UIEnemyOverview {
         void draw(sf::RenderWindow &gameWindow);
 
     private:
-        UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_square.png");
-        //sf::RectangleShape backgroundBox;
+        UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
         sf::Texture creatureBackgroundTX;
         sf::Sprite creatureBackgroundSP;
         sf::Texture creatureBorderTX;

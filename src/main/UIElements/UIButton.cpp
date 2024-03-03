@@ -9,6 +9,7 @@ void UIButton::init(std::string filePath) {
     this->basicTX.loadFromFile(buttonsPath + filePath);
     this->clickedTX.loadFromFile(buttonsPath + fileName + "_click." + fileType);
     this->hoveredTX.loadFromFile(buttonsPath + fileName + "_hover." + fileType);
+    this->buttonSP.setTexture(this->basicTX);
 
     this->hovered = false;
     this->pressed = false;
