@@ -32,15 +32,10 @@ MenuActivity::MenuActivity(GameState &gameState) {
 
 void MenuActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
-    sf::Vector2u windowSize = window->getSize();
-    sf::FloatRect buttonSize = this->buttonFight.getSize();
 
     window->draw(this->backgroundSP);
     window->draw(this->buttonsBackgroundSP);
     window->draw(this->logoSP);
-
-    this->buttonFight.setPosition((windowSize.x - buttonSize.width)*0.5, windowSize.y * 0.65);
-    this->buttonExit.setPosition((windowSize.x - buttonSize.width)*0.5, windowSize.y * 0.72);
     
     this->buttonFight.draw(*gameState.gameWindow);
     this->buttonExit.draw(*gameState.gameWindow);
