@@ -3,7 +3,7 @@
 UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsComponent(gameState, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
 
-    this->backgroundBox.scale(0.95, 0.95);
+    //this->backgroundBox.scale(0.98, 0.98);
     sf::FloatRect boxRect = this->backgroundBox.getSize();
     this->backgroundBox.setPosition(windowSize.x * 0.52, (windowSize.y-boxRect.height) * 0.5);
     
@@ -15,20 +15,21 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     this->colorPicker.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
     this->colorPicker.scale(0.6, 0.6);
 
-    this->creatureFrame.scale(0.5, 0.5);
-    sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
     sf::Vector2f colorPickerPos = this->colorPicker.getPosition();
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
-    this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.18);
-
+    sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
+    float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
+    this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
     creatureFrameRect = this->creatureFrame.getSize();
+    this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.11);
+
     sf::Vector2f creatureFramePos = this->creatureFrame.getPosition();
     this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
     this->creatureBackgroundSP.setTexture(this->creatureBackgroundTX);
     sf::FloatRect creatureBackgroundRect = this->creatureBackgroundSP.getGlobalBounds();
     this->creatureBackgroundSP.setOrigin(creatureBackgroundRect.width/2.f, creatureBackgroundRect.height/2.f);
     this->creatureBackgroundSP.setPosition(creatureFramePos.x + creatureFrameRect.width/2.f, creatureFramePos.y + creatureFrameRect.height/2.f);
-    this->creatureBackgroundSP.scale(0.5, 0.5);
+    this->creatureBackgroundSP.scale(creatureBoxScale, creatureBoxScale);
 }
 
 void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
