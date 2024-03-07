@@ -44,7 +44,6 @@ class FightActivity: public Activity {
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
 
-    sf::Text lastDamage;
     sf::Color pickedColor;
     int maxMultiplier = 2;
 

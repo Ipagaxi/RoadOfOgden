@@ -11,11 +11,6 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
 
-    this->lastDamage.setFont(gameState.mainFont);
-    this->lastDamage.setString("0");
-    this->lastDamage.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
-    this->lastDamage.setFillColor(sf::Color::Yellow);
-
     float relativeOuterPaddingStatBoxes = 0.02;
     this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
 }
@@ -24,12 +19,12 @@ void FightActivity::runFight(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
-        this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
+        this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);
         float attackMultiplier = this->calculateAttackMult();
         std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         std::cout << "Damage: " << damage << std::endl;
-        this->lastDamage.setString(std::to_string(damage));
+        this->enemyOverview.lastDamage.setString(std::to_string(damage));
         this->enemyOverview.changeHealth(damage);
     }
 }
@@ -47,7 +42,6 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
-    window->draw(this->lastDamage);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
