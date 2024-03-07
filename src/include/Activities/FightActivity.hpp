@@ -12,6 +12,7 @@
 #include "ActivityEnum.hpp"
 #include "UIComponents/UIStats.hpp"
 #include "UIEnemyOverview.hpp"
+#include "UIPlayerOverview.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIButton.hpp"
@@ -42,6 +43,7 @@ class FightActivity: public Activity {
     sf::Text colorText;
     UIStats playerStatsBox;
     UIEnemyOverview enemyOverview;
+    UIPlayerOverview playerOverview;
 
     sf::Text lastDamage;
     sf::Color pickedColor;

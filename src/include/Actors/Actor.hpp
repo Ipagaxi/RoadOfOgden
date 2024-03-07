@@ -16,6 +16,8 @@ class Actor {
         int attackStrength;
         RGB defense;
 
+        std::string picPath;
+
     Actor();
 
     private:

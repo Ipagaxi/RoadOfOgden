@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()), playerOverview(gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -50,7 +50,8 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->runFight(gameState);
 
     window->draw(this->backgroundSP);
-    this->playerStatsBox.draw(*window);
+    //this->playerStatsBox.draw(*window);
+    this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     window->draw(this->colorText);
     this->exitButton.draw(*gameState.gameWindow);

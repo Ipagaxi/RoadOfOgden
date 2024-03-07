@@ -23,8 +23,6 @@ class UIEnemyOverview {
         UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
         sf::Texture creatureBackgroundTX;
         sf::Sprite creatureBackgroundSP;
-        sf::Texture creatureBorderTX;
-        sf::Sprite creatureBorderSP;
         UIStats statsComponent;
         UIBorderedImage creatureFrame;
 };
