@@ -1,7 +1,9 @@
 #ifndef UIENEMYOVERVIEW_HPP
 #define UIENEMYOVERVIEW_HPP
 
+#include <string>
 #include <SFML/Graphics.hpp>
+
 #include "UIComponents/UIStats.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIBorderedImage.hpp"
@@ -15,8 +17,10 @@ class UIEnemyOverview {
         
         Enemy creature;
         UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "border_square.png");
+        sf::Text pickedColorText;
         
         void changeHealth(int value);
+        void updatePickedColorText(std::string newText);
         void draw(sf::RenderWindow &gameWindow);
 
     private:

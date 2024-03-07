@@ -10,13 +10,6 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
-    this->colorText.setFont(gameState.mainFont);
-    this->colorText.setString("(0, 0, 0)");
-    this->colorText.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
-    this->colorText.setFillColor(sf::Color::Black);
-    sf::FloatRect textRec = this->colorText.getGlobalBounds();
-    this->colorText.setOrigin(textRec.width/2, textRec.height/2);
-    this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
 
     this->lastDamage.setFont(gameState.mainFont);
     this->lastDamage.setString("0");
@@ -31,7 +24,7 @@ void FightActivity::runFight(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
-        this->colorText.setString("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
+        this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
         float attackMultiplier = this->calculateAttackMult();
         std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
@@ -53,7 +46,6 @@ void FightActivity::executeActivity(GameState &gameState) {
     //this->playerStatsBox.draw(*window);
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
-    window->draw(this->colorText);
     this->exitButton.draw(*gameState.gameWindow);
     window->draw(this->lastDamage);
 

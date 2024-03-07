@@ -40,7 +40,6 @@ class FightActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     UIButton exitButton = UIButton("buttonClose/buttonClose.png");
-    sf::Text colorText;
     UIStats playerStatsBox;
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
