@@ -8,6 +8,7 @@ file(GLOB source_files
     "src/main/UIElements/*.cpp"
     "src/main/UIComponents/*.cpp"
     "src/main/Actors/*.cpp"
+    "src/main/Animations/*.cpp"
 )
 set(SOURCES ${source_files})
 

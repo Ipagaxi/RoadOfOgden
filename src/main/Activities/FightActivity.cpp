@@ -21,9 +21,10 @@ void FightActivity::runFight(GameState &gameState) {
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
         this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);
         float attackMultiplier = this->calculateAttackMult();
-        std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
+        //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
-        std::cout << "Damage: " << damage << std::endl;
+        //std::cout << "Damage: " << damage << std::endl;
+        this->textFaddingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.1);
         this->enemyOverview.lastDamage.setString(std::to_string(damage));
         this->enemyOverview.changeHealth(damage);
     }
@@ -38,10 +39,10 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->runFight(gameState);
 
     window->draw(this->backgroundSP);
-    //this->playerStatsBox.draw(*window);
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
+    this->textFaddingManager.run(gameState);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
@@ -159,11 +160,11 @@ float FightActivity::tugOfWarMetric(Color color) {
             break;
     }
     float optimalValue = std::max((2 * weakDefenseColorValue - counterDefenseColorValue) / 2.f, 0.f);
-    std::cout << "Optimal Value: " << std::to_string(optimalValue) << std::endl;
+    //std::cout << "Optimal Value: " << std::to_string(optimalValue) << std::endl;
     int deviationFromOptimal = std::abs(pickedColorValue-optimalValue);
-    std::cout << "Deviation from optimal: " << std::to_string(deviationFromOptimal) << std::endl;
+    //std::cout << "Deviation from optimal: " << std::to_string(deviationFromOptimal) << std::endl;
     float effectiveness = 1 - (deviationFromOptimal/ 250.f);
-    std::cout << "Effectiveness: " << std::to_string(effectiveness) << std::endl;
+    //std::cout << "Effectiveness: " << std::to_string(effectiveness) << std::endl;
     return effectiveness;
 }
 

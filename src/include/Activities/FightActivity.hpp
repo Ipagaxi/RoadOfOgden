@@ -10,6 +10,7 @@
 
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
+#include "Animations/TextFaddingManager.hpp"
 #include "UIComponents/UIStats.hpp"
 #include "UIEnemyOverview.hpp"
 #include "UIPlayerOverview.hpp"
@@ -43,6 +44,7 @@ class FightActivity: public Activity {
     UIStats playerStatsBox;
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
+    TextFaddingManager textFaddingManager;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
