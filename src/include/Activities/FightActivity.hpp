@@ -10,8 +10,10 @@
 
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
+#include "Animations/TextFaddingManager.hpp"
 #include "UIComponents/UIStats.hpp"
 #include "UIEnemyOverview.hpp"
+#include "UIPlayerOverview.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIButton.hpp"
@@ -39,11 +41,11 @@ class FightActivity: public Activity {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     UIButton exitButton = UIButton("buttonClose/buttonClose.png");
-    sf::Text colorText;
     UIStats playerStatsBox;
     UIEnemyOverview enemyOverview;
+    UIPlayerOverview playerOverview;
+    TextFaddingManager textFaddingManager;
 
-    sf::Text lastDamage;
     sf::Color pickedColor;
     int maxMultiplier = 2;
 

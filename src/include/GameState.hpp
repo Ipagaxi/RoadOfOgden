@@ -23,8 +23,9 @@ class GameState {
     sf::Font mainFont;
     sf::Music backgroundMusic;
     sf::RenderWindow* gameWindow;
+    sf::Time elapsedTime;
 
-    Player player = Player("Ipagaxi", 20, 12, {100, 100, 100});
+    Player player = Player("Ipagaxi", 20, 12, {100, 100, 100}, "default_actor_quer.png");
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
 

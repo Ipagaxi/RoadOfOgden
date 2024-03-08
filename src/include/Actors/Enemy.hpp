@@ -10,7 +10,6 @@ class Enemy: public Actor {
         Enemy();
         Enemy(std::string name, int health, int attackStrength, RGB defense, std::string picPath, std::string colorPicPath, std::string colorPicBorderPath);
 
-        std::string picPath;
         std::string colorPicPath;
         std::string colorPicBorderPath;
 

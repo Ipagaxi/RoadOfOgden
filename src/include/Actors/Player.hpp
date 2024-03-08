@@ -9,7 +9,7 @@ class Player: public Actor {
 
     public:
         Player();
-        Player(std::string name, int health, int attackStrength, RGB defense);
+        Player(std::string name, int health, int attackStrength, RGB defense, std::string picFilePath);
 };
 
 #endif

@@ -29,8 +29,15 @@ int main()
     gameState.backgroundMusic.setLoop(true);
     gameState.backgroundMusic.play();
 
+    sf::Clock clock;
+    sf::Time time;
+
     while (window.isOpen()) {
         sf::Event event;
+
+        time = clock.restart();
+        gameState.elapsedTime = time;
+        //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
 
         while (window.pollEvent(event)) {
 

@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()), playerOverview(gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -10,18 +10,6 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
-    this->colorText.setFont(gameState.mainFont);
-    this->colorText.setString("(0, 0, 0)");
-    this->colorText.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
-    this->colorText.setFillColor(sf::Color::Black);
-    sf::FloatRect textRec = this->colorText.getGlobalBounds();
-    this->colorText.setOrigin(textRec.width/2, textRec.height/2);
-    this->colorText.setPosition(windowSize.x/2, windowSize.y*0.8);
-
-    this->lastDamage.setFont(gameState.mainFont);
-    this->lastDamage.setString("0");
-    this->lastDamage.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
-    this->lastDamage.setFillColor(sf::Color::Yellow);
 
     float relativeOuterPaddingStatBoxes = 0.02;
     this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
@@ -31,12 +19,12 @@ void FightActivity::runFight(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
-        this->colorText.setString("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")");
+        this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);
         float attackMultiplier = this->calculateAttackMult();
-        std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
+        //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
-        std::cout << "Damage: " << damage << std::endl;
-        this->lastDamage.setString(std::to_string(damage));
+        //std::cout << "Damage: " << damage << std::endl;
+        this->textFaddingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
         this->enemyOverview.changeHealth(damage);
     }
 }
@@ -50,11 +38,10 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->runFight(gameState);
 
     window->draw(this->backgroundSP);
-    this->playerStatsBox.draw(*window);
+    this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
-    window->draw(this->colorText);
     this->exitButton.draw(*gameState.gameWindow);
-    window->draw(this->lastDamage);
+    this->textFaddingManager.run(gameState);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
@@ -172,11 +159,11 @@ float FightActivity::tugOfWarMetric(Color color) {
             break;
     }
     float optimalValue = std::max((2 * weakDefenseColorValue - counterDefenseColorValue) / 2.f, 0.f);
-    std::cout << "Optimal Value: " << std::to_string(optimalValue) << std::endl;
+    //std::cout << "Optimal Value: " << std::to_string(optimalValue) << std::endl;
     int deviationFromOptimal = std::abs(pickedColorValue-optimalValue);
-    std::cout << "Deviation from optimal: " << std::to_string(deviationFromOptimal) << std::endl;
+    //std::cout << "Deviation from optimal: " << std::to_string(deviationFromOptimal) << std::endl;
     float effectiveness = 1 - (deviationFromOptimal/ 250.f);
-    std::cout << "Effectiveness: " << std::to_string(effectiveness) << std::endl;
+    //std::cout << "Effectiveness: " << std::to_string(effectiveness) << std::endl;
     return effectiveness;
 }
 
