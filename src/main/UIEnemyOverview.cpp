@@ -24,12 +24,6 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
     this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
 
-    this->lastDamage.setFont(gameState.mainFont);
-    this->lastDamage.setString("0");
-    this->lastDamage.setCharacterSize(gameState.gameWindow->getSize().y*0.05);
-    this->lastDamage.setFillColor(sf::Color::Yellow);
-    this->lastDamage.setPosition(colorPickerPos.x, colorPickerPos.y + colorPickerSize.height + windowSize.y * 0.04);
-
     sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
     float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
     this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
@@ -50,7 +44,6 @@ void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
     this->statsComponent.draw(gameWindow);
     this->colorPicker.draw(gameWindow);
     gameWindow.draw(this->pickedColorText);
-    gameWindow.draw(this->lastDamage);
     gameWindow.draw(this->creatureBackgroundSP);
     this->creatureFrame.draw(gameWindow);
 }

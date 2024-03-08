@@ -18,8 +18,6 @@ class UIEnemyOverview {
         Enemy creature;
         UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "border_square.png");
         sf::Text pickedColorText;
-        sf::Text lastDamage;
-
         
         void changeHealth(int value);
         void updatePickedColorText(std::string newText, sf::Color pickedColor);

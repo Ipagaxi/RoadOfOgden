@@ -24,8 +24,7 @@ void FightActivity::runFight(GameState &gameState) {
         //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         //std::cout << "Damage: " << damage << std::endl;
-        this->textFaddingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.1);
-        this->enemyOverview.lastDamage.setString(std::to_string(damage));
+        this->textFaddingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
         this->enemyOverview.changeHealth(damage);
     }
 }
