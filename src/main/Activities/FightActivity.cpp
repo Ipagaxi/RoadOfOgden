@@ -13,9 +13,38 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 
     float relativeOuterPaddingStatBoxes = 0.02;
     this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+
+    std::random_device randSeed;
+    std::mt19937 gen(randSeed());
+    std::uniform_int_distribution<int> dist(0, 1);
+    this->isPlayersTurn = dist(gen);
 }
 
-void FightActivity::runFight(GameState &gameState) {
+void FightActivity::runEnemiesTurn(GameState &gameState) {
+    if (!enemyDamageCalculated) {
+        std::random_device randSeed;
+        std::mt19937 gen(randSeed());
+        int minDamage = int(0.75 * this->enemyOverview.creature.attackStrength);
+        int maxDamage = int(1.25 * this->enemyOverview.creature.attackStrength);
+        std::uniform_int_distribution<int> dist(minDamage, maxDamage);
+        int enemyDamage = dist(gen);
+
+        sf::Vector2f playerIconPos = this->playerOverview.playerFrame.getPosition();
+        sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
+        sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
+
+        this->textFadingManager.startAnimation(gameState, std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
+        this->playerOverview.changeHealth(enemyDamage);
+        this->enemyDamageCalculated = true;
+    }
+    //std::cout << "Past MillSec: " << this->textFadingManager.fadingText.pastMillSec << std::endl;
+    if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
+        this->textFadingManager.fadingText.pastMillSec = 0;
+        this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
+    }
+}
+
+void FightActivity::runPlayersTurn(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
@@ -24,8 +53,37 @@ void FightActivity::runFight(GameState &gameState) {
         //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         //std::cout << "Damage: " << damage << std::endl;
-        this->textFaddingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
+        this->textFadingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
         this->enemyOverview.changeHealth(damage);
+    }
+    if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
+        this->textFadingManager.fadingText.pastMillSec = 0;
+        this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
+        this->enemyDamageCalculated = false;
+    }
+}
+
+void FightActivity::runDefeat(GameState &gameState) {
+
+}
+
+void FightActivity::runVictory(GameState &gameState) {
+
+}
+
+void FightActivity::runFight(GameState &gameState) {
+    if (this->playerOverview.player.health == 0) {
+        std::cout << "Player Health == 0" << std::endl;
+        this->runDefeat(gameState);
+    } else if (this->enemyOverview.creature.health == 0) {
+        std::cout << "Enemy Health == 0" << std::endl;
+        this->runVictory(gameState);
+    } else if (this->isPlayersTurn) {
+        std::cout << "Players Turn" << std::endl;
+        this->runPlayersTurn(gameState);
+    } else {
+        std::cout << "Enemies Turn" << std::endl;
+        this->runEnemiesTurn(gameState);
     }
 }
 
@@ -41,7 +99,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
-    this->textFaddingManager.run(gameState);
+    this->textFadingManager.run(gameState);
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
