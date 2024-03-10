@@ -100,6 +100,7 @@ jobs:
         path: ~/.local/myproject  # Path containing built artifacts
 
     - name: Create Release  # Create the release on GitHub
+      id: create_release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
@@ -109,6 +110,7 @@ jobs:
         prerelease: false  # Set to true for pre-releases (optional)
 
     - name: Upload Release  # Create release on merge
+      id: upload-release-asset 
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
