@@ -55,9 +55,11 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
         
     - name: Install development libraries (Ubuntu/Debian)
-      if: runner.os == 'ubuntu-latest'
-      run: sudo apt update && sudo apt install libopenal-dev libxcursor-dev libfreetype6-dev libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev libflac-dev libogg-dev libvorbis-dev
-
+      run: |
+        if [[ ${{ runner.os }} == 'ubuntu-latest' ]]; then
+          sudo apt update && sudo apt install libopenal-dev libxcursor-dev libfreetype6-dev libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev libflac-dev libogg-dev libvorbis-dev
+        fi
+        
     - uses: actions/cache@v3
       with:
         path: ${{ steps.strings.outputs.build-output-dir }}
