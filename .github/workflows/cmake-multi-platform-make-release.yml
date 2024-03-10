@@ -51,7 +51,7 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     - name: Create Build Output Directory
-      run: mkdir ./built-project
+      run: mkdir ./${{ runner.os }}_build
         
     - name: Install development libraries (Ubuntu/Debian)
       if: matrix.os == 'ubuntu-latest'
@@ -72,7 +72,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_INSTALL_PREFIX=./built-project
+        -DCMAKE_INSTALL_PREFIX=./${{ runner.os }}_build
         -S ${{ github.workspace }}
 
     - name: Configure CMake (on Windows)
@@ -84,7 +84,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_INSTALL_PREFIX=./built-project
+        -DCMAKE_INSTALL_PREFIX=./${{ runner.os }}_build
         -S ${{ github.workspace }}
         
     - name: Build (Linux)
