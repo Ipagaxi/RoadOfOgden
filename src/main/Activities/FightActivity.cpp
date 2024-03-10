@@ -63,11 +63,11 @@ void FightActivity::runPlayersTurn(GameState &gameState) {
 }
 
 void FightActivity::runDefeat(GameState &gameState) {
-
+    //Here comes the Defeat
 }
 
 void FightActivity::runVictory(GameState &gameState) {
-
+    //Here comes the Vidtory
 }
 
 void FightActivity::runFight(GameState &gameState) {
