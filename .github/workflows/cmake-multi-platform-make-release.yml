@@ -82,8 +82,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.ref }}  # Use the commit SHA for the tag
-        release_name: "Pre-Alpha-Demo ${{ github.ref }}"  # Release name
+        tag_name: ${{ github.sha }}  # Use the commit SHA for the tag
+        release_name: "Pre-Alpha-Demo ${{ github.sha }}"  # Release name
         prerelease: false  # Set to true for pre-releases (optional)
 
     - name: Upload Release  # Create release on merge
