@@ -37,7 +37,6 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
         this->playerOverview.changeHealth(enemyDamage);
         this->enemyDamageCalculated = true;
     }
-    //std::cout << "Past MillSec: " << this->textFadingManager.fadingText.pastMillSec << std::endl;
     if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
         this->textFadingManager.fadingText.pastMillSec = 0;
         this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
@@ -73,16 +72,12 @@ void FightActivity::runVictory(GameState &gameState) {
 
 void FightActivity::runFight(GameState &gameState) {
     if (this->playerOverview.player.health == 0) {
-        std::cout << "Player Health == 0" << std::endl;
         this->runDefeat(gameState);
     } else if (this->enemyOverview.creature.health == 0) {
-        std::cout << "Enemy Health == 0" << std::endl;
         this->runVictory(gameState);
     } else if (this->isPlayersTurn) {
-        std::cout << "Players Turn" << std::endl;
         this->runPlayersTurn(gameState);
     } else {
-        std::cout << "Enemies Turn" << std::endl;
         this->runEnemiesTurn(gameState);
     }
 }
