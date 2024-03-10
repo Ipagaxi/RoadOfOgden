@@ -94,6 +94,9 @@ jobs:
       if: runner.os == 'Windows'
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target install
 
+    - name: Create Build Output Directory
+      run: mkdir ./built-project
+
     - uses: actions/upload-artifact@v3  # Upload build artifacts
       with:
         name: built-project  # Name for the artifact cache
