@@ -54,7 +54,8 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
         
-    - name: Install OpenGL development libraries (Ubuntu/Debian)
+    - name: Install development libraries (Ubuntu/Debian)
+      if: runner.os == 'ubuntu-latest'
       run: sudo apt update && sudo apt install libopenal-dev libxcursor-dev libfreetype6-dev libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev libflac-dev libogg-dev libvorbis-dev
 
     - uses: actions/cache@v3
