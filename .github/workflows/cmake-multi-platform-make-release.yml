@@ -66,7 +66,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_INSTALL_PREFIX=${{ github.workspace }}/Release
+        -DCMAKE_INSTALL_PREFIX=~/.local/myproject
         -S ${{ github.workspace }}
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
@@ -75,7 +75,7 @@ jobs:
     - uses: actions/upload-artifact@v3  # Upload build artifacts
       with:
         name: built-project  # Name for the artifact cache
-        path: ${{ github.workspace }}/Release  # Path containing built artifacts
+        path: ~/.local/myproject  # Path containing built artifacts
 
     - name: Create Release  # Create release on merge
       uses: actions/create-release@v1
