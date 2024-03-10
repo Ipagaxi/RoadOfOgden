@@ -7,10 +7,11 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
+#include <random>
 
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
-#include "Animations/TextFaddingManager.hpp"
+#include "Animations/TextFadingManager.hpp"
 #include "UIComponents/UIStats.hpp"
 #include "UIEnemyOverview.hpp"
 #include "UIPlayerOverview.hpp"
@@ -23,12 +24,7 @@
 #include "GameState.hpp"
 #include "Defines.hpp"
 #include "Actors/Enemy.hpp"
-
-enum Color {
-  RED,
-  GREEN,
-  BLUE
-};
+#include "Color.hpp"
 
 class FightActivity: public Activity {
   public:
@@ -44,18 +40,26 @@ class FightActivity: public Activity {
     UIStats playerStatsBox;
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
-    TextFaddingManager textFaddingManager;
+    TextFadingManager textFadingManager;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
+    int isPlayersTurn;
+    bool enemyDamageCalculated = false;
 
     Enemy initEnemy();
+    void runPlayersTurn(GameState &gameState);
+    void runEnemiesTurn(GameState &gameState);
+    void runDefeat(GameState &gameState);
+    void runVictory(GameState &gameState);
 
+    // Compute damage multiplier
     float mapInInterval(float value);
-    float counterColorMetric(Color color);
-    float tugOfWarMetric(Color color);
     float calculateSingleMultPart(Color color);
     float calculateAttackMult();
+    // Metrics in file DamageMultMetrics.cpp
+    float counterColorMetric(Color color);
+    float tugOfWarMetric(Color color);
 };
 
 #endif

@@ -2,6 +2,7 @@
 #define UIPLAYEROVERVIEW_HPP
 
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 
 #include "GameState.hpp"
 #include "UIElements/UIBox.hpp"
@@ -13,6 +14,10 @@ class UIPlayerOverview {
     public:
         UIPlayerOverview(GameState &gameState);
 
+        UIBorderedImage playerFrame;
+        Player player;
+
+        void changeHealth(int value);
         void draw(sf::RenderWindow &gameWindow);
 
     private:
@@ -20,7 +25,6 @@ class UIPlayerOverview {
         sf::Texture playerBackgroundTX;
         sf::Sprite playerBackgroundSP;
         UIStats statsComponent;
-        UIBorderedImage playerFrame;
 };
 
 #endif
