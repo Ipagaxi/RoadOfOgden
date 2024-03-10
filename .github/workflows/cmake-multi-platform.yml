@@ -55,7 +55,14 @@ jobs:
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
         
     - name: Install OpenGL development libraries (Ubuntu/Debian)
-      run: sudo apt update && sudo apt install libfreetype6-dev libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev libflac-dev libogg-dev libvorbis-dev
+      run: sudo apt update && sudo apt install libopenal-dev libfreetype6-dev libx11-dev libxrandr-dev libudev-dev libglu1-mesa-dev libflac-dev libogg-dev libvorbis-dev
+
+    - uses: actions/cache@v3
+      with:
+        path: ${{ steps.strings.outputs.build-output-dir }}
+        key: ${{ runner.os }}-build-${{ matrix.build_type }}
+        restore-keys: |
+          ${{ runner.os }}-build-
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
