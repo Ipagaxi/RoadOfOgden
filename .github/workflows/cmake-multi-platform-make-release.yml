@@ -77,14 +77,20 @@ jobs:
         name: built-project  # Name for the artifact cache
         path: ~/.local/myproject  # Path containing built artifacts
 
-    - name: Create Release  # Create release on merge
+    - name: Create Release  # Create the release on GitHub
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ github.sha }}  # Use the commit SHA for the tag
-        release_name: "Pre-Alpha-Demo ${{ github.sha }}"
-        body: |  # Optional release body content
-          This release corresponds to commit ${{ github.sha }}.
-        asset_name: "${{ github.event.repository.name }}-${{ matrix.os }}.zip"  # Filename for the artifact archive
+        tag_name: ${{ github.ref }}  # Use the commit SHA for the tag
+        release_name: "Pre-Alpha-Demo ${{ github.ref }}"  # Release name
+        prerelease: false  # Set to true for pre-releases (optional)
+
+    - name: Upload Release  # Create release on merge
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_name: "${{ github.event.repository.name }}_${{ matrix.os }}.zip"  # Filename for the artifact archive
         asset_path: ./built-project  # Path to the downloaded artifacts
