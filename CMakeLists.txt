@@ -36,7 +36,7 @@ if(WIN32)
     add_custom_command(
         TARGET ${PROJECT_NAME}
         COMMENT "Copy OpenAL DLL"
-        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
+        PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy ${PROJECT_SOURCE_DIR}/openal32.dll $<TARGET_FILE_DIR:${PROJECT_NAME}>
         VERBATIM)
 endif()
 
