@@ -1,4 +1,4 @@
-name: CMake on multiple platforms
+name: Create Releases
 
 on:
   pull_request: 
