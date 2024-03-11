@@ -50,8 +50,7 @@ jobs:
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
-    - name: Create Linux Build Output Directory
-      if: matrix.ox == 'Linux'
+    - name: Create Build Output Directory
       run: mkdir ./project_build
         
     - name: Install development libraries (Ubuntu/Debian)
