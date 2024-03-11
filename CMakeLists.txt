@@ -43,4 +43,11 @@ if(WIN32)
         VERBATIM)
 endif()
 
+add_custom_command(
+    TARGET ${PROJECT_NAME}
+    COMMENT "Copy resources"
+    PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    VERBATIM)
+
 install(TARGETS ${PROJECT_NAME})
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/resources DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
