@@ -52,11 +52,7 @@ jobs:
 
     - name: Create Linux Build Output Directory
       if: matrix.ox == 'Linux'
-      run: mkdir ./${{ runner.os }}_build
-
-    - name: Create Windows Build Output Directory
-      if: matrix.ox == 'Windows'
-      run: mkdir .\${{ runner.os }}_build
+      run: mkdir ./project_build
         
     - name: Install development libraries (Ubuntu/Debian)
       if: matrix.os == 'ubuntu-latest'
@@ -77,7 +73,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_INSTALL_PREFIX=./${{ runner.os }}_build
+        -DCMAKE_INSTALL_PREFIX=./project_build
         -S ${{ github.workspace }}
 
     - name: Configure CMake (on Windows)
@@ -89,7 +85,7 @@ jobs:
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
         -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-        -DCMAKE_INSTALL_PREFIX=.\${{ runner.os }}_build
+        -DCMAKE_INSTALL_PREFIX=./${{ runner.os }}_build
         -S ${{ github.workspace }}
         
     - name: Build (Linux)
@@ -106,13 +102,13 @@ jobs:
       if: runner.os == 'Windows'
       with:
         name: ${{ runner.os }}_build  # Name for the artifact cache
-        path: .\${{ runner.os }}_build # Path containing built artifacts
+        path: ./project_build # Path containing built artifacts
 
     - uses: actions/upload-artifact@v3  # Upload build artifacts
       if: runner.os == 'Linux'
       with:
         name: ${{ runner.os }}_build  # Name for the artifact cache
-        path: ./${{ runner.os }}_build # Path containing built artifacts
+        path: ./project_build # Path containing built artifacts
 
     # - name: Create Release  # Create the release on GitHub
     #   id: create_release
