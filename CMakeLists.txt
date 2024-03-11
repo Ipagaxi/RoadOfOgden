@@ -12,6 +12,9 @@ file(GLOB source_files
 )
 set(SOURCES ${source_files})
 
+set(CMAKE_INSTALL_PREFIX /opt/myprod)
+message (STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
+
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
