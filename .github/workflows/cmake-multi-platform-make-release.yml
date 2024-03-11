@@ -99,8 +99,8 @@ jobs:
 
     - uses: actions/upload-artifact@v3  # Upload build artifacts
       with:
-        name: built-project  # Name for the artifact cache
-        path: ./built-project # Path containing built artifacts
+        name: ${{ runner.os }}_build  # Name for the artifact cache
+        path: ./${{ runner.os }}_build # Path containing built artifacts
 
     # - name: Create Release  # Create the release on GitHub
     #   id: create_release
