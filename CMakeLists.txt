@@ -12,7 +12,7 @@ file(GLOB source_files
 )
 set(SOURCES ${source_files})
 
-set(CMAKE_INSTALL_PREFIX /opt/myprod)
+set(CMAKE_INSTALL_PREFIX ./project_build)
 message (STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
