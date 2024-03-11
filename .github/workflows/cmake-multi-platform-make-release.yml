@@ -102,7 +102,7 @@ jobs:
       if: runner.os == 'Windows'
       with:
         name: ${{ runner.os }}_build  # Name for the artifact cache
-        path: ./project_build # Path containing built artifacts
+        path: ./ # Path containing built artifacts
 
     - uses: actions/upload-artifact@v3  # Upload build artifacts
       if: runner.os == 'Linux'
