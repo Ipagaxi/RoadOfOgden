@@ -18,10 +18,28 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     std::mt19937 gen(randSeed());
     std::uniform_int_distribution<int> dist(0, 1);
     this->isPlayersTurn = dist(gen);
+
+    this->playersTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_player.png");
+    this->enemiesTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_enemy.png");
+
+    if (this->isPlayersTurn) {
+        this->turnSP.setTexture(this->playersTurnTX);
+    } else {
+        this->turnSP.setTexture(this->enemiesTurnTX);
+    }
+    sf::FloatRect turnStateSignSize = this->turnSP.getGlobalBounds();
+    std::cout << "Size: " << std::to_string(turnStateSignSize.width) << std::endl;
+    this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
+    std::cout << "Pos: " << turnSP.getPosition().x << std::endl;
+}
+
+void FightActivity::changeTurn(GameState &gameState) {
+    static int changeTimeMillSec = 2000;
 }
 
 void FightActivity::runEnemiesTurn(GameState &gameState) {
     if (!enemyDamageCalculated) {
+        this->turnIsChanging = false;
         std::random_device randSeed;
         std::mt19937 gen(randSeed());
         int minDamage = int(0.75 * this->enemyOverview.creature.attackStrength);
@@ -40,12 +58,19 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
     if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
         this->textFadingManager.fadingText.pastMillSec = 0;
         this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
+        this->turnSP.setTexture(this->playersTurnTX);
     }
+
+    sf::Vector2u windowSize = gameState.gameWindow->getSize();
+    this->transparentLayer.setSize(static_cast<sf::Vector2f>(windowSize));
+    this->transparentLayer.setFillColor(sf::Color(170, 170, 170, 210));
 }
 
 void FightActivity::runPlayersTurn(GameState &gameState) {
     sf::Vector2f clickedPos;
     if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
+        this->turnIsChanging = false;
+        this->turnSP.setTexture(this->playersTurnTX);
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
         this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);
         float attackMultiplier = this->calculateAttackMult();
@@ -59,6 +84,7 @@ void FightActivity::runPlayersTurn(GameState &gameState) {
         this->textFadingManager.fadingText.pastMillSec = 0;
         this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
         this->enemyDamageCalculated = false;
+        this->turnSP.setTexture(this->enemiesTurnTX);
     }
 }
 
@@ -91,10 +117,14 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->runFight(gameState);
 
     window->draw(this->backgroundSP);
+    window->draw(this->turnSP);
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
     this->textFadingManager.run(gameState);
+    if (this->turnIsChanging) {
+        window->draw(this->transparentLayer);
+    }
 
     if (this->exitButton.clickListener(gameState)) {
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
@@ -112,30 +142,34 @@ Enemy FightActivity::initEnemy() {
 
     switch (randomNum) {
         case 0:
+            // Zucchini
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 5) + 8;
-            randomEnemy.health = (std::rand() % 30) + 120;
+            randomEnemy.health = (std::rand() % 30) + 50;
             randomEnemy.defense = {std::rand() % 150, (std::rand() % 50) + 120, std::rand() % 100};
             randomEnemy.picPath = "zucchini_demon_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;
         case 1:
+            // Assel
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 3) + 3;
-            randomEnemy.health = (std::rand() % 20) + 160;
-            randomEnemy.defense = {std::rand() % 255, std::rand() % 255, std::rand() % 255};
+            randomEnemy.health = (std::rand() % 20) + 110;
+            randomEnemy.defense = {(std::rand() % 255), std::rand() % 255, std::rand() % 255};
             randomEnemy.picPath = "assel_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;
         case 2:
+            // Hamster
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 2) + 1;
-            randomEnemy.health = (std::rand() % 15) + 40;
-            randomEnemy.defense = {std::rand() % 100, std::rand() % 100, std::rand() % 100};
+            randomEnemy.health = (std::rand() % 15) + 20;
+            randomEnemy.defense = {(std::rand() % 100) + 100, (std::rand() % 50) + 40, (std::rand() % 100) + 100};
             randomEnemy.picPath = "hamster_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;
         case 3:
+            // Mantis Warrior
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 6) + 11;
             randomEnemy.health = (std::rand() % 15) + 90;
@@ -144,10 +178,11 @@ Enemy FightActivity::initEnemy() {
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;
         case 4:
+            // Flesh-Fungus
             randomEnemy.name = enemyNames[randomNum];
             randomEnemy.attackStrength = (std::rand() % 10) + 7;
-            randomEnemy.health = (std::rand() % 2) + 3;
-            randomEnemy.defense = {std::rand() % 50, std::rand() % 50, std::rand() % 50};
+            randomEnemy.health = (std::rand() % 2) + 20;
+            randomEnemy.defense = {std::rand() % 80, std::rand() % 250, std::rand() % 150};
             randomEnemy.picPath = "hamster_fungus_quer.png";
             randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
             break;

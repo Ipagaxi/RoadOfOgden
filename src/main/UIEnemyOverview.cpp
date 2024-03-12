@@ -4,15 +4,15 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
 
     sf::FloatRect boxRect = this->backgroundBox.getSize();
-    this->backgroundBox.setPosition(windowSize.x * 0.52, (windowSize.y-boxRect.height) * 0.5);
+    this->backgroundBox.setPosition(windowSize.x * 0.51, windowSize.y * 0.1);
     
     float relativeOuterPaddingStatBoxes = 0.05;
     sf::FloatRect statsBoxSize = this->statsComponent.getSize();
     this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, windowSize.y * 0.35);
 
+    this->colorPicker.scale(0.6, 0.6);
     this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
     this->colorPicker.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
-    this->colorPicker.scale(0.6, 0.6);
     sf::Vector2f colorPickerPos = this->colorPicker.getPosition();
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
 
@@ -28,7 +28,7 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
     this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
     creatureFrameRect = this->creatureFrame.getSize();
-    this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.11);
+    this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.14);
 
     sf::Vector2f creatureFramePos = this->creatureFrame.getPosition();
     this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");

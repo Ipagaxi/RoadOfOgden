@@ -41,17 +41,24 @@ class FightActivity: public Activity {
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
     TextFadingManager textFadingManager;
+    sf::Texture playersTurnTX;
+    sf::Texture enemiesTurnTX;
+    sf::Sprite turnSP;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
     int isPlayersTurn;
     bool enemyDamageCalculated = false;
+    bool turnIsChanging = true;
+    sf::RectangleShape turnBanner;
+    sf::RectangleShape transparentLayer;
 
     Enemy initEnemy();
     void runPlayersTurn(GameState &gameState);
     void runEnemiesTurn(GameState &gameState);
     void runDefeat(GameState &gameState);
     void runVictory(GameState &gameState);
+    void changeTurn(GameState &gameState);
 
     // Compute damage multiplier
     float mapInInterval(float value);

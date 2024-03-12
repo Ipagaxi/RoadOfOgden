@@ -59,7 +59,7 @@ void UIColorPicker::scale(float x, float y) {
     sf::Vector2f pos = this->getPosition();
     this->borderSP.scale(sf::Vector2f(x, y));
     this->colorSP.scale(sf::Vector2f(x, y));
-    this->setPosition(pos.x, pos.y);
+    //this->setPosition(pos.x, pos.y);
 }
 
 sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {

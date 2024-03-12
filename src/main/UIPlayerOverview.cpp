@@ -4,7 +4,7 @@ UIPlayerOverview::UIPlayerOverview(GameState &gameState): statsComponent(gameSta
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
 
     sf::FloatRect boxRect = this->backgroundBox.getSize();
-    this->backgroundBox.setPosition(windowSize.x * 0.01, (windowSize.y-boxRect.height) * 0.5);
+    this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
     
     float relativeOuterPaddingStatBoxes = 0.05;
     sf::FloatRect statsBoxSize = this->statsComponent.getSize();
@@ -16,7 +16,7 @@ UIPlayerOverview::UIPlayerOverview(GameState &gameState): statsComponent(gameSta
     float playerBoxScale = (windowSize.x*0.22)/playerFrameRect.width;
     this->playerFrame.scale(playerBoxScale, playerBoxScale);
     playerFrameRect = this->playerFrame.getSize();
-    this->playerFrame.setPosition(statsPos.x + statsSize.width*0.5 - playerFrameRect.width/2.f, windowSize.y * 0.11);
+    this->playerFrame.setPosition(statsPos.x + statsSize.width*0.5 - playerFrameRect.width/2.f, windowSize.y * 0.14);
 
     sf::Vector2f playerFramePos = this->playerFrame.getPosition();
     this->playerBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
