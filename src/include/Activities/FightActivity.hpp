@@ -51,6 +51,7 @@ class FightActivity: public Activity {
     bool enemyDamageCalculated = false;
     bool turnIsChanging = true;
     sf::RectangleShape turnBanner;
+    sf::Text turnBannerText;
     sf::RectangleShape transparentLayer;
 
     Enemy initEnemy();
@@ -58,7 +59,7 @@ class FightActivity: public Activity {
     void runEnemiesTurn(GameState &gameState);
     void runDefeat(GameState &gameState);
     void runVictory(GameState &gameState);
-    void changeTurn(GameState &gameState);
+    void updateTurnChangeState(GameState &gameState);
 
     // Compute damage multiplier
     float mapInInterval(float value);
