@@ -1,4 +1,4 @@
-name: Create Releases
+name: Upload Build Artifacts
 
 on:
   pull_request: 
