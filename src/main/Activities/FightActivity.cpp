@@ -36,7 +36,7 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->transparentLayer.setFillColor(sf::Color(40, 40, 40, 210));
 
     this->turnBanner.setSize(sf::Vector2f(windowSize.x, windowSize.y * 0.2));
-    this->turnBanner.setFillColor(sf::Color(40, 40, 40));
+    this->turnBanner.setFillColor(sf::Color(40, 40, 40, 210));
 
     this->turnBannerText.setFont(gameState.mainFont);
     this->turnBannerText.setCharacterSize(gameState.gameWindow->getSize().y*0.1);
@@ -46,15 +46,14 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 }
 
 void FightActivity::updateTurnChangeState(GameState &gameState) {
-    int changeTimeMillSec = 2000;
-    int bannerMovementime = 500;
+    int changeTimeMillSec = 1000;
+    int bannerMovementime = 300;
     static int pastTimeInMillSec = 0;
     static int pastMovementTime = 0;
     float pastTimeRatio = std::min(pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::FloatRect turnBannerSize = this->turnBanner.getGlobalBounds();
     sf::Vector2f turnBannerPos = sf::Vector2f(-windowSize.x + pastTimeRatio * windowSize.x, (windowSize.y - turnBannerSize.height) * 0.5f);
-    std::cout << "Banner pos X: " << turnBannerPos.x << std::endl;
     this->turnBanner.setPosition(turnBannerPos.x, turnBannerPos.y);
     this->turnBannerText.setPosition(turnBannerPos.x + turnBannerSize.width * 0.5, turnBannerPos.y + turnBannerSize.height * 0.5);
 
@@ -86,7 +85,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
         sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
         sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-        this->textFadingManager.startAnimation(gameState, std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
+        this->textFadingManager.startAnimation(gameState, std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
         this->playerOverview.changeHealth(enemyDamage);
         this->enemyDamageCalculated = true;
     }
@@ -111,7 +110,7 @@ void FightActivity::runPlayersTurn(GameState &gameState) {
         //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         //std::cout << "Damage: " << damage << std::endl;
-        this->textFadingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, 0.15, AnimationPath::Parabel);
+        this->textFadingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
         this->enemyOverview.changeHealth(damage);
     }
     if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
@@ -163,7 +162,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.draw(*gameState.gameWindow);
     this->textFadingManager.run(gameState);
     if (this->turnIsChanging) {
-        window->draw(this->transparentLayer);
+        //window->draw(this->transparentLayer);
         window->draw(this->turnBanner);
         window->draw(this->turnBannerText);
     }

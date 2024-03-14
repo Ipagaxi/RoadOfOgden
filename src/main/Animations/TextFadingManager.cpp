@@ -8,11 +8,10 @@ TextFading::TextFading() {
     this->text.setFillColor(sf::Color::White);
     sf::FloatRect textRec = this->text.getGlobalBounds();
     this->text.setPosition(0., 0.);
-    this->pixelPerMillSec = 0.1;
     this->remainingVisibilty = 0;
 }
 
-TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font, float _pixelPerMilSec) {
+TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font) {
     this->font = _font;
     this->text.setFont(font);
     this->text.setString(text);
@@ -20,7 +19,6 @@ TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, 
     this->text.setFillColor(textColor);
     sf::FloatRect textRec = this->text.getGlobalBounds();
     this->text.setPosition(pos);
-    this->pixelPerMillSec = _pixelPerMilSec;
     this->remainingVisibilty = 0;
 }
 
@@ -96,12 +94,11 @@ void TextFadingManager::run(GameState &gameState) {
     }
 }
 
-void TextFadingManager::startAnimation(GameState &gameState, std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, float pixelPerMillSec, AnimationPath _animationPath) {
+void TextFadingManager::startAnimation(GameState &gameState, std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath _animationPath) {
     this->fadingText.text.setString(text);
     this->fadingText.text.setPosition(pos);
     this->fadingText.text.setFillColor(textColor);
     this->fadingText.text.setCharacterSize(textSize);
-    this->fadingText.pixelPerMillSec = pixelPerMillSec;
     this->fadingText.remainingVisibilty = 255;
     this->fadingText.animationPath = _animationPath;
     this->isRunning = true;
