@@ -16,8 +16,9 @@ UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);
 
-    this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/air_gun.wav");
+    this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/softair.wav");
     this->releaseSound.setBuffer(this->releaseSoundBuffer);
+    this->releaseSound.setPitch(1.5);
 }
 
 UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
