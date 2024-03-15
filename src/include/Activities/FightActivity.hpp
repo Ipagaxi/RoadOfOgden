@@ -12,6 +12,7 @@
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
 #include "Animations/TextFadingManager.hpp"
+#include "Animations/IncomingBanner.hpp"
 #include "UIComponents/UIStats.hpp"
 #include "UI_Objects/UIEnemyOverview.hpp"
 #include "UI_Objects/UIPlayerOverview.hpp"
@@ -44,22 +45,19 @@ class FightActivity: public Activity {
     sf::Texture playersTurnTX;
     sf::Texture enemiesTurnTX;
     sf::Sprite turnSP;
+    IncomingBanner turnChangeBanner;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
     int isPlayersTurn;
     bool enemyDamageCalculated = false;
     bool turnIsChanging = true;
-    sf::RectangleShape turnBanner;
-    sf::Text turnBannerText;
-    sf::RectangleShape transparentLayer;
 
     Enemy initEnemy();
     void runPlayersTurn(GameState &gameState);
     void runEnemiesTurn(GameState &gameState);
     void runDefeat(GameState &gameState);
     void runVictory(GameState &gameState);
-    void updateTurnChangeState(GameState &gameState);
 
     // Compute damage multiplier
     float mapInInterval(float value);

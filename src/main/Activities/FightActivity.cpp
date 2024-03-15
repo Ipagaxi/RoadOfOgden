@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()), playerOverview(gameState) {
+FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()), playerOverview(gameState), turnChangeBanner(gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -24,51 +24,13 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 
     if (this->isPlayersTurn) {
         this->turnSP.setTexture(this->playersTurnTX);
-        this->turnBannerText.setString("Your Turn");
+        this->turnChangeBanner.setNewLabel("Your Turn");
     } else {
         this->turnSP.setTexture(this->enemiesTurnTX);
-        this->turnBannerText.setString("Enemies Turn");
+        this->turnChangeBanner.setNewLabel("Enemies Turn");
     }
     sf::FloatRect turnStateSignSize = this->turnSP.getGlobalBounds();
     this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
-
-    this->transparentLayer.setSize(static_cast<sf::Vector2f>(windowSize));
-    this->transparentLayer.setFillColor(sf::Color(40, 40, 40, 210));
-
-    this->turnBanner.setSize(sf::Vector2f(windowSize.x, windowSize.y * 0.2));
-    this->turnBanner.setFillColor(sf::Color(40, 40, 40, 210));
-
-    this->turnBannerText.setFont(gameState.mainFont);
-    this->turnBannerText.setCharacterSize(gameState.gameWindow->getSize().y*0.1);
-    this->turnBannerText.setFillColor(sf::Color::White);
-    sf::FloatRect textRec = this->turnBannerText.getGlobalBounds();
-    this->turnBannerText.setOrigin(textRec.width/2, textRec.height/2);
-}
-
-void FightActivity::updateTurnChangeState(GameState &gameState) {
-    int changeTimeMillSec = 1000;
-    int bannerMovementime = 300;
-    static int pastTimeInMillSec = 0;
-    static int pastMovementTime = 0;
-    float pastTimeRatio = std::min(pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
-    sf::FloatRect turnBannerSize = this->turnBanner.getGlobalBounds();
-    sf::Vector2f turnBannerPos = sf::Vector2f(-windowSize.x + pastTimeRatio * windowSize.x, (windowSize.y - turnBannerSize.height) * 0.5f);
-    this->turnBanner.setPosition(turnBannerPos.x, turnBannerPos.y);
-    this->turnBannerText.setPosition(turnBannerPos.x + turnBannerSize.width * 0.5, turnBannerPos.y + turnBannerSize.height * 0.5);
-
-    pastTimeInMillSec += gameState.elapsedTime.asMilliseconds();
-    if (pastMovementTime < bannerMovementime) {
-        pastMovementTime += gameState.elapsedTime.asMilliseconds();
-    }
-    if (pastTimeInMillSec >= changeTimeMillSec) {
-        this->turnIsChanging = false;
-        turnBannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - turnBannerSize.height) * 0.5f);
-        this->turnBanner.setPosition(turnBannerPos.x, turnBannerPos.y);
-        this->turnBannerText.setPosition(turnBannerPos.x + turnBannerSize.width * 0.5, turnBannerPos.y + turnBannerSize.height * 0.5);
-        pastTimeInMillSec = 0;
-        pastMovementTime = 0;
-    }
 }
 
 void FightActivity::runEnemiesTurn(GameState &gameState) {
@@ -93,9 +55,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
         this->textFadingManager.fadingText.pastMillSec = 0;
         this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
         this->turnSP.setTexture(this->playersTurnTX);
-        this->turnBannerText.setString("Your Turn");
-        sf::FloatRect turnBannerTextSize = this->turnBannerText.getGlobalBounds();
-        this->turnBannerText.setOrigin(turnBannerTextSize.width * 0.5, turnBannerTextSize.height * 0.5);
+        this->turnChangeBanner.setNewLabel("Your Turn");
         this->turnIsChanging = true;
     }
 }
@@ -118,9 +78,7 @@ void FightActivity::runPlayersTurn(GameState &gameState) {
         this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
         this->enemyDamageCalculated = false;
         this->turnSP.setTexture(this->enemiesTurnTX);
-        this->turnBannerText.setString("Enemies Turn");
-        sf::FloatRect turnBannerTextSize = this->turnBannerText.getGlobalBounds();
-        this->turnBannerText.setOrigin(turnBannerTextSize.width * 0.5, turnBannerTextSize.height * 0.5);
+        this->turnChangeBanner.setNewLabel("Enemies Turn");
         this->turnIsChanging = true;
     }
 }
@@ -139,7 +97,7 @@ void FightActivity::runFight(GameState &gameState) {
     } else if (this->enemyOverview.creature.health == 0) {
         this->runVictory(gameState);
     } else if (this->turnIsChanging) {
-        this->updateTurnChangeState(gameState);
+        this->turnChangeBanner.updateAnimation(gameState, this->turnIsChanging);
     } else if (this->isPlayersTurn) {
         this->runPlayersTurn(gameState);
     } else {
@@ -162,9 +120,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.draw(*gameState.gameWindow);
     this->textFadingManager.run(gameState);
     if (this->turnIsChanging) {
-        //window->draw(this->transparentLayer);
-        window->draw(this->turnBanner);
-        window->draw(this->turnBannerText);
+        this->turnChangeBanner.drawAnimation(*gameState.gameWindow);
     }
 
     if (this->exitButton.clickListener(gameState)) {

@@ -18,13 +18,14 @@ class UIColorPicker: public UIElement {
     sf::Image colorIMG;
 
     sf::SoundBuffer releaseSoundBuffer;
-    sf::Sound releaseSound;
 
     bool pressed;
 
   public:
     UIColorPicker(std::string imagePath, std::string borderPath);
     UIColorPicker(sf::Image image, std::string borderPath);
+
+    sf::Sound releaseSound;
 
     void draw(sf::RenderWindow &window) override;
     void setPosition(float x, float y) override;
