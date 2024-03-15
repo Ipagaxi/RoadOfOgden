@@ -11,7 +11,7 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(), "PnC", sf::Style::Fullscreen);
+    sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
     window.setFramerateLimit(60);
 
     ActivityEnum activity = Fight;

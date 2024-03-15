@@ -16,8 +16,9 @@ UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
     // For a save small overlap
     this->borderSP.scale(0.97, 0.97);
 
-    this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/buttonAlpha2.wav");
+    this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/softair.wav");
     this->releaseSound.setBuffer(this->releaseSoundBuffer);
+    this->releaseSound.setPitch(1.5);
 }
 
 UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
@@ -59,7 +60,7 @@ void UIColorPicker::scale(float x, float y) {
     sf::Vector2f pos = this->getPosition();
     this->borderSP.scale(sf::Vector2f(x, y));
     this->colorSP.scale(sf::Vector2f(x, y));
-    this->setPosition(pos.x, pos.y);
+    //this->setPosition(pos.x, pos.y);
 }
 
 sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {

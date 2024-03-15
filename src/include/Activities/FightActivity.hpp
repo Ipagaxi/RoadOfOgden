@@ -12,9 +12,10 @@
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
 #include "Animations/TextFadingManager.hpp"
+#include "Animations/IncomingBanner.hpp"
 #include "UIComponents/UIStats.hpp"
-#include "UIEnemyOverview.hpp"
-#include "UIPlayerOverview.hpp"
+#include "UI_Objects/UIEnemyOverview.hpp"
+#include "UI_Objects/UIPlayerOverview.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIButton.hpp"
@@ -41,11 +42,16 @@ class FightActivity: public Activity {
     UIEnemyOverview enemyOverview;
     UIPlayerOverview playerOverview;
     TextFadingManager textFadingManager;
+    sf::Texture playersTurnTX;
+    sf::Texture enemiesTurnTX;
+    sf::Sprite turnSP;
+    IncomingBanner turnChangeBanner;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
     int isPlayersTurn;
     bool enemyDamageCalculated = false;
+    bool turnIsChanging = true;
 
     Enemy initEnemy();
     void runPlayersTurn(GameState &gameState);
