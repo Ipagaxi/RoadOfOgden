@@ -5,6 +5,10 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
+    this->backgroundMusic.openFromFile(RESOURCE_PATH "music/fight_background_music.wav");
+    this->backgroundMusic.setLoop(true);
+    this->backgroundMusic.play();
+
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 
@@ -124,6 +128,7 @@ void FightActivity::executeActivity(GameState &gameState) {
     }
 
     if (this->exitButton.clickListener(gameState)) {
+        this->backgroundMusic.stop();
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
         gameState.setCurrentActivity(std::move(menu));
     }

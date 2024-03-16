@@ -10,5 +10,7 @@ GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
 }
 
 void GameState::setCurrentActivity(std::unique_ptr<Activity> newActivity) {
-    currentActivity = std::move(newActivity);
+    std::cout << "set activity called" << std::endl;
+    this->currentActivity.reset();
+    this->currentActivity = std::move(newActivity);
 }

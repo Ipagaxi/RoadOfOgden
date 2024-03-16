@@ -46,6 +46,7 @@ class FightActivity: public Activity {
     sf::Texture enemiesTurnTX;
     sf::Sprite turnSP;
     IncomingBanner turnChangeBanner;
+    sf::Music backgroundMusic;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
