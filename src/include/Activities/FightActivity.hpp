@@ -30,6 +30,7 @@
 class FightActivity: public Activity {
   public:
     FightActivity(GameState &gameState);
+    ~FightActivity();
   
     void executeActivity(GameState &gameState) override;
     void runFight(GameState &gameState);

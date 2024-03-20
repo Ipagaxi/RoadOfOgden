@@ -28,7 +28,6 @@ MenuActivity::MenuActivity(GameState &gameState) {
 }
 
 MenuActivity::~MenuActivity() {
-    std::cout << "Menu Deconstructor called..." << std::endl;
 }
 
 void MenuActivity::executeActivity(GameState &gameState) {
@@ -44,6 +43,7 @@ void MenuActivity::executeActivity(GameState &gameState) {
         this->backgroundMusic.stop();
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
         gameState.setCurrentActivity(std::move(fight));
+
     }
 
     if (buttonExit.clickListener(gameState)) {

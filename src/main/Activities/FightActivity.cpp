@@ -37,6 +37,9 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
 }
 
+FightActivity::~FightActivity() {
+}
+
 void FightActivity::runEnemiesTurn(GameState &gameState) {
     if (!enemyDamageCalculated) {
         this->turnIsChanging = false;
@@ -117,8 +120,8 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
     this->runFight(gameState);
 
-    window->draw(this->backgroundSP);
     window->draw(this->turnSP);
+    window->draw(this->backgroundSP);
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
@@ -130,7 +133,9 @@ void FightActivity::executeActivity(GameState &gameState) {
     if (this->exitButton.clickListener(gameState)) {
         this->backgroundMusic.stop();
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
+        //MenuActivity* menuActivity = new MenuActivity(gameState);
         gameState.setCurrentActivity(std::move(menu));
+        //menu.release();
     }
 }
 
