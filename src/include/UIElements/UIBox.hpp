@@ -17,6 +17,7 @@ class UIBox : UIElement {
         sf::Vector2f getPosition() override;
         sf::FloatRect getSize() override;
         void scale(float x, float y) override;
+        void setBackgroundMargin(float x, float y);
 
     private: 
         sf::RectangleShape backgroundREC;
