@@ -1,8 +1,6 @@
 name: Upload Build Artifacts
 
-on:
-  pull_request: 
-    branches: release
+on: [push]
 
 jobs:
   build:
