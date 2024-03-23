@@ -74,11 +74,11 @@ void UIStats::setPosition(float x, float y) {
     sf::FloatRect actorStatsBoxSize = this->actorStatsBox.getSize();
     float statsLabelPosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.2;
     float statsValuePosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.45;
-    float statsOffsetY = actorStatsBoxSize.height * 0.25;
+    float statsOffsetY = actorStatsBoxSize.height * 0.3;
     float statsSeparationPaddingY = actorStatsBoxSize.height * 0.05;
 
     sf::FloatRect actorNameRec = this->actorName.getGlobalBounds();
-    this->actorName.setPosition(x + (actorStatsBoxSize.width - actorNameRec.width)/2, y + actorStatsBoxSize.height * 0.1);
+    this->actorName.setPosition(x + (actorStatsBoxSize.width - actorNameRec.width)/2, y + actorStatsBoxSize.height * 0.15);
     this->actorHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
     this->actorHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
     this->actorAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);

@@ -23,14 +23,7 @@ int main()
     //generateTexture();
 
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
-    //menu.reset();
-    //MenuActivity* menuActivity = new MenuActivity(gameState);
     gameState.setCurrentActivity(std::move(menu));
-    //menu.release();
-
-    //gameState.backgroundMusic.openFromFile(RESOURCE_PATH "music/menu_background_music.wav");
-    //gameState.backgroundMusic.setLoop(true);
-    //gameState.backgroundMusic.play();
 
     sf::Clock clock;
     sf::Time time;
