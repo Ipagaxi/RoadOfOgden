@@ -30,6 +30,7 @@
 class FightActivity: public Activity {
   public:
     FightActivity(GameState &gameState);
+    ~FightActivity();
   
     void executeActivity(GameState &gameState) override;
     void runFight(GameState &gameState);
@@ -46,6 +47,7 @@ class FightActivity: public Activity {
     sf::Texture enemiesTurnTX;
     sf::Sprite turnSP;
     IncomingBanner turnChangeBanner;
+    sf::Music backgroundMusic;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;

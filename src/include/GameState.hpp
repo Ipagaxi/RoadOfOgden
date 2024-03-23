@@ -21,7 +21,7 @@ class GameState {
     sf::Vector2f pressedPos;
     sf::Vector2f releasedPos;
     sf::Font mainFont;
-    sf::Music backgroundMusic;
+    //sf::Music backgroundMusic;
     sf::RenderWindow* gameWindow;
     sf::Time elapsedTime;
 

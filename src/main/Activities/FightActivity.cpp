@@ -5,6 +5,10 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
+    this->backgroundMusic.openFromFile(RESOURCE_PATH "music/fight_background_music.wav");
+    this->backgroundMusic.setLoop(true);
+    this->backgroundMusic.play();
+
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 
@@ -31,6 +35,9 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
     }
     sf::FloatRect turnStateSignSize = this->turnSP.getGlobalBounds();
     this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
+}
+
+FightActivity::~FightActivity() {
 }
 
 void FightActivity::runEnemiesTurn(GameState &gameState) {
@@ -113,8 +120,8 @@ void FightActivity::executeActivity(GameState &gameState) {
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
     this->runFight(gameState);
 
-    window->draw(this->backgroundSP);
     window->draw(this->turnSP);
+    window->draw(this->backgroundSP);
     this->playerOverview.draw(*window);
     this->enemyOverview.draw(*window);
     this->exitButton.draw(*gameState.gameWindow);
@@ -124,8 +131,11 @@ void FightActivity::executeActivity(GameState &gameState) {
     }
 
     if (this->exitButton.clickListener(gameState)) {
+        this->backgroundMusic.stop();
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
+        //MenuActivity* menuActivity = new MenuActivity(gameState);
         gameState.setCurrentActivity(std::move(menu));
+        //menu.release();
     }
 }
 

@@ -9,6 +9,7 @@ class GameState;
 
 class Activity {
   public:
+    virtual ~Activity();
     virtual void executeActivity(GameState &gameState);
 };
 

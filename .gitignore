@@ -5,3 +5,4 @@ out
 .vs
 .vscode
 project_build
+cmake-build-debug

@@ -7,7 +7,13 @@ UIStats::UIStats(GameState &gameState, Actor actor) {
     sf::Color statsLabelFontColor = sf::Color::White;
     int numStats = 2;
     sf::Vector2f actorStatsBoxPosition = this->actorStatsBox.getPosition();
-    this->statsTextHeight = windowSize.y * 0.015;;
+    this->statsTextHeight = windowSize.y * 0.015;
+
+    float scale = (windowSize.y * 0.4) / this->actorStatsBox.getSize().height;
+    this->actorStatsBox.scale(scale, scale);
+
+    sf::FloatRect actorStatsBoxSize = this->actorStatsBox.getSize();
+    this->actorStatsBox.setBackgroundMargin(actorStatsBoxSize.width * 0.1, actorStatsBoxSize.height * 0.04);
 
     this->actorName.setFont(gameState.mainFont);
     this->actorName.setString(actor.name);
@@ -66,13 +72,13 @@ void UIStats::setPosition(float x, float y) {
 
     sf::Vector2f actorStatsBoxPosition = this->actorStatsBox.getPosition();
     sf::FloatRect actorStatsBoxSize = this->actorStatsBox.getSize();
-    float statsLabelPosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.1;
-    float statsValuePosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.4;
-    float statsOffsetY = actorStatsBoxSize.height * 0.25;
+    float statsLabelPosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.2;
+    float statsValuePosX = actorStatsBoxPosition.x + actorStatsBoxSize.width * 0.45;
+    float statsOffsetY = actorStatsBoxSize.height * 0.3;
     float statsSeparationPaddingY = actorStatsBoxSize.height * 0.05;
 
     sf::FloatRect actorNameRec = this->actorName.getGlobalBounds();
-    this->actorName.setPosition(x + (actorStatsBoxSize.width - actorNameRec.width)/2, y + actorStatsBoxSize.height * 0.1);
+    this->actorName.setPosition(x + (actorStatsBoxSize.width - actorNameRec.width)/2, y + actorStatsBoxSize.height * 0.15);
     this->actorHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
     this->actorHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
     this->actorAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);

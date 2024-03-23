@@ -17,6 +17,7 @@ class MenuActivity: public Activity {
     sf::Sprite backgroundSP;
     sf::Texture buttonsBackgroundTX;
     sf::Sprite buttonsBackgroundSP;
+    sf::Music backgroundMusic;
 
 
     UIButton buttonFight = UIButton("Fight!", "button1/button1.png");
@@ -24,6 +25,7 @@ class MenuActivity: public Activity {
 
   public:
     MenuActivity(GameState &gameState);
+    ~MenuActivity();
 
     void executeActivity(GameState &gameState) override;
 };

@@ -19,7 +19,7 @@ class UIStats: public UIComponent {
         void updateHealth(int value);
     
     private:
-        UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/borderBox.png");
+        UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");
         sf::Text actorName;
         sf::Text actorHealthLabel;
         sf::Text actorAttackStrengthLabel;

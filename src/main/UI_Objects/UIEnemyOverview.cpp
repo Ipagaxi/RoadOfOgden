@@ -4,16 +4,33 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     sf::Vector2u windowSize = gameState.gameWindow->getSize();
 
     sf::FloatRect boxRect = this->backgroundBox.getSize();
-    this->backgroundBox.setPosition(windowSize.x * 0.51, windowSize.y * 0.1);
+    sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
+    this->backgroundBox.setPosition(overviewPos.x, overviewPos.y);
     
     float relativeOuterPaddingStatBoxes = 0.05;
     sf::FloatRect statsBoxSize = this->statsComponent.getSize();
     this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, windowSize.y * 0.35);
 
-    this->colorPicker.scale(0.6, 0.6);
+    sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
+    float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
+    this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
+    creatureFrameRect = this->creatureFrame.getSize();
+    float creatureFrameMargin = boxRect.width * 0.05;
+    sf::Vector2f creatureFramePos = sf::Vector2f(overviewPos.x + creatureFrameMargin, overviewPos.y + creatureFrameMargin);
+    this->creatureFrame.setPosition(creatureFramePos.x, creatureFramePos.y);
+
+    this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
+    this->creatureBackgroundSP.setTexture(this->creatureBackgroundTX);
+    sf::FloatRect creatureBackgroundRect = this->creatureBackgroundSP.getGlobalBounds();
+    this->creatureBackgroundSP.setOrigin(creatureBackgroundRect.width/2.f, creatureBackgroundRect.height/2.f);
+    this->creatureBackgroundSP.setPosition(creatureFramePos.x + creatureFrameRect.width/2.f, creatureFramePos.y + creatureFrameRect.height/2.f);
+    this->creatureBackgroundSP.scale(creatureBoxScale, creatureBoxScale);
+
+    float colorPickerScale = creatureFrameRect.width / colorPicker.getSize().width;
+    this->colorPicker.scale(colorPickerScale, colorPickerScale);
     this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
-    this->colorPicker.setPosition(windowSize.x * 0.6, windowSize.y * 0.35);
-    sf::Vector2f colorPickerPos = this->colorPicker.getPosition();
+    sf::Vector2f colorPickerPos = sf::Vector2f(creatureFramePos.x, creatureFramePos.y  + creatureFrameRect.height + boxRect.height * 0);
+    this->colorPicker.setPosition(colorPickerPos.x, colorPickerPos.y);
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
 
     this->pickedColorText.setFont(gameState.mainFont);
@@ -23,20 +40,6 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     sf::FloatRect textRec = this->pickedColorText.getGlobalBounds();
     this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
     this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
-
-    sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
-    float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
-    this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
-    creatureFrameRect = this->creatureFrame.getSize();
-    this->creatureFrame.setPosition(colorPickerPos.x + colorPickerSize.width*0.5 - creatureFrameRect.width/2.f, windowSize.y * 0.14);
-
-    sf::Vector2f creatureFramePos = this->creatureFrame.getPosition();
-    this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
-    this->creatureBackgroundSP.setTexture(this->creatureBackgroundTX);
-    sf::FloatRect creatureBackgroundRect = this->creatureBackgroundSP.getGlobalBounds();
-    this->creatureBackgroundSP.setOrigin(creatureBackgroundRect.width/2.f, creatureBackgroundRect.height/2.f);
-    this->creatureBackgroundSP.setPosition(creatureFramePos.x + creatureFrameRect.width/2.f, creatureFramePos.y + creatureFrameRect.height/2.f);
-    this->creatureBackgroundSP.scale(creatureBoxScale, creatureBoxScale);
 }
 
 void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {

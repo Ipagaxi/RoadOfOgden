@@ -25,10 +25,6 @@ int main()
     std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
     gameState.setCurrentActivity(std::move(menu));
 
-    gameState.backgroundMusic.openFromFile(RESOURCE_PATH "music/menu_background_music.wav");
-    gameState.backgroundMusic.setLoop(true);
-    gameState.backgroundMusic.play();
-
     sf::Clock clock;
     sf::Time time;
 
@@ -43,7 +39,7 @@ int main()
 
             switch (event.type) {
             case sf::Event::Closed:
-                gameState.backgroundMusic.stop();
+                //gameState.backgroundMusic.stop();
                 window.close();
                 break;
 

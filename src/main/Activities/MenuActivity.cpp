@@ -4,6 +4,10 @@ MenuActivity::MenuActivity(GameState &gameState) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
+    this->backgroundMusic.openFromFile(RESOURCE_PATH "music/menu_background_music.wav");
+    this->backgroundMusic.setLoop(true);
+    this->backgroundMusic.play();
+
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
     //this->buttonsBackgroundSP.setColor(sf::Color(132, 78, 27, 220));
@@ -23,6 +27,9 @@ MenuActivity::MenuActivity(GameState &gameState) {
     this->buttonExit.setPosition((windowSize.x - buttonExitSize.width)*0.5, windowSize.y * 0.72);
 }
 
+MenuActivity::~MenuActivity() {
+}
+
 void MenuActivity::executeActivity(GameState &gameState) {
     sf::RenderWindow *window = gameState.gameWindow;
 
@@ -33,12 +40,15 @@ void MenuActivity::executeActivity(GameState &gameState) {
     this->buttonExit.draw(*gameState.gameWindow);
 
     if (buttonFight.clickListener(gameState)) {
+        this->backgroundMusic.stop();
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
         gameState.setCurrentActivity(std::move(fight));
+
     }
 
     if (buttonExit.clickListener(gameState)) {
-        gameState.backgroundMusic.stop();
+        //gameState.backgroundMusic.stop();
+        this->backgroundMusic.stop();
         gameState.gameWindow->close();
     }
 }

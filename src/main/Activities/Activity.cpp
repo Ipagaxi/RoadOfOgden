@@ -1,7 +1,7 @@
 #include "Activities/Activity.hpp"
 
-
+Activity::~Activity() {
+}
 
 void Activity::executeActivity(GameState &gameState) {
-    std::cout << "Activity is called" << std::endl;
 }
