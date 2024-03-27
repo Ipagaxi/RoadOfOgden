@@ -18,13 +18,15 @@ MenuActivity::MenuActivity(GameState &gameState) {
     this->backgroundSP.scale(backgroundScale);
 
     sf::FloatRect buttonsBackgroundRect = this->buttonsBackgroundSP.getGlobalBounds();
-    this->buttonsBackgroundSP.setPosition((windowSize.x - buttonsBackgroundRect.width)*0.5, (windowSize.y - buttonsBackgroundRect.height)*0.5);
+    sf::Vector2f buttonsBackgroundPos = sf::Vector2f((windowSize.x - buttonsBackgroundRect.width)*0.5, (windowSize.y - buttonsBackgroundRect.height)*0.5);
+    this->buttonsBackgroundSP.setPosition(buttonsBackgroundPos.x, buttonsBackgroundPos.y);
 
-    sf::FloatRect buttonFightSize = this->buttonFight.getSize();
-    this->buttonFight.setPosition((windowSize.x - buttonFightSize.width)*0.5, windowSize.y * 0.65);
+    sf::FloatRect buttonSize = this->buttonFight.getSize();
+    this->buttonFight.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.6);
 
-    sf::FloatRect buttonExitSize = this->buttonExit.getSize();
-    this->buttonExit.setPosition((windowSize.x - buttonExitSize.width)*0.5, windowSize.y * 0.72);
+    this->buttonCharacter.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.68);
+
+    this->buttonExit.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.76);
 }
 
 MenuActivity::~MenuActivity() {
@@ -37,13 +39,19 @@ void MenuActivity::executeActivity(GameState &gameState) {
     window->draw(this->buttonsBackgroundSP);
     
     this->buttonFight.draw(*gameState.gameWindow);
+    this->buttonCharacter.draw(*gameState.gameWindow);
     this->buttonExit.draw(*gameState.gameWindow);
 
     if (buttonFight.clickListener(gameState)) {
         this->backgroundMusic.stop();
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
         gameState.setCurrentActivity(std::move(fight));
+    }
 
+    if (buttonCharacter.clickListener(gameState)) {
+        this->backgroundMusic.stop();
+        std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
+        gameState.setCurrentActivity(std::move(charActivity));
     }
 
     if (buttonExit.clickListener(gameState)) {

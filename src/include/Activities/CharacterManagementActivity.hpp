@@ -2,13 +2,19 @@
 #define CHARACTERMANAGEMENTACTIVITY_HPP
 
 #include "Activities/Activity.hpp"
+#include "Defines.hpp"
+#include "GameState.hpp"
 
 class CharacterManagementActivity : public Activity {
     public :
-        CharacterManagementActivity();
+        CharacterManagementActivity(GameState &gameState);
+
+        void executeActivity(GameState &gameState) override;
 
 
     private :
+        sf::Texture backgroundTX;
+        sf::Sprite backgroundSP;
 };
 
 #endif
