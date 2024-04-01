@@ -3,9 +3,6 @@
 GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) : renderEngine(&window) {
 
     gameWindow = &window;
-    mouseMoved = false;
-    mousePressed = false;
-    mouseReleased = false;
 
     this->mainFont.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
 }

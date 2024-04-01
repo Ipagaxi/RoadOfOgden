@@ -16,12 +16,7 @@
 class GameState {
   public:
     std::unique_ptr<Activity> currentActivity;
-    bool mouseMoved; // Becomes deprecated
-    bool mousePressed; // Becomes deprecated
-    bool mouseReleased; // Becomes deprecated
 
-    sf::Vector2f pressedPos; // Becomes deprecated
-    sf::Vector2f releasedPos; // Becomes deprecated
     sf::Font mainFont;
     //sf::Music backgroundMusic;
     sf::RenderWindow* gameWindow; // Becomes deprecated
