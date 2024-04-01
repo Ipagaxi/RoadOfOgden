@@ -69,7 +69,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
 
 void FightActivity::runPlayersTurn(GameState &gameState) {
     sf::Vector2f clickedPos;
-    if (this->enemyOverview.colorPicker.clickListener(gameState, clickedPos)) {
+    if (this->enemyOverview.colorPicker.clickListener(gameState.gameEvents, clickedPos)) {
         this->turnSP.setTexture(this->playersTurnTX);
         this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
         this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);

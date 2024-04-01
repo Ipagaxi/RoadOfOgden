@@ -73,17 +73,17 @@ sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {
     return this->colorIMG.getPixel(posImg.x, posImg.y);
 }
 
-bool UIColorPicker::clickListener(GameState &gameState, sf::Vector2f &clickedPos) {
-    if (gameState.mousePressed && this->colorSP.getGlobalBounds().contains(gameState.pressedPos)) {
+bool UIColorPicker::clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos) {
+    if (gameEvents.mousePressed && this->colorSP.getGlobalBounds().contains(gameEvents.pressedPos)) {
         this->pressed = true;
-    } else if (gameState.mousePressed){
+    } else if (gameEvents.mousePressed){
         this->pressed = false;
     }
     if (this->pressed) {
-        if (gameState.mouseReleased) {
+        if (gameEvents.mouseReleased) {
             this->pressed = false;
-            if (this->colorSP.getGlobalBounds().contains(gameState.releasedPos)) {
-                clickedPos = sf::Vector2f(gameState.releasedPos.x, gameState.releasedPos.y);
+            if (this->colorSP.getGlobalBounds().contains(gameEvents.releasedPos)) {
+                clickedPos = sf::Vector2f(gameEvents.releasedPos.x, gameEvents.releasedPos.y);
                 this->releaseSound.play();
                 return true;
             }

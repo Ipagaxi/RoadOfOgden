@@ -7,6 +7,7 @@
 
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
+#include "GameEvents.hpp"
 #include "GameState.hpp"
 
 class UIColorPicker: public UIElement {
@@ -33,7 +34,7 @@ class UIColorPicker: public UIElement {
     sf::FloatRect getSize() override;
     void scale(float x, float y) override;
 
-    bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
+    bool clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos);
     sf::Color getPixelColor(sf::Vector2f pos);
     void setColorBox(std::string picPath, std::string borderPath);
 };
