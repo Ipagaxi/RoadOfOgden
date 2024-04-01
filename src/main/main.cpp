@@ -44,21 +44,21 @@ int main()
                 break;
 
             case sf::Event::MouseMoved:
-                gameState.mouseMoved = true;
+                gameState.gameEvents.mouseMoved = true;
                 break;
 
             case sf::Event::MouseButtonPressed:
-                gameState.mousePressed = true;
+                gameState.gameEvents.mousePressed = true;
                 mousePos = sf::Mouse::getPosition(window);
                 mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                gameState.pressedPos = mousePosF;
+                gameState.gameEvents.pressedPos = mousePosF;
                 break;
 
             case sf::Event::MouseButtonReleased:
-                gameState.mouseReleased = true;
+                gameState.gameEvents.mouseReleased = true;
                 mousePos = sf::Mouse::getPosition(window);
                 mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                gameState.releasedPos = mousePosF;
+                gameState.gameEvents.releasedPos = mousePosF;
                 break;
 
             default:
@@ -68,9 +68,9 @@ int main()
         window.clear();
         gameState.currentActivity->executeActivity(gameState);
         window.display();
-        gameState.mousePressed = false;
-        gameState.mouseReleased = false;
-        gameState.mouseMoved = false;
+        gameState.gameEvents.mousePressed = false;
+        gameState.gameEvents.mouseReleased = false;
+        gameState.gameEvents.mouseMoved = false;
     }
     return 0;
 }

@@ -67,16 +67,16 @@ sf::Vector2f UIButton::getPosition() {
 }
 
 
-bool UIButton::buttonContainsMouse(GameState &gameState) {
-    sf::Vector2i mousePos = sf::Mouse::getPosition(*(gameState.gameWindow));
+bool UIButton::buttonContainsMouse(sf::RenderWindow &gameWindow) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
     sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
     return this->buttonSP.getGlobalBounds().contains(mousePosF);
 }
 
 
-void UIButton::hoverListener(GameState &gameState) {
-    if (gameState.mouseMoved) {
-        if(this->buttonContainsMouse(gameState)) {
+void UIButton::hoverListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents) {
+    if (gameEvents.mouseMoved) {
+        if(this->buttonContainsMouse(gameWindow)) {
             this->buttonSP.setTexture(this->hoveredTX);
             this->hovered = true;
         } else {
@@ -88,21 +88,21 @@ void UIButton::hoverListener(GameState &gameState) {
     }
 }
 
-bool UIButton::clickListener(GameState &gameState) {
-    this->hoverListener(gameState);
-    if (gameState.mousePressed && this->buttonSP.getGlobalBounds().contains(gameState.pressedPos)) {
+bool UIButton::clickListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents) {
+    this->hoverListener(gameWindow, gameEvents);
+    if (gameEvents.mousePressed && this->buttonSP.getGlobalBounds().contains(gameEvents.pressedPos)) {
         this->pressSound.play();
         this->pressed = true;
-    } else if (gameState.mousePressed){
+    } else if (gameEvents.mousePressed){
         this->pressed = false;
     }
     if (this->pressed) {
-        if (this->buttonContainsMouse(gameState)) {
+        if (this->buttonContainsMouse(gameWindow)) {
             this->buttonSP.setTexture(this->clickedTX);
         }
-        if (gameState.mouseReleased) {
+        if (gameEvents.mouseReleased) {
             this->pressed = false;
-            if (this->buttonSP.getGlobalBounds().contains(gameState.releasedPos)) {
+            if (this->buttonSP.getGlobalBounds().contains(gameEvents.releasedPos)) {
                 // Sound is attached to button. Therefore, stops when activity changes
                 //this->releaseSound.play();
                 return true;

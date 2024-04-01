@@ -130,7 +130,7 @@ void FightActivity::executeActivity(GameState &gameState) {
         this->turnChangeBanner.drawAnimation(*gameState.gameWindow);
     }
 
-    if (this->exitButton.clickListener(gameState)) {
+    if (this->exitButton.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
         this->backgroundMusic.stop();
         std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
         //MenuActivity* menuActivity = new MenuActivity(gameState);

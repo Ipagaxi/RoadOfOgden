@@ -6,6 +6,7 @@
 #include <string>
 #include <iostream>
 
+#include "GameEvents.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
 #include "GameState.hpp"
@@ -26,8 +27,8 @@ class UIButton: public UIElement {
         sf::Sound releaseSound;
 
         void init(std::string fileName);
-        void hoverListener(GameState &gameState);
-        bool buttonContainsMouse(GameState &gameState);
+        void hoverListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents);
+        bool buttonContainsMouse(sf::RenderWindow &gameWindow);
 
     public:
         sf::Font font;
@@ -37,7 +38,7 @@ class UIButton: public UIElement {
         UIButton(std::string labelText, std::string fileName);
         UIButton(std::string fileName);
 
-        bool clickListener(GameState &gameState);
+        bool clickListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents);
 
         void setPosition(float x, float y) override;
         sf::Vector2f getPosition() override;

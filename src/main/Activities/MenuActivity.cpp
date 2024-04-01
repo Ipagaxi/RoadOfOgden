@@ -42,19 +42,19 @@ void MenuActivity::executeActivity(GameState &gameState) {
     this->buttonCharacter.draw(*gameState.gameWindow);
     this->buttonExit.draw(*gameState.gameWindow);
 
-    if (buttonFight.clickListener(gameState)) {
+    if (buttonFight.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
         this->backgroundMusic.stop();
         std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
         gameState.setCurrentActivity(std::move(fight));
     }
 
-    if (buttonCharacter.clickListener(gameState)) {
+    if (buttonCharacter.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
         this->backgroundMusic.stop();
         std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
         gameState.setCurrentActivity(std::move(charActivity));
     }
 
-    if (buttonExit.clickListener(gameState)) {
+    if (buttonExit.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
         //gameState.backgroundMusic.stop();
         this->backgroundMusic.stop();
         gameState.gameWindow->close();

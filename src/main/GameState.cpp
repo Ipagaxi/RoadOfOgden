@@ -1,6 +1,7 @@
 #include "GameState.hpp"
 
-GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) {
+GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) : renderEngine(&window) {
+
     gameWindow = &window;
     mouseMoved = false;
     mousePressed = false;
