@@ -54,7 +54,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
         sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
         sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-        this->textFadingManager.startAnimation(gameState, std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+        this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
         this->playerOverview.changeHealth(enemyDamage);
         this->enemyDamageCalculated = true;
     }
@@ -77,7 +77,7 @@ void FightActivity::runPlayersTurn(GameState &gameState) {
         //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = gameState.player.attackStrength * attackMultiplier;
         //std::cout << "Damage: " << damage << std::endl;
-        this->textFadingManager.startAnimation(gameState, std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+        this->textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
         this->enemyOverview.changeHealth(damage);
     }
     if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
@@ -112,30 +112,28 @@ void FightActivity::runFight(GameState &gameState) {
     }
 }
 
-void FightActivity::executeActivity(GameState &gameState) {
-    sf::RenderWindow *window = gameState.gameWindow;
-    sf::Vector2u windowSize = window->getSize();
+void FightActivity::executeActivity(GameState &game) {
+    sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
+    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
     sf::FloatRect buttonSize = this->exitButton.getSize();
     
     this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
-    this->runFight(gameState);
+    this->runFight(game);
 
-    window->draw(this->turnSP);
-    window->draw(this->backgroundSP);
-    this->playerOverview.draw(*window);
-    this->enemyOverview.draw(*window);
-    this->exitButton.draw(*gameState.gameWindow);
-    this->textFadingManager.run(gameState);
+    gameWindow->draw(this->turnSP);
+    gameWindow->draw(this->backgroundSP);
+    this->playerOverview.draw(gameWindow);
+    this->enemyOverview.draw(gameWindow);
+    this->exitButton.draw(gameWindow);
+    this->textFadingManager.run(gameWindow, game.gameStatus);
     if (this->turnIsChanging) {
-        this->turnChangeBanner.drawAnimation(*gameState.gameWindow);
+        this->turnChangeBanner.drawAnimation(gameWindow);
     }
 
-    if (this->exitButton.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
+    if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
         this->backgroundMusic.stop();
-        std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
-        //MenuActivity* menuActivity = new MenuActivity(gameState);
-        gameState.setCurrentActivity(std::move(menu));
-        //menu.release();
+        //std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
+        //gameState.setCurrentActivity(std::move(menu));
     }
 }
 

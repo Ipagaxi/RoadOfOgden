@@ -42,12 +42,12 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
 }
 
-void UIEnemyOverview::draw(sf::RenderWindow &gameWindow) {
+void UIEnemyOverview::draw(sf::RenderWindow* gameWindow) {
     this->backgroundBox.draw(gameWindow);
     this->statsComponent.draw(gameWindow);
     this->colorPicker.draw(gameWindow);
-    gameWindow.draw(this->pickedColorText);
-    gameWindow.draw(this->creatureBackgroundSP);
+    gameWindow->draw(this->pickedColorText);
+    gameWindow->draw(this->creatureBackgroundSP);
     this->creatureFrame.draw(gameWindow);
 }
 

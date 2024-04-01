@@ -12,6 +12,7 @@
 #include "Actors/Player.hpp"
 #include "GameEvents.hpp"
 #include "RenderEngine.hpp"
+#include "GameStatus.hpp"
 
 class GameState {
   public:
@@ -23,12 +24,11 @@ class GameState {
     GameEvents gameEvents;
     RenderEngine renderEngine;
     sf::Time elapsedTime;
+    GameStatus gameStatus;
 
     Player player = Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png");
 
     GameState(sf::RenderWindow &window, ActivityEnum activity);
-
-    void setCurrentActivity(std::unique_ptr<Activity> newActivity);
 };
 
 #endif

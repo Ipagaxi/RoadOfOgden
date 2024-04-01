@@ -33,9 +33,9 @@ void UIPlayerOverview::changeHealth(int value) {
     this->statsComponent.updateHealth(newHealth);
 }
 
-void UIPlayerOverview::draw(sf::RenderWindow &gameWindow) {
+void UIPlayerOverview::draw(sf::RenderWindow* gameWindow) {
     this->backgroundBox.draw(gameWindow);
     this->statsComponent.draw(gameWindow);
-    gameWindow.draw(this->playerBackgroundSP);
+    gameWindow->draw(this->playerBackgroundSP);
     this->playerFrame.draw(gameWindow);
 }

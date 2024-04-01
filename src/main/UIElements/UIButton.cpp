@@ -47,9 +47,9 @@ void UIButton::scale(float x, float y) {
     this->label.setCharacterSize(buttonSize.height * 0.5);
 }
 
-void UIButton::draw(sf::RenderWindow &window) {
-    window.draw(this->buttonSP);
-    window.draw(this->label);
+void UIButton::draw(sf::RenderWindow* window) {
+    window->draw(this->buttonSP);
+    window->draw(this->label);
 }
 
 void UIButton::setPosition(float x, float y) {
@@ -67,14 +67,14 @@ sf::Vector2f UIButton::getPosition() {
 }
 
 
-bool UIButton::buttonContainsMouse(sf::RenderWindow &gameWindow) {
-    sf::Vector2i mousePos = sf::Mouse::getPosition(gameWindow);
+bool UIButton::buttonContainsMouse(sf::RenderWindow* gameWindow) {
+    sf::Vector2i mousePos = sf::Mouse::getPosition(*gameWindow);
     sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
     return this->buttonSP.getGlobalBounds().contains(mousePosF);
 }
 
 
-void UIButton::hoverListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents) {
+void UIButton::hoverListener(sf::RenderWindow* gameWindow, GameEvents &gameEvents) {
     if (gameEvents.mouseMoved) {
         if(this->buttonContainsMouse(gameWindow)) {
             this->buttonSP.setTexture(this->hoveredTX);
@@ -88,7 +88,7 @@ void UIButton::hoverListener(sf::RenderWindow &gameWindow, GameEvents &gameEvent
     }
 }
 
-bool UIButton::clickListener(sf::RenderWindow &gameWindow, GameEvents &gameEvents) {
+bool UIButton::clickListener(sf::RenderWindow* gameWindow, GameEvents &gameEvents) {
     this->hoverListener(gameWindow, gameEvents);
     if (gameEvents.mousePressed && this->buttonSP.getGlobalBounds().contains(gameEvents.pressedPos)) {
         this->pressSound.play();

@@ -18,7 +18,7 @@ class UIPlayerOverview {
         Player player;
 
         void changeHealth(int value);
-        void draw(sf::RenderWindow &gameWindow);
+        void draw(sf::RenderWindow* gameWindow);
 
     private:
         UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");

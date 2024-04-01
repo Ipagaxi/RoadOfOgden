@@ -14,7 +14,7 @@ class IncomingBanner {
         void setNewLabel(std::string newLabel);
         void startAnimation();
         void updateAnimation(GameState &gameState, bool &animationRuns);
-        void drawAnimation(sf::RenderWindow &gameWindow);
+        void drawAnimation(sf::RenderWindow* gameWindow);
 
     private:
         sf::RectangleShape banner;

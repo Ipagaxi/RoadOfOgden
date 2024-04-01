@@ -28,7 +28,7 @@ class UIColorPicker: public UIElement {
 
     sf::Sound releaseSound;
 
-    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow* window) override;
     void setPosition(float x, float y) override;
     sf::Vector2f getPosition() override;
     sf::FloatRect getSize() override;

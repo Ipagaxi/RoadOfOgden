@@ -32,31 +32,31 @@ MenuActivity::MenuActivity(GameState &gameState) {
 MenuActivity::~MenuActivity() {
 }
 
-void MenuActivity::executeActivity(GameState &gameState) {
-    sf::RenderWindow *window = gameState.gameWindow;
+void MenuActivity::executeActivity(GameState &game) {
+  sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
 
-    window->draw(this->backgroundSP);
-    window->draw(this->buttonsBackgroundSP);
-    
-    this->buttonFight.draw(*gameState.gameWindow);
-    this->buttonCharacter.draw(*gameState.gameWindow);
-    this->buttonExit.draw(*gameState.gameWindow);
+  gameWindow->draw(this->backgroundSP);
+  gameWindow->draw(this->buttonsBackgroundSP);
 
-    if (buttonFight.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
-        this->backgroundMusic.stop();
-        std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
-        gameState.setCurrentActivity(std::move(fight));
-    }
+  this->buttonFight.draw(gameWindow);
+  this->buttonCharacter.draw(gameWindow);
+  this->buttonExit.draw(gameWindow);
 
-    if (buttonCharacter.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
-        this->backgroundMusic.stop();
-        std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
-        gameState.setCurrentActivity(std::move(charActivity));
-    }
+  if (buttonFight.clickListener(gameWindow, game.gameEvents)) {
+      this->backgroundMusic.stop();
+      //std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
+      //gameState.setCurrentActivity(std::move(fight));
+  }
 
-    if (buttonExit.clickListener(*gameState.renderEngine.gameWindow, gameState.gameEvents)) {
-        //gameState.backgroundMusic.stop();
-        this->backgroundMusic.stop();
-        gameState.gameWindow->close();
-    }
+  if (buttonCharacter.clickListener(gameWindow, game.gameEvents)) {
+      this->backgroundMusic.stop();
+      //std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
+      //gameState.setCurrentActivity(std::move(charActivity));
+  }
+
+  if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
+      //gameState.backgroundMusic.stop();
+      this->backgroundMusic.stop();
+      gameWindow->close();
+  }
 }

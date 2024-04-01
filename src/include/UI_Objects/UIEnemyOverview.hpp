@@ -21,7 +21,7 @@ class UIEnemyOverview {
         
         void changeHealth(int value);
         void updatePickedColorText(std::string newText, sf::Color pickedColor);
-        void draw(sf::RenderWindow &gameWindow);
+        void draw(sf::RenderWindow* gameWindow);
 
     private:
         UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");

@@ -5,7 +5,7 @@ CharacterManagementActivity::CharacterManagementActivity(GameState &gameState) {
     this->backgroundSP.setTexture(this->backgroundTX);
 }
 
-void CharacterManagementActivity::executeActivity(GameState &gameState) {
-    sf::RenderWindow *window = gameState.gameWindow;
+void CharacterManagementActivity::executeActivity(GameState &game) {
+    sf::RenderWindow *window = game.gameWindow;
     window->draw(this->backgroundSP);
 }

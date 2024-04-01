@@ -6,7 +6,3 @@ GameState::GameState(sf::RenderWindow &window, ActivityEnum activity) : renderEn
 
     this->mainFont.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
 }
-
-void GameState::setCurrentActivity(std::unique_ptr<Activity> newActivity) {
-    this->currentActivity = std::move(newActivity);
-}

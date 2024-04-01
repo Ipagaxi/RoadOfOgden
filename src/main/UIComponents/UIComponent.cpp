@@ -1,6 +1,6 @@
 #include "UIComponents/UIComponent.hpp"
 
-void UIComponent::draw(sf::RenderWindow &gameWindow) {
+void UIComponent::draw(sf::RenderWindow* gameWindow) {
 
 }
 

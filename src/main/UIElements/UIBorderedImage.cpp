@@ -16,9 +16,9 @@ UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFi
     this->borderSP.scale(0.97, 0.97);
 }
 
-void UIBorderedImage::draw(sf::RenderWindow &gameWindow) {
-    gameWindow.draw(this->imageSP);
-    gameWindow.draw(this->borderSP);
+void UIBorderedImage::draw(sf::RenderWindow* gameWindow) {
+    gameWindow->draw(this->imageSP);
+    gameWindow->draw(this->borderSP);
 }
 
 void UIBorderedImage::setPosition(float x, float y) {

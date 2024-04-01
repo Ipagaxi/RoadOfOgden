@@ -3,5 +3,5 @@
 Activity::~Activity() {
 }
 
-void Activity::executeActivity(GameState &gameState) {
+void Activity::executeActivity(GameState &game) {
 }

@@ -54,7 +54,7 @@ void IncomingBanner::updateAnimation(GameState &gameState, bool &animationRuns) 
     }
 }
 
-void IncomingBanner::drawAnimation(sf::RenderWindow &gameWindow) {
-    gameWindow.draw(this->banner);
-    gameWindow.draw(this->bannerText);
+void IncomingBanner::drawAnimation(sf::RenderWindow* gameWindow) {
+    gameWindow->draw(this->banner);
+    gameWindow->draw(this->bannerText);
 }

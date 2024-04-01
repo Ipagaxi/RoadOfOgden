@@ -11,7 +11,7 @@ class UIStats: public UIComponent {
     public:
         UIStats(GameState &gameState, Actor actor);
 
-        void draw(sf::RenderWindow &gameWindow) override;
+        void draw(sf::RenderWindow* gameWindow) override;
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;
         sf::FloatRect getSize() override;

@@ -8,6 +8,9 @@
 #include "GenerateColorIMG.hpp"
 
 
+void setCurrentActivity(std::unique_ptr<Activity> newActivity) {
+  std::unique_ptr<Activity> currentActivity = std::move(newActivity);
+}
 
 int main()
 {
@@ -22,8 +25,7 @@ int main()
 
     //generateTexture();
 
-    std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
-    gameState.setCurrentActivity(std::move(menu));
+    std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(gameState);
 
     sf::Clock clock;
     sf::Time time;
@@ -32,7 +34,7 @@ int main()
         sf::Event event;
 
         time = clock.restart();
-        gameState.elapsedTime = time;
+        gameState.gameStatus.elapsedTime = time;
         //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
 
         while (window.pollEvent(event)) {
@@ -66,7 +68,7 @@ int main()
             }
         }
         window.clear();
-        gameState.currentActivity->executeActivity(gameState);
+        currentActivity->executeActivity(gameState);
         window.display();
         gameState.gameEvents.mousePressed = false;
         gameState.gameEvents.mouseReleased = false;

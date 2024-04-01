@@ -53,15 +53,15 @@ UIStats::UIStats(GameState &gameState, Actor actor) {
     this->setPosition(0., 0.);
 }
 
-void UIStats::draw(sf::RenderWindow &gameWindow) {
+void UIStats::draw(sf::RenderWindow* gameWindow) {
     this->actorStatsBox.draw(gameWindow);
-    gameWindow.draw(this->actorName);
-    gameWindow.draw(this->actorHealthLabel);
-    gameWindow.draw(this->actorHealthValue);
-    gameWindow.draw(this->actorAttackStrengthLabel);
-    gameWindow.draw(this->actorAttackStrengthValue);
-    gameWindow.draw(this->actorRGBDefenseLabel);
-    gameWindow.draw(this->actorRGBDefenseValues);
+    gameWindow->draw(this->actorName);
+    gameWindow->draw(this->actorHealthLabel);
+    gameWindow->draw(this->actorHealthValue);
+    gameWindow->draw(this->actorAttackStrengthLabel);
+    gameWindow->draw(this->actorAttackStrengthValue);
+    gameWindow->draw(this->actorRGBDefenseLabel);
+    gameWindow->draw(this->actorRGBDefenseValues);
 }
 
 sf::Vector2f UIStats::getPosition() {

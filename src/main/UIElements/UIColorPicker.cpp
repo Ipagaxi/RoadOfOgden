@@ -37,9 +37,9 @@ UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
     this->colorIMG = image;
 }
 
-void UIColorPicker::draw(sf::RenderWindow &window) {
-    window.draw(this->colorSP);
-    window.draw(this->borderSP);
+void UIColorPicker::draw(sf::RenderWindow* window) {
+    window->draw(this->colorSP);
+    window->draw(this->borderSP);
 }
 
 void UIColorPicker::setPosition(float x, float y) {
