@@ -17,7 +17,7 @@ class MenuActivity: public Activity {
     MenuActivity(GameState &gameState);
     ~MenuActivity();
 
-    void executeActivity(GameState &game) override;
+    ActivityEnum executeActivity(GameState &game) override;
 
   private:
     sf::Texture backgroundTX;

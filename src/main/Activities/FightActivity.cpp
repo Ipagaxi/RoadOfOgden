@@ -112,29 +112,31 @@ void FightActivity::runFight(GameState &gameState) {
     }
 }
 
-void FightActivity::executeActivity(GameState &game) {
-    sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
-    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
-    sf::FloatRect buttonSize = this->exitButton.getSize();
-    
-    this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
-    this->runFight(game);
+ActivityEnum FightActivity::executeActivity(GameState &game) {
+  sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
+  sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
+  sf::FloatRect buttonSize = this->exitButton.getSize();
+  ActivityEnum currentActivity = ActivityEnum::Fight;
 
-    gameWindow->draw(this->turnSP);
-    gameWindow->draw(this->backgroundSP);
-    this->playerOverview.draw(gameWindow);
-    this->enemyOverview.draw(gameWindow);
-    this->exitButton.draw(gameWindow);
-    this->textFadingManager.run(gameWindow, game.gameStatus);
-    if (this->turnIsChanging) {
-        this->turnChangeBanner.drawAnimation(gameWindow);
-    }
+  this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
+  this->runFight(game);
 
-    if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
-        this->backgroundMusic.stop();
-        //std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
-        //gameState.setCurrentActivity(std::move(menu));
-    }
+  gameWindow->draw(this->turnSP);
+  gameWindow->draw(this->backgroundSP);
+  this->playerOverview.draw(gameWindow);
+  this->enemyOverview.draw(gameWindow);
+  this->exitButton.draw(gameWindow);
+  this->textFadingManager.run(gameWindow, game.gameStatus);
+  if (this->turnIsChanging) {
+    this->turnChangeBanner.drawAnimation(gameWindow);
+  }
+
+  if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
+    this->backgroundMusic.stop();
+    //std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
+    //gameState.setCurrentActivity(std::move(menu));
+    currentActivity = ActivityEnum::Menu;
+  }
 }
 
 Enemy FightActivity::initEnemy() {

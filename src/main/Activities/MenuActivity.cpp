@@ -32,8 +32,10 @@ MenuActivity::MenuActivity(GameState &gameState) {
 MenuActivity::~MenuActivity() {
 }
 
-void MenuActivity::executeActivity(GameState &game) {
+ActivityEnum MenuActivity::executeActivity(GameState &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
+
+  ActivityEnum currentActivity = ActivityEnum::Menu;
 
   gameWindow->draw(this->backgroundSP);
   gameWindow->draw(this->buttonsBackgroundSP);
@@ -46,12 +48,14 @@ void MenuActivity::executeActivity(GameState &game) {
       this->backgroundMusic.stop();
       //std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
       //gameState.setCurrentActivity(std::move(fight));
+      currentActivity = ActivityEnum::Fight;
   }
 
   if (buttonCharacter.clickListener(gameWindow, game.gameEvents)) {
       this->backgroundMusic.stop();
       //std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
       //gameState.setCurrentActivity(std::move(charActivity));
+      currentActivity = ActivityEnum::Character;
   }
 
   if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
@@ -59,4 +63,5 @@ void MenuActivity::executeActivity(GameState &game) {
       this->backgroundMusic.stop();
       gameWindow->close();
   }
+  return currentActivity;
 }

@@ -32,7 +32,7 @@ class FightActivity: public Activity {
     FightActivity(GameState &gameState);
     ~FightActivity();
   
-    void executeActivity(GameState &game) override;
+    ActivityEnum executeActivity(GameState &game) override;
     void runFight(GameState &gameState);
 
   private:

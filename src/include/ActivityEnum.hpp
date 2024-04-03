@@ -3,7 +3,8 @@
 
 enum ActivityEnum {
     Fight,
-    Menu
+    Menu,
+    Character
 };
 
 #endif

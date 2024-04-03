@@ -5,7 +5,10 @@ CharacterManagementActivity::CharacterManagementActivity(GameState &gameState) {
     this->backgroundSP.setTexture(this->backgroundTX);
 }
 
-void CharacterManagementActivity::executeActivity(GameState &game) {
-    sf::RenderWindow *window = game.gameWindow;
-    window->draw(this->backgroundSP);
+ActivityEnum CharacterManagementActivity::executeActivity(GameState &game) {
+  ActivityEnum currentActivity = ActivityEnum::Character;
+
+  sf::RenderWindow *window = game.gameWindow;
+  window->draw(this->backgroundSP);
+  return currentActivity;
 }

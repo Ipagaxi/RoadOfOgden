@@ -9,7 +9,7 @@ class CharacterManagementActivity : public Activity {
     public :
         CharacterManagementActivity(GameState &gameState);
 
-        void executeActivity(GameState &game) override;
+        ActivityEnum executeActivity(GameState &game) override;
 
 
     private :

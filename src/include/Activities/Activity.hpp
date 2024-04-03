@@ -5,13 +5,14 @@
 #include <string>
 #include <iostream>
 #include "GameEvents.hpp"
+#include "ActivityEnum.hpp"
 
 class GameState;
 
 class Activity {
   public:
     virtual ~Activity();
-    virtual void executeActivity(GameState &game);
+    virtual ActivityEnum executeActivity(GameState &game);
 };
 
 #endif

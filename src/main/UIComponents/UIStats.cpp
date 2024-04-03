@@ -2,7 +2,7 @@
 
 
 UIStats::UIStats(GameState &gameState, Actor actor) {
-    sf::Vector2u windowSize = gameState.gameWindow->getSize();
+    sf::Vector2u windowSize = gameState.renderEngine.gameWindow->getSize();
     sf::Color statsValueFontColor = sf::Color::Yellow;
     sf::Color statsLabelFontColor = sf::Color::White;
     int numStats = 2;
