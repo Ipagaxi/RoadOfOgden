@@ -40,9 +40,7 @@ void UIBox::scale(float x, float y) {
 void UIBox::setBackgroundMargin(float x, float y) {
     sf::Vector2f backgroundRECSize = this->backgroundREC.getSize();
     sf::Vector2f currentScale = this->backgroundREC.getScale();
-    std::cout << "Stats size (old): " << backgroundRECSize.x << ", " << backgroundRECSize.y << std::endl;
     sf::Vector2f newSize = sf::Vector2f(backgroundRECSize.x - (2*x / currentScale.x), backgroundRECSize.y - (2*y / currentScale.y));
-    std::cout << "Stats size (new): " << newSize.x << ", "  << newSize.y << std::endl;
     this->backgroundREC.setSize(newSize);
     this->backgroundREC.setOrigin(newSize.x * 0.5, newSize.y * 0.5);
 }

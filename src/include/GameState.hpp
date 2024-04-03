@@ -23,7 +23,6 @@ class GameState {
     sf::RenderWindow* gameWindow; // Becomes deprecated
     GameEvents gameEvents;
     RenderEngine renderEngine;
-    sf::Time elapsedTime;
     GameStatus gameStatus;
 
     Player player = Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png");

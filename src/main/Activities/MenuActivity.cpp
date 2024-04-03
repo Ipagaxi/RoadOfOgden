@@ -10,7 +10,6 @@ MenuActivity::MenuActivity(GameState &gameState) {
 
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
-    //this->buttonsBackgroundSP.setColor(sf::Color(132, 78, 27, 220));
 
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
@@ -46,24 +45,17 @@ ActivityEnum MenuActivity::executeActivity(GameState &game) {
 
   if (buttonFight.clickListener(gameWindow, game.gameEvents)) {
       this->backgroundMusic.stop();
-      //std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
-      //gameState.setCurrentActivity(std::move(fight));
-      std::cout << "Button clicked" << std::endl;
       currentActivity = ActivityEnum::Fight;
   }
 
   if (buttonCharacter.clickListener(gameWindow, game.gameEvents)) {
       this->backgroundMusic.stop();
-      //std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
-      //gameState.setCurrentActivity(std::move(charActivity));
-      std::cout << "Button clicked" << std::endl;
       currentActivity = ActivityEnum::Character;
   }
 
   if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
       //gameState.backgroundMusic.stop();
       this->backgroundMusic.stop();
-      std::cout << "Button clicked" << std::endl;
       gameWindow->close();
   }
   return currentActivity;

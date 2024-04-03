@@ -29,71 +29,70 @@ std::unique_ptr<Activity> setCurrentActivity(GameState &gameState, ActivityEnum 
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
-    window.setFramerateLimit(60);
+  sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
+  window.setFramerateLimit(60);
 
-    GameState game = GameState(window, Fight);
+  GameState game = GameState(window, Fight);
 
-    sf::Vector2i mousePos;
-    sf::Vector2f mousePosF;
+  sf::Vector2i mousePos;
+  sf::Vector2f mousePosF;
 
-    //generateTexture();
+  //generateTexture();
 
-    std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(game);
-    ActivityEnum currentActivityEnum = ActivityEnum::Menu;
-    ActivityEnum oldActivityEnum = ActivityEnum::Menu;
+  std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(game);
+  ActivityEnum currentActivityEnum = ActivityEnum::Menu;
+  ActivityEnum oldActivityEnum = ActivityEnum::Menu;
 
-    sf::Clock clock;
-    sf::Time time;
+  sf::Clock clock;
+  sf::Time time;
 
-    while (window.isOpen()) {
-        sf::Event event;
+  while (window.isOpen()) {
+    sf::Event event;
 
-        time = clock.restart();
-      game.gameStatus.elapsedTime = time;
-        //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
+    time = clock.restart();
+    game.gameStatus.elapsedTime = time;
+    //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
 
-        while (window.pollEvent(event)) {
+    while (window.pollEvent(event)) {
 
-            switch (event.type) {
-            case sf::Event::Closed:
-                //game.backgroundMusic.stop();
-                window.close();
-                break;
+        switch (event.type) {
+        case sf::Event::Closed:
+            //game.backgroundMusic.stop();
+            window.close();
+            break;
 
-            case sf::Event::MouseMoved:
-              game.gameEvents.mouseMoved = true;
-                break;
+        case sf::Event::MouseMoved:
+          game.gameEvents.mouseMoved = true;
+            break;
 
-            case sf::Event::MouseButtonPressed:
-              game.gameEvents.mousePressed = true;
-                mousePos = sf::Mouse::getPosition(window);
-                mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                game.gameEvents.pressedPos = mousePosF;
-                break;
+        case sf::Event::MouseButtonPressed:
+          game.gameEvents.mousePressed = true;
+            mousePos = sf::Mouse::getPosition(window);
+            mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+            game.gameEvents.pressedPos = mousePosF;
+            break;
 
-            case sf::Event::MouseButtonReleased:
-              game.gameEvents.mouseReleased = true;
-                mousePos = sf::Mouse::getPosition(window);
-                mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                game.gameEvents.releasedPos = mousePosF;
-                break;
+        case sf::Event::MouseButtonReleased:
+          game.gameEvents.mouseReleased = true;
+            mousePos = sf::Mouse::getPosition(window);
+            mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+            game.gameEvents.releasedPos = mousePosF;
+            break;
 
-            default:
-                break;
-            }
+        default:
+            break;
         }
-        window.clear();
-        std::cout << "Mouse pressed: " << game.gameEvents.mousePressed << std::endl;
-        currentActivityEnum = currentActivity->executeActivity(game);
-        if (currentActivityEnum != oldActivityEnum) {
-          currentActivity = std::move(setCurrentActivity(game, currentActivityEnum));
-          oldActivityEnum = currentActivityEnum;
-        }
-        window.display();
-      game.gameEvents.mousePressed = false;
-      game.gameEvents.mouseReleased = false;
-      game.gameEvents.mouseMoved = false;
     }
-    return 0;
+    window.clear();
+    currentActivityEnum = currentActivity->executeActivity(game);
+    if (currentActivityEnum != oldActivityEnum) {
+      currentActivity = std::move(setCurrentActivity(game, currentActivityEnum));
+      oldActivityEnum = currentActivityEnum;
+    }
+    window.display();
+    game.gameEvents.mousePressed = false;
+    game.gameEvents.mouseReleased = false;
+    game.gameEvents.mouseMoved = false;
+  }
+  return 0;
 }

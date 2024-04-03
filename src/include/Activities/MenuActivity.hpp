@@ -7,7 +7,6 @@
 
 #include "Activities/Activity.hpp"
 #include "GameState.hpp"
-#include "Activities/FightActivity.hpp"
 #include "Activities/CharacterManagementActivity.hpp"
 #include "Defines.hpp"
 #include "UIElements/UIButton.hpp"

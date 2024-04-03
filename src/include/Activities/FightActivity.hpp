@@ -16,7 +16,6 @@
 #include "UIComponents/UIStats.hpp"
 #include "UI_Objects/UIEnemyOverview.hpp"
 #include "UI_Objects/UIPlayerOverview.hpp"
-#include "Activities/MenuActivity.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIButton.hpp"
 #include "UIElements/UIBox.hpp"
@@ -33,7 +32,7 @@ class FightActivity: public Activity {
     ~FightActivity();
   
     ActivityEnum executeActivity(GameState &game) override;
-    void runFight(GameState &gameState);
+    void runFight(GameState &game);
 
   private:
     sf::Texture backgroundTX;
@@ -56,7 +55,7 @@ class FightActivity: public Activity {
     bool turnIsChanging = true;
 
     Enemy initEnemy();
-    void runPlayersTurn(GameState &gameState);
+    void runPlayersTurn(GameState &game);
     void runEnemiesTurn(GameState &gameState);
     void runDefeat(GameState &gameState);
     void runVictory(GameState &gameState);

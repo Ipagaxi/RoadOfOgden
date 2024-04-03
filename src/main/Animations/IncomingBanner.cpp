@@ -40,9 +40,9 @@ void IncomingBanner::updateAnimation(GameState &gameState, bool &animationRuns) 
     this->banner.setPosition(bannerPos.x, bannerPos.y);
     this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
 
-    pastTimeInMillSec += gameState.elapsedTime.asMilliseconds();
+    pastTimeInMillSec += gameState.gameStatus.elapsedTime.asMilliseconds();
     if (pastMovementTime < bannerMovementime) {
-        pastMovementTime += gameState.elapsedTime.asMilliseconds();
+        pastMovementTime += gameState.gameStatus.elapsedTime.asMilliseconds();
     }
     if (pastTimeInMillSec >= changeTimeMillSec) {
         animationRuns = false;
