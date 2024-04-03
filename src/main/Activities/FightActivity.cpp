@@ -137,6 +137,7 @@ ActivityEnum FightActivity::executeActivity(GameState &game) {
     //gameState.setCurrentActivity(std::move(menu));
     currentActivity = ActivityEnum::Menu;
   }
+  return currentActivity;
 }
 
 Enemy FightActivity::initEnemy() {

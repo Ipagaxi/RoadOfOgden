@@ -48,6 +48,7 @@ ActivityEnum MenuActivity::executeActivity(GameState &game) {
       this->backgroundMusic.stop();
       //std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
       //gameState.setCurrentActivity(std::move(fight));
+      std::cout << "Button clicked" << std::endl;
       currentActivity = ActivityEnum::Fight;
   }
 
@@ -55,12 +56,14 @@ ActivityEnum MenuActivity::executeActivity(GameState &game) {
       this->backgroundMusic.stop();
       //std::unique_ptr<CharacterManagementActivity> charActivity = std::make_unique<CharacterManagementActivity>(gameState);
       //gameState.setCurrentActivity(std::move(charActivity));
+      std::cout << "Button clicked" << std::endl;
       currentActivity = ActivityEnum::Character;
   }
 
   if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
       //gameState.backgroundMusic.stop();
       this->backgroundMusic.stop();
+      std::cout << "Button clicked" << std::endl;
       gameWindow->close();
   }
   return currentActivity;

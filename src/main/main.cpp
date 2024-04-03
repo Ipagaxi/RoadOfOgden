@@ -6,10 +6,25 @@
 #include "Activities/FightActivity.hpp"
 #include "Activities/MenuActivity.hpp"
 #include "GenerateColorIMG.hpp"
+#include "ActivityEnum.hpp"
 
 
-void setCurrentActivity(std::unique_ptr<Activity> newActivity) {
-  std::unique_ptr<Activity> currentActivity = std::move(newActivity);
+std::unique_ptr<Activity> setCurrentActivity(GameState &gameState, ActivityEnum newActivityEnum) {
+  std::unique_ptr<Activity> newActivity;
+  switch (newActivityEnum) {
+    case ActivityEnum::Menu:
+      newActivity = std::move(std::make_unique<MenuActivity>(gameState));
+      break;
+    case ActivityEnum::Fight:
+      newActivity = std::move(std::make_unique<FightActivity>(gameState));
+      break;
+    case ActivityEnum::Character:
+      newActivity = std::move(std::make_unique<CharacterManagementActivity>(gameState));
+      break;
+    default:
+      break;
+  }
+  return newActivity;
 }
 
 int main()
@@ -17,15 +32,16 @@ int main()
     sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
     window.setFramerateLimit(60);
 
-    ActivityEnum activity = Fight;
-    GameState gameState = GameState(window, Fight);
+    GameState game = GameState(window, Fight);
 
-    sf::Vector2i mousePos;            
+    sf::Vector2i mousePos;
     sf::Vector2f mousePosF;
 
     //generateTexture();
 
-    std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(gameState);
+    std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(game);
+    ActivityEnum currentActivityEnum = ActivityEnum::Menu;
+    ActivityEnum oldActivityEnum = ActivityEnum::Menu;
 
     sf::Clock clock;
     sf::Time time;
@@ -34,33 +50,33 @@ int main()
         sf::Event event;
 
         time = clock.restart();
-        gameState.gameStatus.elapsedTime = time;
+      game.gameStatus.elapsedTime = time;
         //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
 
         while (window.pollEvent(event)) {
 
             switch (event.type) {
             case sf::Event::Closed:
-                //gameState.backgroundMusic.stop();
+                //game.backgroundMusic.stop();
                 window.close();
                 break;
 
             case sf::Event::MouseMoved:
-                gameState.gameEvents.mouseMoved = true;
+              game.gameEvents.mouseMoved = true;
                 break;
 
             case sf::Event::MouseButtonPressed:
-                gameState.gameEvents.mousePressed = true;
+              game.gameEvents.mousePressed = true;
                 mousePos = sf::Mouse::getPosition(window);
                 mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                gameState.gameEvents.pressedPos = mousePosF;
+                game.gameEvents.pressedPos = mousePosF;
                 break;
 
             case sf::Event::MouseButtonReleased:
-                gameState.gameEvents.mouseReleased = true;
+              game.gameEvents.mouseReleased = true;
                 mousePos = sf::Mouse::getPosition(window);
                 mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-                gameState.gameEvents.releasedPos = mousePosF;
+                game.gameEvents.releasedPos = mousePosF;
                 break;
 
             default:
@@ -68,11 +84,16 @@ int main()
             }
         }
         window.clear();
-        currentActivity->executeActivity(gameState);
+        std::cout << "Mouse pressed: " << game.gameEvents.mousePressed << std::endl;
+        currentActivityEnum = currentActivity->executeActivity(game);
+        if (currentActivityEnum != oldActivityEnum) {
+          currentActivity = std::move(setCurrentActivity(game, currentActivityEnum));
+          oldActivityEnum = currentActivityEnum;
+        }
         window.display();
-        gameState.gameEvents.mousePressed = false;
-        gameState.gameEvents.mouseReleased = false;
-        gameState.gameEvents.mouseMoved = false;
+      game.gameEvents.mousePressed = false;
+      game.gameEvents.mouseReleased = false;
+      game.gameEvents.mouseMoved = false;
     }
     return 0;
 }
