@@ -9,7 +9,7 @@
 #include "GameEvents.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 
 class UIButton: public UIElement {
     private:

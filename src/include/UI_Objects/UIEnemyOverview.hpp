@@ -9,11 +9,11 @@
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIElements/UIBox.hpp"
 #include "Actors/Enemy.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 
 class UIEnemyOverview {
     public:
-        UIEnemyOverview(GameState &gameState, Enemy enemy);
+        UIEnemyOverview(Game &game, Enemy enemy);
         
         Enemy creature;
         UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");

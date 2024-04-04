@@ -1,6 +1,6 @@
 #include "Activities/MenuActivity.hpp"
 
-MenuActivity::MenuActivity(GameState &gameState) {
+MenuActivity::MenuActivity(Game &game) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -11,7 +11,7 @@ MenuActivity::MenuActivity(GameState &gameState) {
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
 
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.renderEngine.gameWindow->getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
@@ -31,7 +31,7 @@ MenuActivity::MenuActivity(GameState &gameState) {
 MenuActivity::~MenuActivity() {
 }
 
-ActivityEnum MenuActivity::executeActivity(GameState &game) {
+ActivityEnum MenuActivity::executeActivity(Game &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
 
   ActivityEnum currentActivity = ActivityEnum::Menu;
@@ -54,7 +54,7 @@ ActivityEnum MenuActivity::executeActivity(GameState &game) {
   }
 
   if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
-      //gameState.backgroundMusic.stop();
+      //game.backgroundMusic.stop();
       this->backgroundMusic.stop();
       gameWindow->close();
   }

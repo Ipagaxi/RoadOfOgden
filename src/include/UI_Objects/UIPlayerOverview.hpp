@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIComponents/UIStats.hpp"
@@ -12,7 +12,7 @@
 
 class UIPlayerOverview {
     public:
-        UIPlayerOverview(GameState &gameState);
+        UIPlayerOverview(Game &game);
 
         UIBorderedImage playerFrame;
         Player player;

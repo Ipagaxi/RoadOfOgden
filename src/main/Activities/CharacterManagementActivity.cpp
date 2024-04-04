@@ -1,11 +1,11 @@
 #include "Activities/CharacterManagementActivity.hpp"
 
-CharacterManagementActivity::CharacterManagementActivity(GameState &gameState) {
+CharacterManagementActivity::CharacterManagementActivity(Game &game) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 }
 
-ActivityEnum CharacterManagementActivity::executeActivity(GameState &game) {
+ActivityEnum CharacterManagementActivity::executeActivity(Game &game) {
   ActivityEnum currentActivity = ActivityEnum::Character;
 
   sf::RenderWindow *window = game.renderEngine.gameWindow;

@@ -21,18 +21,18 @@
 #include "UIElements/UIBox.hpp"
 #include "Actors/Player.hpp"
 #include "PerlinNoise.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "Defines.hpp"
 #include "Actors/Enemy.hpp"
 #include "Color.hpp"
 
 class FightActivity: public Activity {
   public:
-    FightActivity(GameState &gameState);
+    FightActivity(Game &game);
     ~FightActivity();
   
-    ActivityEnum executeActivity(GameState &game) override;
-    void runFight(GameState &game);
+    ActivityEnum executeActivity(Game &game) override;
+    void runFight(Game &game);
 
   private:
     sf::Texture backgroundTX;
@@ -55,10 +55,10 @@ class FightActivity: public Activity {
     bool turnIsChanging = true;
 
     Enemy initEnemy();
-    void runPlayersTurn(GameState &game);
-    void runEnemiesTurn(GameState &gameState);
-    void runDefeat(GameState &gameState);
-    void runVictory(GameState &gameState);
+    void runPlayersTurn(Game &game);
+    void runEnemiesTurn(Game &game);
+    void runDefeat(Game &game);
+    void runVictory(Game &game);
 
     // Compute damage multiplier
     float mapInInterval(float value);

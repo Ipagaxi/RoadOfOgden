@@ -1,7 +1,7 @@
 #include "UI_Objects/UIEnemyOverview.hpp"
 
-UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsComponent(gameState, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
-    sf::Vector2u windowSize = gameState.renderEngine.gameWindow->getSize();
+UIEnemyOverview::UIEnemyOverview(Game &game, Enemy enemy): statsComponent(game, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
+    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
 
     sf::FloatRect boxRect = this->backgroundBox.getSize();
     sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
@@ -33,9 +33,9 @@ UIEnemyOverview::UIEnemyOverview(GameState &gameState, Enemy enemy): statsCompon
     this->colorPicker.setPosition(colorPickerPos.x, colorPickerPos.y);
     sf::FloatRect colorPickerSize = this->colorPicker.getSize();
 
-    this->pickedColorText.setFont(gameState.mainFont);
+    this->pickedColorText.setFont(game.mainFont);
     this->pickedColorText.setString("(0, 0, 0)");
-    this->pickedColorText.setCharacterSize(gameState.renderEngine.gameWindow->getSize().y*0.04);
+    this->pickedColorText.setCharacterSize(game.renderEngine.gameWindow->getSize().y * 0.04);
     this->pickedColorText.setFillColor(sf::Color::Yellow);
     sf::FloatRect textRec = this->pickedColorText.getGlobalBounds();
     this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);

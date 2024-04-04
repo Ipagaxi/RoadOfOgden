@@ -4,22 +4,22 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-#include "GameState.hpp"
+#include "Game.hpp"
 
 class IncomingBanner {
     public:
-        IncomingBanner(GameState &GameState);
-        IncomingBanner(GameState &gameState, std::string label);
+        IncomingBanner(Game &game);
+        IncomingBanner(Game &game, std::string label);
 
         void setNewLabel(std::string newLabel);
         void startAnimation();
-        void updateAnimation(GameState &gameState, bool &animationRuns);
+        void updateAnimation(Game &game, bool &animationRuns);
         void drawAnimation(sf::RenderWindow* gameWindow);
 
     private:
         sf::RectangleShape banner;
         sf::Text bannerText;
-        void init(GameState &gameState);
+        void init(Game &game);
 };
 
 #endif

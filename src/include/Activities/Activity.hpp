@@ -7,12 +7,12 @@
 #include "GameEvents.hpp"
 #include "ActivityEnum.hpp"
 
-class GameState;
+class Game;
 
 class Activity {
   public:
     virtual ~Activity();
-    virtual ActivityEnum executeActivity(GameState &game);
+    virtual ActivityEnum executeActivity(Game &game);
 };
 
 #endif

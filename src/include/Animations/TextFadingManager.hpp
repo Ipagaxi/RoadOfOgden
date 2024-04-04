@@ -5,7 +5,7 @@
 #include <thread>
 #include <vector>
 
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "Defines.hpp"
 #include "Animations/Animation.hpp"
 

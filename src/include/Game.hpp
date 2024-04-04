@@ -1,5 +1,5 @@
-#ifndef GAMESTATE_HPP
-#define GAMESTATE_HPP
+#ifndef GAME_HPP
+#define GAME_HPP
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -14,7 +14,7 @@
 #include "RenderEngine.hpp"
 #include "GameStatus.hpp"
 
-class GameState {
+class Game {
   public:
     std::unique_ptr<Activity> currentActivity;
 
@@ -26,7 +26,7 @@ class GameState {
 
     Player player = Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png");
 
-    GameState(sf::RenderWindow &window, ActivityEnum activity);
+    Game(sf::RenderWindow &window, ActivityEnum activity);
 };
 
 #endif

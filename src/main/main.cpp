@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 #include "Activities/FightActivity.hpp"
@@ -9,17 +9,17 @@
 #include "ActivityEnum.hpp"
 
 
-std::unique_ptr<Activity> setCurrentActivity(GameState &gameState, ActivityEnum newActivityEnum) {
+std::unique_ptr<Activity> setCurrentActivity(Game &game, ActivityEnum newActivityEnum) {
   std::unique_ptr<Activity> newActivity;
   switch (newActivityEnum) {
     case ActivityEnum::Menu:
-      newActivity = std::move(std::make_unique<MenuActivity>(gameState));
+      newActivity = std::move(std::make_unique<MenuActivity>(game));
       break;
     case ActivityEnum::Fight:
-      newActivity = std::move(std::make_unique<FightActivity>(gameState));
+      newActivity = std::move(std::make_unique<FightActivity>(game));
       break;
     case ActivityEnum::Character:
-      newActivity = std::move(std::make_unique<CharacterManagementActivity>(gameState));
+      newActivity = std::move(std::make_unique<CharacterManagementActivity>(game));
       break;
     default:
       break;
@@ -32,7 +32,7 @@ int main()
   sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
   window.setFramerateLimit(60);
 
-  GameState game = GameState(window, Fight);
+  Game game = Game(window, Fight);
 
   sf::Vector2i mousePos;
   sf::Vector2f mousePosF;

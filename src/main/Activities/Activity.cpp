@@ -3,5 +3,5 @@
 Activity::~Activity() {
 }
 
-ActivityEnum Activity::executeActivity(GameState &game) {
+ActivityEnum Activity::executeActivity(Game &game) {
 }

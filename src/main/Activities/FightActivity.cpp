@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, gameState.player), enemyOverview(gameState, initEnemy()), playerOverview(gameState), turnChangeBanner(gameState) {
+FightActivity::FightActivity(Game &game) : playerStatsBox(game, game.player), enemyOverview(game, initEnemy()), playerOverview(game), turnChangeBanner(game) {
   this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -9,7 +9,7 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
   this->backgroundMusic.setLoop(true);
   this->backgroundMusic.play();
 
-  sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.renderEngine.gameWindow->getSize());
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
   sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
@@ -40,7 +40,7 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
 FightActivity::~FightActivity() {
 }
 
-void FightActivity::runEnemiesTurn(GameState &gameState) {
+void FightActivity::runEnemiesTurn(Game &game) {
   if (!enemyDamageCalculated) {
     this->turnIsChanging = false;
     std::random_device randSeed;
@@ -54,7 +54,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
     sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
     sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-    this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
     this->playerOverview.changeHealth(enemyDamage);
     this->enemyDamageCalculated = true;
   }
@@ -67,7 +67,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
   }
 }
 
-void FightActivity::runPlayersTurn(GameState &game) {
+void FightActivity::runPlayersTurn(Game &game) {
   sf::Vector2f clickedPos;
   if (this->enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos)) {
     this->turnSP.setTexture(this->playersTurnTX);
@@ -90,15 +90,15 @@ void FightActivity::runPlayersTurn(GameState &game) {
   }
 }
 
-void FightActivity::runDefeat(GameState &gameState) {
+void FightActivity::runDefeat(Game &game) {
     //Here comes the Defeat
 }
 
-void FightActivity::runVictory(GameState &gameState) {
+void FightActivity::runVictory(Game &game) {
     //Here comes the Vidtory
 }
 
-void FightActivity::runFight(GameState &game) {
+void FightActivity::runFight(Game &game) {
   if (this->playerOverview.player.health == 0) {
     this->runDefeat(game);
   } else if (this->enemyOverview.creature.health == 0) {
@@ -112,7 +112,7 @@ void FightActivity::runFight(GameState &game) {
   }
 }
 
-ActivityEnum FightActivity::executeActivity(GameState &game) {
+ActivityEnum FightActivity::executeActivity(Game &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
   sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
   sf::FloatRect buttonSize = this->exitButton.getSize();
@@ -133,8 +133,6 @@ ActivityEnum FightActivity::executeActivity(GameState &game) {
 
   if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
     this->backgroundMusic.stop();
-    //std::unique_ptr<MenuActivity> menu = std::make_unique<MenuActivity>(gameState);
-    //gameState.setCurrentActivity(std::move(menu));
     currentActivity = ActivityEnum::Menu;
   }
   return currentActivity;

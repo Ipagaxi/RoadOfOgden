@@ -3,13 +3,13 @@
 
 #include "Activities/Activity.hpp"
 #include "Defines.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 
 class CharacterManagementActivity : public Activity {
     public :
-        CharacterManagementActivity(GameState &gameState);
+        CharacterManagementActivity(Game &game);
 
-        ActivityEnum executeActivity(GameState &game) override;
+        ActivityEnum executeActivity(Game &game) override;
 
 
     private :

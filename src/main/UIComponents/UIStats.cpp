@@ -1,8 +1,8 @@
 #include "UIComponents/UIStats.hpp"
 
 
-UIStats::UIStats(GameState &gameState, Actor actor) {
-    sf::Vector2u windowSize = gameState.renderEngine.gameWindow->getSize();
+UIStats::UIStats(Game &game, Actor actor) {
+    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
     sf::Color statsValueFontColor = sf::Color::Yellow;
     sf::Color statsLabelFontColor = sf::Color::White;
     int numStats = 2;
@@ -15,37 +15,37 @@ UIStats::UIStats(GameState &gameState, Actor actor) {
     sf::FloatRect actorStatsBoxSize = this->actorStatsBox.getSize();
     this->actorStatsBox.setBackgroundMargin(actorStatsBoxSize.width * 0.1, actorStatsBoxSize.height * 0.04);
 
-    this->actorName.setFont(gameState.mainFont);
+    this->actorName.setFont(game.mainFont);
     this->actorName.setString(actor.name);
     this->actorName.setCharacterSize(windowSize.y*0.02);
     this->actorName.setFillColor(sf::Color::White);
 
-    this->actorHealthLabel.setFont(gameState.mainFont);
+    this->actorHealthLabel.setFont(game.mainFont);
     this->actorHealthLabel.setString("Health:");
     this->actorHealthLabel.setCharacterSize(statsTextHeight);
     this->actorHealthLabel.setFillColor(statsLabelFontColor);
 
-    this->actorHealthValue.setFont(gameState.mainFont);
+    this->actorHealthValue.setFont(game.mainFont);
     this->actorHealthValue.setString(std::to_string(actor.health));
     this->actorHealthValue.setCharacterSize(statsTextHeight);
     this->actorHealthValue.setFillColor(statsValueFontColor);
 
-    this->actorAttackStrengthLabel.setFont(gameState.mainFont);
+    this->actorAttackStrengthLabel.setFont(game.mainFont);
     this->actorAttackStrengthLabel.setString("ATK:");
     this->actorAttackStrengthLabel.setCharacterSize(statsTextHeight);
     this->actorAttackStrengthLabel.setFillColor(statsLabelFontColor);
 
-    this->actorAttackStrengthValue.setFont(gameState.mainFont);
+    this->actorAttackStrengthValue.setFont(game.mainFont);
     this->actorAttackStrengthValue.setString(std::to_string(actor.attackStrength));
     this->actorAttackStrengthValue.setCharacterSize(statsTextHeight);
     this->actorAttackStrengthValue.setFillColor(statsValueFontColor);
 
-    this->actorRGBDefenseLabel.setFont(gameState.mainFont);
+    this->actorRGBDefenseLabel.setFont(game.mainFont);
     this->actorRGBDefenseLabel.setString("DEF:");
     this->actorRGBDefenseLabel.setCharacterSize(statsTextHeight);
     this->actorRGBDefenseLabel.setFillColor(statsLabelFontColor);
 
-    this->actorRGBDefenseValues.setFont(gameState.mainFont);
+    this->actorRGBDefenseValues.setFont(game.mainFont);
     this->actorRGBDefenseValues.setString("(" + std::to_string(actor.defense.red) + ", " + std::to_string(actor.defense.green) + ", " + std::to_string(actor.defense.blue) + ")");
     this->actorRGBDefenseValues.setCharacterSize(statsTextHeight);
     this->actorRGBDefenseValues.setFillColor(statsValueFontColor);

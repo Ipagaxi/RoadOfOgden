@@ -6,17 +6,17 @@
 #include <SFML/Graphics.hpp>
 
 #include "Activities/Activity.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "Activities/CharacterManagementActivity.hpp"
 #include "Defines.hpp"
 #include "UIElements/UIButton.hpp"
 
 class MenuActivity: public Activity {
   public:
-    MenuActivity(GameState &gameState);
+    MenuActivity(Game &game);
     ~MenuActivity();
 
-    ActivityEnum executeActivity(GameState &game) override;
+    ActivityEnum executeActivity(Game &game) override;
 
   private:
     sf::Texture backgroundTX;

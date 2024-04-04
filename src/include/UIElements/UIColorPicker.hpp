@@ -8,7 +8,7 @@
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
 #include "GameEvents.hpp"
-#include "GameState.hpp"
+#include "Game.hpp"
 
 class UIColorPicker: public UIElement {
   private:
