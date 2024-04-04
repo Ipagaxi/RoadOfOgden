@@ -20,7 +20,6 @@ class GameState {
 
     sf::Font mainFont;
     //sf::Music backgroundMusic;
-    sf::RenderWindow* gameWindow; // Becomes deprecated
     GameEvents gameEvents;
     RenderEngine renderEngine;
     GameStatus gameStatus;

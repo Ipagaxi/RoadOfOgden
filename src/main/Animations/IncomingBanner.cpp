@@ -1,13 +1,13 @@
 #include "Animations/IncomingBanner.hpp"
 
 void IncomingBanner::init(GameState &gameState) {
-    sf::Vector2u windowSize = gameState.gameWindow->getSize();
+    sf::Vector2u windowSize = gameState.renderEngine.gameWindow->getSize();
 
     this->banner.setSize(sf::Vector2f(windowSize.x, windowSize.y * 0.2));
     this->banner.setFillColor(sf::Color(40, 40, 40, 210));
 
     this->bannerText.setFont(gameState.mainFont);
-    this->bannerText.setCharacterSize(gameState.gameWindow->getSize().y*0.1);
+    this->bannerText.setCharacterSize(gameState.renderEngine.gameWindow->getSize().y*0.1);
     this->bannerText.setFillColor(sf::Color::White);
     sf::FloatRect textRec = this->bannerText.getGlobalBounds();
     this->bannerText.setOrigin(textRec.width * 0.5, textRec.height * 0.5);
@@ -34,7 +34,7 @@ void IncomingBanner::updateAnimation(GameState &gameState, bool &animationRuns) 
     static int pastTimeInMillSec = 0;
     static int pastMovementTime = 0;
     float pastTimeRatio = std::min(pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.renderEngine.gameWindow->getSize());
     sf::FloatRect bannerSize = this->banner.getGlobalBounds();
     sf::Vector2f bannerPos = sf::Vector2f(-windowSize.x + pastTimeRatio * windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
     this->banner.setPosition(bannerPos.x, bannerPos.y);

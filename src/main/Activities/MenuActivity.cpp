@@ -11,7 +11,7 @@ MenuActivity::MenuActivity(GameState &gameState) {
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
 
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.renderEngine.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);

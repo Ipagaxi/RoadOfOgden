@@ -8,7 +8,7 @@ CharacterManagementActivity::CharacterManagementActivity(GameState &gameState) {
 ActivityEnum CharacterManagementActivity::executeActivity(GameState &game) {
   ActivityEnum currentActivity = ActivityEnum::Character;
 
-  sf::RenderWindow *window = game.gameWindow;
+  sf::RenderWindow *window = game.renderEngine.gameWindow;
   window->draw(this->backgroundSP);
   return currentActivity;
 }

@@ -9,7 +9,7 @@ FightActivity::FightActivity(GameState &gameState) : playerStatsBox(gameState, g
   this->backgroundMusic.setLoop(true);
   this->backgroundMusic.play();
 
-  sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.renderEngine.gameWindow->getSize());
   sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
@@ -54,7 +54,7 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
     sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
     sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-    this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, gameState.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
     this->playerOverview.changeHealth(enemyDamage);
     this->enemyDamageCalculated = true;
   }
@@ -68,10 +68,6 @@ void FightActivity::runEnemiesTurn(GameState &gameState) {
 }
 
 void FightActivity::runPlayersTurn(GameState &game) {
-  std::cout << "runPlayersTurn called!" << std::endl;
-  if (game.gameEvents.mousePressed) {
-    std::cout << "Mouse Pressed!" << std::endl;
-  }
   sf::Vector2f clickedPos;
   if (this->enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos)) {
     this->turnSP.setTexture(this->playersTurnTX);
@@ -81,7 +77,7 @@ void FightActivity::runPlayersTurn(GameState &game) {
     //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
     int damage = game.player.attackStrength * attackMultiplier;
     //std::cout << "Damage: " << damage << std::endl;
-    this->textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    this->textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
     this->enemyOverview.changeHealth(damage);
   }
   if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
