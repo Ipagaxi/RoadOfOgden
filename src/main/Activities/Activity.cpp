@@ -4,4 +4,5 @@ Activity::~Activity() {
 }
 
 ActivityEnum Activity::executeActivity(Game &game) {
+  return ActivityEnum::Menu;
 }
