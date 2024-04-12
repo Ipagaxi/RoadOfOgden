@@ -7,7 +7,7 @@
 #include <memory>
 
 #include "ActivityEnum.hpp"
-#include "Activities/Activity.hpp"
+//#include "Activities/Activity.hpp"
 #include "Defines.hpp"
 #include "Actors/Player.hpp"
 #include "GameEvents.hpp"
@@ -16,8 +16,6 @@
 
 class Game {
   public:
-    std::unique_ptr<Activity> currentActivity;
-
     sf::Font mainFont;
     //sf::Music backgroundMusic;
     GameEvents gameEvents;

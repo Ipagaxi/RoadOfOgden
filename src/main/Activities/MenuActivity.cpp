@@ -1,6 +1,6 @@
 #include "Activities/MenuActivity.hpp"
 
-MenuActivity::MenuActivity(Game &game) {
+MenuActivity::MenuActivity(Game &game): Activity(game) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 

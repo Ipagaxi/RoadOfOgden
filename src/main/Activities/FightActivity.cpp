@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(Game &game) : playerStatsBox(game, game.player), enemyOverview(game, initEnemy()), playerOverview(game), turnChangeBanner(game) {
+FightActivity::FightActivity(Game &game) : Activity(game), playerStatsBox(game, game.player), enemyOverview(game, initEnemy()), playerOverview(game), turnChangeBanner(game) {
   this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -27,11 +27,11 @@ FightActivity::FightActivity(Game &game) : playerStatsBox(game, game.player), en
   this->enemiesTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_enemy.png");
 
   if (this->isPlayersTurn) {
-      this->turnSP.setTexture(this->playersTurnTX);
-      this->turnChangeBanner.setNewLabel("Your Turn");
+    this->turnSP.setTexture(this->playersTurnTX);
+    this->turnChangeBanner.setNewLabel("Your Turn");
   } else {
-      this->turnSP.setTexture(this->enemiesTurnTX);
-      this->turnChangeBanner.setNewLabel("Enemies Turn");
+    this->turnSP.setTexture(this->enemiesTurnTX);
+    this->turnChangeBanner.setNewLabel("Enemies Turn");
   }
   sf::FloatRect turnStateSignSize = this->turnSP.getGlobalBounds();
   this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
@@ -91,11 +91,11 @@ void FightActivity::runPlayersTurn(Game &game) {
 }
 
 void FightActivity::runDefeat(Game &game) {
-    //Here comes the Defeat
+  //Here comes the Defeat
 }
 
 void FightActivity::runVictory(Game &game) {
-    //Here comes the Vidtory
+  //Here comes the Vidtory
 }
 
 void FightActivity::runFight(Game &game) {
@@ -114,11 +114,8 @@ void FightActivity::runFight(Game &game) {
 
 ActivityEnum FightActivity::executeActivity(Game &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
-  sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
-  sf::FloatRect buttonSize = this->exitButton.getSize();
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
-  this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
   this->runFight(game);
 
   gameWindow->draw(this->turnSP);

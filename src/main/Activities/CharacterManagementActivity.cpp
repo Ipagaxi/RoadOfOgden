@@ -1,8 +1,8 @@
 #include "Activities/CharacterManagementActivity.hpp"
 
-CharacterManagementActivity::CharacterManagementActivity(Game &game) {
-    this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
-    this->backgroundSP.setTexture(this->backgroundTX);
+CharacterManagementActivity::CharacterManagementActivity(Game &game): Activity(game) {
+  this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
+  this->backgroundSP.setTexture(this->backgroundTX);
 }
 
 ActivityEnum CharacterManagementActivity::executeActivity(Game &game) {
