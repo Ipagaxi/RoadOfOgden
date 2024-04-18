@@ -11,6 +11,7 @@ class UIStats: public UIComponent {
     public:
         UIStats(Game &game, Actor actor);
 
+        void setActor(Actor actor);
         void draw(sf::RenderWindow* gameWindow) override;
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;

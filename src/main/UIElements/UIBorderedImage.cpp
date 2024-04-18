@@ -16,6 +16,16 @@ UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFi
     this->borderSP.scale(0.97, 0.97);
 }
 
+void UIBorderedImage::setImage(std::string imagePath) {
+  this->imageTX.loadFromFile(RESOURCE_PATH + imagePath);
+  this->imageSP.setTexture(this->imageTX);
+  sf::FloatRect imageRect = this->imageSP.getGlobalBounds();
+  sf::Vector2f borderPos = this->borderSP.getPosition();
+  sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
+  this->imageSP.setOrigin(imageRect.width/2.f, imageRect.height/2.f);
+  this->imageSP.setPosition(borderPos.x + (borderSize.width/2.f), borderPos.y + (borderSize.height/2.f));
+}
+
 void UIBorderedImage::draw(sf::RenderWindow* gameWindow) {
     gameWindow->draw(this->imageSP);
     gameWindow->draw(this->borderSP);

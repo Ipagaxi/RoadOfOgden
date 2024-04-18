@@ -23,6 +23,7 @@ void PlayersTurn::run(Game &game, FightEnv &fightEnv) {
     fightEnv.enemyDamageCalculated = false;
     fightEnv.turnSP.setTexture(fightEnv.enemiesTurnTX);
     fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
+    colorPicked = false;
     fightEnv.turnIsChanging = true;
   }
 }

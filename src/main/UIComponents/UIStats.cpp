@@ -53,6 +53,13 @@ UIStats::UIStats(Game &game, Actor actor) {
     this->setPosition(0., 0.);
 }
 
+void UIStats::setActor(Actor actor) {
+  this->actorName.setString(actor.name);
+  this->actorHealthValue.setString(std::to_string(actor.health));
+  this->actorAttackStrengthValue.setString(std::to_string(actor.attackStrength));
+  this->actorRGBDefenseValues.setString("(" + std::to_string(actor.defense.red) + ", " + std::to_string(actor.defense.green) + ", " + std::to_string(actor.defense.blue) + ")");
+}
+
 void UIStats::draw(sf::RenderWindow* gameWindow) {
     this->actorStatsBox.draw(gameWindow);
     gameWindow->draw(this->actorName);

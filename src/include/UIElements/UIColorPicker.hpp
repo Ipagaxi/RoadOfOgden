@@ -37,6 +37,7 @@ class UIColorPicker: public UIElement {
     bool clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos);
     sf::Color getPixelColor(sf::Vector2f pos);
     void setColorBox(std::string picPath, std::string borderPath);
+    void setColorImage(std::string picPath);
 };
 
 #endif

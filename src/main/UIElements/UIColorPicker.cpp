@@ -98,3 +98,8 @@ void UIColorPicker::setColorBox(std::string picPath, std::string borderPath) {
   this->colorTX.loadFromImage(this->colorIMG);
   this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
 }
+
+void UIColorPicker::setColorImage(std::string picPath) {
+  this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+  this->colorTX.loadFromImage(this->colorIMG);
+}
