@@ -1,92 +1,93 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(Game &game) : Activity(game), playerStatsBox(game, game.player), enemyOverview(game, initEnemy()), playerOverview(game), turnChangeBanner(game) {
-  this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
-  this->backgroundSP.setTexture(this->backgroundTX);
+FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game) {
+  this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
+  this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
 
-  this->backgroundMusic.openFromFile(RESOURCE_PATH "music/fight_background_music.wav");
-  this->backgroundMusic.setLoop(true);
-  this->backgroundMusic.play();
+  this->fightEnv.backgroundMusic.openFromFile(RESOURCE_PATH "music/fight_background_music.wav");
+  this->fightEnv.backgroundMusic.setLoop(true);
+  this->fightEnv.backgroundMusic.play();
 
   sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
-  sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
+  sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->fightEnv.backgroundTX.getSize());
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
-  this->backgroundSP.scale(backgroundScale);
+  this->fightEnv.backgroundSP.scale(backgroundScale);
 
   float relativeOuterPaddingStatBoxes = 0.02;
-  this->playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->playerStatsBox.getSize().height)/2);
+  this->fightEnv.playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->fightEnv.playerStatsBox.getSize().height)/2);
 
   std::random_device randSeed;
   std::mt19937 gen(randSeed());
   std::uniform_int_distribution<int> dist(0, 1);
-  this->isPlayersTurn = dist(gen);
+  this->fightEnv.isPlayersTurn = dist(gen);
 
-  this->playersTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_player.png");
-  this->enemiesTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_enemy.png");
+  this->fightEnv.playersTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_player.png");
+  this->fightEnv.enemiesTurnTX.loadFromFile(RESOURCE_PATH "combat/turn_status_enemy.png");
 
-  if (this->isPlayersTurn) {
-    this->turnSP.setTexture(this->playersTurnTX);
-    this->turnChangeBanner.setNewLabel("Your Turn");
+  if (this->fightEnv.isPlayersTurn) {
+    this->fightEnv.turnSP.setTexture(this->fightEnv.playersTurnTX);
+    this->fightEnv.turnChangeBanner.setNewLabel("Your Turn");
   } else {
-    this->turnSP.setTexture(this->enemiesTurnTX);
-    this->turnChangeBanner.setNewLabel("Enemies Turn");
+    this->fightEnv.turnSP.setTexture(this->fightEnv.enemiesTurnTX);
+    this->fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
   }
-  sf::FloatRect turnStateSignSize = this->turnSP.getGlobalBounds();
-  this->turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
+  sf::FloatRect turnStateSignSize = this->fightEnv.turnSP.getGlobalBounds();
+  this->fightEnv.turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
 }
 
 FightActivity::~FightActivity() {
 }
 
 void FightActivity::runEnemiesTurn(Game &game) {
-  if (!enemyDamageCalculated) {
-    this->turnIsChanging = false;
+  if (!this->fightEnv.enemyDamageCalculated) {
+    this->fightEnv.turnIsChanging = false;
     std::random_device randSeed;
     std::mt19937 gen(randSeed());
-    int minDamage = int(0.75 * this->enemyOverview.creature.attackStrength);
-    int maxDamage = int(1.25 * this->enemyOverview.creature.attackStrength);
+    int minDamage = int(0.75 * this->fightEnv.enemyOverview.creature.attackStrength);
+    int maxDamage = int(1.25 * this->fightEnv.enemyOverview.creature.attackStrength);
     std::uniform_int_distribution<int> dist(minDamage, maxDamage);
     int enemyDamage = dist(gen);
 
-    sf::Vector2f playerIconPos = this->playerOverview.playerFrame.getPosition();
-    sf::FloatRect playerIconSize = this->playerOverview.playerFrame.getSize();
+    sf::Vector2f playerIconPos = this->fightEnv.playerOverview.playerFrame.getPosition();
+    sf::FloatRect playerIconSize = this->fightEnv.playerOverview.playerFrame.getSize();
     sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-    this->textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
-    this->playerOverview.changeHealth(enemyDamage);
-    this->enemyDamageCalculated = true;
+    this->fightEnv.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    this->fightEnv.playerOverview.changeHealth(enemyDamage);
+    this->fightEnv.enemyDamageCalculated = true;
   }
-  if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
-    this->textFadingManager.fadingText.pastMillSec = 0;
-    this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
-    this->turnSP.setTexture(this->playersTurnTX);
-    this->turnChangeBanner.setNewLabel("Your Turn");
-    this->turnIsChanging = true;
+  if (this->fightEnv.textFadingManager.fadingText.pastMillSec >= this->fightEnv.textFadingManager.fadingText.millSecToLive) {
+    this->fightEnv.textFadingManager.fadingText.pastMillSec = 0;
+    this->fightEnv.isPlayersTurn = (this->fightEnv.isPlayersTurn + 1) % 2;
+    this->fightEnv.turnSP.setTexture(this->fightEnv.playersTurnTX);
+    this->fightEnv.turnChangeBanner.setNewLabel("Your Turn");
+    this->fightEnv.turnIsChanging = true;
   }
 }
 
 void FightActivity::runPlayersTurn(Game &game) {
   sf::Vector2f clickedPos;
-  if (this->enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos)) {
-    this->turnSP.setTexture(this->playersTurnTX);
-    this->pickedColor = this->enemyOverview.colorPicker.getPixelColor(clickedPos);
-    this->enemyOverview.updatePickedColorText("(" + std::to_string(pickedColor.r) +  ", " + std::to_string(pickedColor.g) + ", " + std::to_string(pickedColor.b) + ")", this->pickedColor);
+  if (this->fightEnv.enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos)) {
+    this->fightEnv.turnSP.setTexture(this->fightEnv.playersTurnTX);
+    this->fightEnv.pickedColor = this->fightEnv.enemyOverview.colorPicker.getPixelColor(clickedPos);
+    this->fightEnv.enemyOverview.updatePickedColorText("(" + std::to_string(this->fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", this->fightEnv.pickedColor);
     float attackMultiplier = this->calculateAttackMult();
     //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
     int damage = game.player.attackStrength * attackMultiplier;
     //std::cout << "Damage: " << damage << std::endl;
-    this->textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
-    this->enemyOverview.changeHealth(damage);
+    this->fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    this->fightEnv.enemyOverview.changeHealth(damage);
+    this->fightEnv.newColorIMGNeeded = true;
   }
-  if (this->textFadingManager.fadingText.pastMillSec >= this->textFadingManager.fadingText.millSecToLive) {
-    this->textFadingManager.fadingText.pastMillSec = 0;
-    this->isPlayersTurn = (this->isPlayersTurn + 1) % 2;
-    this->enemyDamageCalculated = false;
-    this->turnSP.setTexture(this->enemiesTurnTX);
-    this->turnChangeBanner.setNewLabel("Enemies Turn");
-    this->turnIsChanging = true;
+  if (this->fightEnv.textFadingManager.fadingText.pastMillSec >= this->fightEnv.textFadingManager.fadingText.millSecToLive) {
+    this->fightEnv.textFadingManager.fadingText.pastMillSec = 0;
+    this->fightEnv.isPlayersTurn = (this->fightEnv.isPlayersTurn + 1) % 2;
+    this->fightEnv.enemyDamageCalculated = false;
+    this->fightEnv.turnSP.setTexture(this->fightEnv.enemiesTurnTX);
+    this->fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
+    this->fightEnv.turnIsChanging = true;
   }
 }
 
@@ -99,15 +100,20 @@ void FightActivity::runVictory(Game &game) {
 }
 
 void FightActivity::runFight(Game &game) {
-  if (this->playerOverview.player.health == 0) {
+  if (this->fightEnv.playerOverview.player.health == 0) {
+    std::cout << "Lost" << std::endl;
     this->runDefeat(game);
-  } else if (this->enemyOverview.creature.health == 0) {
+  } else if (this->fightEnv.enemyOverview.creature.health == 0) {
+    std::cout << "Win" << std::endl;
     this->runVictory(game);
-  } else if (this->turnIsChanging) {
-    this->turnChangeBanner.updateAnimation(game, this->turnIsChanging);
-  } else if (this->isPlayersTurn) {
+  } else if (this->fightEnv.turnIsChanging) {
+    std::cout << "turn changes" << std::endl;
+    this->fightEnv.turnChangeBanner.updateAnimation(game, this->fightEnv.turnIsChanging);
+  } else if (this->fightEnv.isPlayersTurn) {
+    std::cout << "Your turn" << std::endl;
     this->runPlayersTurn(game);
   } else {
+    std::cout << "Enemies Turn" << std::endl;
     this->runEnemiesTurn(game);
   }
 }
@@ -118,18 +124,18 @@ ActivityEnum FightActivity::executeActivity(Game &game) {
 
   this->runFight(game);
 
-  gameWindow->draw(this->turnSP);
-  gameWindow->draw(this->backgroundSP);
-  this->playerOverview.draw(gameWindow);
-  this->enemyOverview.draw(gameWindow);
+  gameWindow->draw(this->fightEnv.turnSP);
+  gameWindow->draw(this->fightEnv.backgroundSP);
+  this->fightEnv.playerOverview.draw(gameWindow);
+  this->fightEnv.enemyOverview.draw(gameWindow);
   this->exitButton.draw(gameWindow);
-  this->textFadingManager.run(gameWindow, game.gameStatus);
-  if (this->turnIsChanging) {
-    this->turnChangeBanner.drawAnimation(gameWindow);
+  this->fightEnv.textFadingManager.run(gameWindow, game.gameStatus);
+  if (this->fightEnv.turnIsChanging) {
+    this->fightEnv.turnChangeBanner.drawAnimation(gameWindow);
   }
 
   if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
-    this->backgroundMusic.stop();
+    this->fightEnv.backgroundMusic.stop();
     currentActivity = ActivityEnum::Menu;
   }
   return currentActivity;
@@ -206,16 +212,16 @@ float FightActivity::counterColorMetric(Color color) {
   int weakDefenseColorValue;
   switch (color) {
     case RED:
-      pickedColorValue = this->pickedColor.r;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.green;
+      pickedColorValue = this->fightEnv.pickedColor.r;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.green;
       break;
     case GREEN:
-      pickedColorValue = this->pickedColor.g;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.blue;
+      pickedColorValue = this->fightEnv.pickedColor.g;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.blue;
       break;
     case BLUE:
-      pickedColorValue = this->pickedColor.b;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.red;
+      pickedColorValue = this->fightEnv.pickedColor.b;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.red;
       break;
     default:
       break;
@@ -232,19 +238,19 @@ float FightActivity::tugOfWarMetric(Color color) {
   int counterDefenseColorValue;
   switch (color) {
     case RED:
-      pickedColorValue = this->pickedColor.r;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.green;
-      counterDefenseColorValue = this->enemyOverview.creature.defense.blue;
+      pickedColorValue = this->fightEnv.pickedColor.r;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.green;
+      counterDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.blue;
       break;
     case GREEN:
-      pickedColorValue = this->pickedColor.g;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.blue;
-      counterDefenseColorValue = this->enemyOverview.creature.defense.red;
+      pickedColorValue = this->fightEnv.pickedColor.g;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.blue;
+      counterDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.red;
       break;
     case BLUE:
-      pickedColorValue = this->pickedColor.b;
-      weakDefenseColorValue = this->enemyOverview.creature.defense.red;
-      counterDefenseColorValue = this->enemyOverview.creature.defense.green;
+      pickedColorValue = this->fightEnv.pickedColor.b;
+      weakDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.red;
+      counterDefenseColorValue = this->fightEnv.enemyOverview.creature.defense.green;
       break;
     default:
         break;
@@ -268,5 +274,5 @@ float FightActivity::calculateAttackMult() {
   float redSummand = this->calculateSingleMultPart(RED);
   float greenSummand = this->calculateSingleMultPart(GREEN);
   float blueSummand = this->calculateSingleMultPart(BLUE);
-  return (redSummand + greenSummand + blueSummand) * (this->maxMultiplier/3.f);
+  return (redSummand + greenSummand + blueSummand) * (this->fightEnv.maxMultiplier/3.f);
 }

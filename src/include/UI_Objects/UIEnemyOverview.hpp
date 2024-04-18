@@ -14,6 +14,7 @@
 class UIEnemyOverview {
     public:
         UIEnemyOverview(Game &game, Enemy enemy);
+        UIEnemyOverview(Game &game);
         
         Enemy creature;
         UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");

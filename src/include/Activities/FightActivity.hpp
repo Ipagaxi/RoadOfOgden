@@ -25,6 +25,11 @@
 #include "Defines.hpp"
 #include "Actors/Enemy.hpp"
 #include "Color.hpp"
+#include "FightEnv.hpp"
+
+enum FightState {
+
+};
 
 class FightActivity: public Activity {
   public:
@@ -35,23 +40,7 @@ class FightActivity: public Activity {
     void runFight(Game &game);
 
   private:
-    sf::Texture backgroundTX;
-    sf::Sprite backgroundSP;
-    UIStats playerStatsBox;
-    UIEnemyOverview enemyOverview;
-    UIPlayerOverview playerOverview;
-    TextFadingManager textFadingManager;
-    sf::Texture playersTurnTX;
-    sf::Texture enemiesTurnTX;
-    sf::Sprite turnSP;
-    IncomingBanner turnChangeBanner;
-    sf::Music backgroundMusic;
-
-    sf::Color pickedColor;
-    int maxMultiplier = 2;
-    int isPlayersTurn;
-    bool enemyDamageCalculated = false;
-    bool turnIsChanging = true;
+    FightEnv fightEnv;
 
     Enemy initEnemy();
     void runPlayersTurn(Game &game);

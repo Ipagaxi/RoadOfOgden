@@ -1,13 +1,13 @@
-#ifndef CHARACTERMANAGEMENTACTIVITY_HPP
-#define CHARACTERMANAGEMENTACTIVITY_HPP
+#ifndef CHARACTERACTIVITY_HPP
+#define CHARACTERACTIVITY_HPP
 
 #include "Activities/Activity.hpp"
 #include "Defines.hpp"
 #include "Game.hpp"
 
-class CharacterManagementActivity : public Activity {
+class CharacterActivity : public Activity {
     public :
-        CharacterManagementActivity(Game &game);
+        CharacterActivity(Game &game);
 
         ActivityEnum executeActivity(Game &game) override;
 

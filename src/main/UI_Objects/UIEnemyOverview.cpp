@@ -1,5 +1,8 @@
 #include "UI_Objects/UIEnemyOverview.hpp"
 
+UIEnemyOverview::UIEnemyOverview(Game &game): UIEnemyOverview(game, Enemy()) {
+}
+
 UIEnemyOverview::UIEnemyOverview(Game &game, Enemy enemy): statsComponent(game, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
     sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
 

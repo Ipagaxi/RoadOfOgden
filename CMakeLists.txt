@@ -30,6 +30,8 @@ FetchContent_MakeAvailable(SFML)
 add_executable (
     ${PROJECT_NAME}
     ${SOURCES}
+        src/include/FightStates/FightState.hpp
+        src/include/FightEnv.hpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE "src/include")

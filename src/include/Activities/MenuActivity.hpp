@@ -7,7 +7,7 @@
 
 #include "Activities/Activity.hpp"
 #include "Game.hpp"
-#include "Activities/CharacterManagementActivity.hpp"
+#include "Activities/CharacterActivity.hpp"
 #include "Defines.hpp"
 #include "UIElements/UIButton.hpp"
 

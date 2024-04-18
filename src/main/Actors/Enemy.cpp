@@ -2,7 +2,7 @@
 
 Enemy::Enemy() {
     this->name = "None";
-    this->health = 0;
+    this->health = 1;
     this->attackStrength = 0;
     this->defense = {0, 0, 0};
     this->picPath = "default_actor_quer.png";

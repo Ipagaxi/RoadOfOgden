@@ -19,7 +19,7 @@ std::unique_ptr<Activity> setCurrentActivity(Game &game, ActivityEnum newActivit
       newActivity = std::move(std::make_unique<FightActivity>(game));
       break;
     case ActivityEnum::Character:
-      newActivity = std::move(std::make_unique<CharacterManagementActivity>(game));
+      newActivity = std::move(std::make_unique<CharacterActivity>(game));
       break;
     default:
       break;
