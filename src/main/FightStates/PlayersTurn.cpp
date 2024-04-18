@@ -2,7 +2,9 @@
 
 void PlayersTurn::run(Game &game, FightEnv &fightEnv) {
   sf::Vector2f clickedPos;
-  if (fightEnv.enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos)) {
+  static bool colorPicked = false;
+  if (fightEnv.enemyOverview.colorPicker.clickListener(game.gameEvents, clickedPos) && !colorPicked) {
+    colorPicked = true;
     fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
     fightEnv.pickedColor = fightEnv.enemyOverview.colorPicker.getPixelColor(clickedPos);
     fightEnv.enemyOverview.updatePickedColorText("(" + std::to_string(fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", fightEnv.pickedColor);
@@ -10,7 +12,8 @@ void PlayersTurn::run(Game &game, FightEnv &fightEnv) {
     //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
     int damage = game.player.attackStrength * attackMultiplier;
     //std::cout << "Damage: " << damage << std::endl;
-    fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    int millSecToLive = 600;
+    fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
     fightEnv.enemyOverview.changeHealth(damage);
     fightEnv.newColorIMGNeeded = true;
   }

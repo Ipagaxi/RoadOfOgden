@@ -21,7 +21,7 @@ enum AnimationPath {
 class TextFading {
     public:
         TextFading();
-        TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font);
+        TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font, int _millSecToLive);
         sf::Font font;
         sf::Text text;
         int remainingVisibilty = 0;
@@ -44,7 +44,7 @@ class TextFading {
 class TextFadingManager: Animation {
     public:
         void run(sf::RenderWindow* gameWindow, GameStatus &gameStatus);
-        void startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath animationPath);
+        void startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath animationPath, int millSecToLive);
         void updateAnimationState(GameStatus &gameStatus);
         TextFading fadingText;
         bool isRunning = false;

@@ -2,6 +2,7 @@
 
 
 FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game) {
+  this->fightEnv.enemyOverview.creature = initEnemy();
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
 

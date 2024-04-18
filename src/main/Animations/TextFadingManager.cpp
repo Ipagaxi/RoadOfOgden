@@ -11,7 +11,7 @@ TextFading::TextFading() {
     this->remainingVisibilty = 0;
 }
 
-TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font) {
+TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font, int _millSecToLive) {
     this->font = _font;
     this->text.setFont(font);
     this->text.setString(text);
@@ -20,6 +20,7 @@ TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, 
     sf::FloatRect textRec = this->text.getGlobalBounds();
     this->text.setPosition(pos);
     this->remainingVisibilty = 0;
+    this->millSecToLive = _millSecToLive;
 }
 
 void TextFading::draw(sf::RenderWindow* gameWindow) {
@@ -94,7 +95,7 @@ void TextFadingManager::run(sf::RenderWindow* gameWindow, GameStatus &gameStatus
     }
 }
 
-void TextFadingManager::startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath _animationPath) {
+void TextFadingManager::startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath _animationPath, int _millSecToLive) {
     this->fadingText.text.setString(text);
     this->fadingText.text.setPosition(pos);
     this->fadingText.text.setFillColor(textColor);
@@ -102,6 +103,7 @@ void TextFadingManager::startAnimation(std::string text, sf::Vector2f pos, sf::C
     this->fadingText.remainingVisibilty = 255;
     this->fadingText.animationPath = _animationPath;
     this->isRunning = true;
+    this->fadingText.millSecToLive = _millSecToLive;
     if (_animationPath == AnimationPath::Parabel) {
         this->fadingText.pastMillSec = 0;
         this->fadingText.initPosY = pos.y;

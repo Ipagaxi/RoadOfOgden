@@ -9,12 +9,12 @@ void EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
     int maxDamage = int(1.25 * fightEnv.enemyOverview.creature.attackStrength);
     std::uniform_int_distribution<int> dist(minDamage, maxDamage);
     int enemyDamage = dist(gen);
-
+    int millSecToLive = 600;
     sf::Vector2f playerIconPos = fightEnv.playerOverview.playerFrame.getPosition();
     sf::FloatRect playerIconSize = fightEnv.playerOverview.playerFrame.getSize();
     sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-    fightEnv.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel);
+    fightEnv.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
     fightEnv.playerOverview.changeHealth(enemyDamage);
     fightEnv.enemyDamageCalculated = true;
   }
