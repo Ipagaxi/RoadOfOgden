@@ -7,7 +7,6 @@
 #include <vector>
 #include <string>
 #include <SFML/Graphics.hpp>
-#include <random>
 
 #include "Activities/Activity.hpp"
 #include "ActivityEnum.hpp"
@@ -26,10 +25,8 @@
 #include "Actors/Enemy.hpp"
 #include "Color.hpp"
 #include "FightEnv.hpp"
-
-enum FightState {
-
-};
+#include "FightStates/PlayersTurn.hpp"
+#include "FightStates/EnemiesTurn.hpp"
 
 class FightActivity: public Activity {
   public:
@@ -42,19 +39,14 @@ class FightActivity: public Activity {
   private:
     FightEnv fightEnv;
 
+    PlayersTurn playersTurn;
+    EnemiesTurn enemiesTurn;
+
     Enemy initEnemy();
     void runPlayersTurn(Game &game);
     void runEnemiesTurn(Game &game);
     void runDefeat(Game &game);
     void runVictory(Game &game);
-
-    // Compute damage multiplier
-    float mapInInterval(float value);
-    float calculateSingleMultPart(Color color);
-    float calculateAttackMult();
-    // Metrics in file DamageMultMetrics.cpp
-    float counterColorMetric(Color color);
-    float tugOfWarMetric(Color color);
 };
 
 #endif
