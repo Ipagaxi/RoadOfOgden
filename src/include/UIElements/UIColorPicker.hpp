@@ -16,7 +16,6 @@ class UIColorPicker: public UIElement {
     sf::Texture borderTX;
     sf::Sprite colorSP;
     sf::Sprite borderSP;
-    sf::Image colorIMG;
 
     sf::SoundBuffer releaseSoundBuffer;
 
@@ -26,6 +25,7 @@ class UIColorPicker: public UIElement {
     UIColorPicker(std::string imagePath, std::string borderPath);
     UIColorPicker(sf::Image image, std::string borderPath);
 
+    sf::Image colorIMG;
     sf::Sound releaseSound;
 
     void draw(sf::RenderWindow* window) override;
