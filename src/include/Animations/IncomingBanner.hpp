@@ -2,6 +2,7 @@
 #define INCOMINGBANNER_HPP
 
 #include <string>
+#include <iostream>
 #include <SFML/Graphics.hpp>
 
 #include "Game.hpp"
@@ -12,8 +13,7 @@ class IncomingBanner {
         IncomingBanner(Game &game, std::string label);
 
         void setNewLabel(std::string newLabel);
-        void startAnimation();
-        void updateAnimation(Game &game, bool &animationRuns);
+        bool runAnimation(Game &game);
         void drawAnimation(sf::RenderWindow* gameWindow);
 
     private:

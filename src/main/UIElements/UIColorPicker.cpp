@@ -103,3 +103,8 @@ void UIColorPicker::setColorImage(std::string picPath) {
   this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
   this->colorTX.loadFromImage(this->colorIMG);
 }
+
+void UIColorPicker::setColorImage(sf::Image image) {
+  this->colorIMG = image;
+  this->colorTX.loadFromImage(this->colorIMG);
+}

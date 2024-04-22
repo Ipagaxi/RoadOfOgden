@@ -1,6 +1,7 @@
 #include "FightStates/EnemiesTurn.hpp"
 
-void EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
+FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
+  FightStateEnum currentState = FightStateEnum::ENEMY_STATE;
   if (!fightEnv.enemyDamageCalculated) {
     fightEnv.turnIsChanging = false;
     std::random_device randSeed;
@@ -24,5 +25,8 @@ void EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
     fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
     fightEnv.turnChangeBanner.setNewLabel("Your Turn");
     fightEnv.turnIsChanging = true;
+    currentState = FightStateEnum::TURN_CHANGE;
+    std::cout << "Fight -> Change" << std::endl;
   }
+  return currentState;
 }

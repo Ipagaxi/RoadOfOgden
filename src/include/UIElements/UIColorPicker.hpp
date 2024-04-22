@@ -38,6 +38,7 @@ class UIColorPicker: public UIElement {
     sf::Color getPixelColor(sf::Vector2f pos);
     void setColorBox(std::string picPath, std::string borderPath);
     void setColorImage(std::string picPath);
+    void setColorImage(sf::Image);
 };
 
 #endif

@@ -45,9 +45,6 @@ void FightActivity::runEnemiesTurn(Game &game) {
   this->enemiesTurn.run(game, this->fightEnv);
 }
 
-void FightActivity::runPlayersTurn(Game &game) {
-  this->playersTurn.run(game, this->fightEnv);
-}
 
 void FightActivity::runDefeat(Game &game) {
   //Here comes the Defeat
@@ -57,25 +54,39 @@ void FightActivity::runVictory(Game &game) {
   //Here comes the Vidtory
 }
 
-void FightActivity::runFight(Game &game) {
+void FightActivity::runCurrentState(Game &game) {
+  switch (this->currentFightState) {
+    case FightStateEnum::PLAYER_STATE:
+      this->currentFightState = this->playersTurn.run(game, this->fightEnv);
+      break;
+    case FightStateEnum::ENEMY_STATE:
+      this->currentFightState = this->enemiesTurn.run(game, this->fightEnv);
+      break;
+    case FightStateEnum::TURN_CHANGE:
+      this->currentFightState = this->stateTurnChange.run(game, this->fightEnv);
+      break;
+    default:
+      break;
+  }
+  /*
   if (this->fightEnv.playerOverview.player.health == 0) {
     this->runDefeat(game);
   } else if (this->fightEnv.enemyOverview.creature.health == 0) {
     this->runVictory(game);
   } else if (this->fightEnv.turnIsChanging) {
-    this->fightEnv.turnChangeBanner.updateAnimation(game, this->fightEnv.turnIsChanging);
+    this->fightEnv.turnChangeBanner.runAnimation(game, this->fightEnv.turnIsChanging);
   } else if (this->fightEnv.isPlayersTurn) {
     this->runPlayersTurn(game);
   } else {
     this->runEnemiesTurn(game);
-  }
+  }*/
 }
 
 ActivityEnum FightActivity::executeActivity(Game &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
-  this->runFight(game);
+  this->runCurrentState(game);
 
   gameWindow->draw(this->fightEnv.turnSP);
   gameWindow->draw(this->fightEnv.backgroundSP);

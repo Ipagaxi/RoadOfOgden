@@ -27,6 +27,8 @@
 #include "FightEnv.hpp"
 #include "FightStates/PlayersTurn.hpp"
 #include "FightStates/EnemiesTurn.hpp"
+#include "FightStates/StateTurnChange.hpp"
+#include "FightStateEnum.hpp"
 
 class FightActivity: public Activity {
   public:
@@ -34,13 +36,15 @@ class FightActivity: public Activity {
     ~FightActivity();
   
     ActivityEnum executeActivity(Game &game) override;
-    void runFight(Game &game);
+    void runCurrentState(Game &game);
 
   private:
     FightEnv fightEnv;
+    FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
 
     PlayersTurn playersTurn;
     EnemiesTurn enemiesTurn;
+    StateTurnChange stateTurnChange;
 
     Enemy initEnemy();
     void runPlayersTurn(Game &game);

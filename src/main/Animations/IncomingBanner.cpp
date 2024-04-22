@@ -28,7 +28,8 @@ void IncomingBanner::setNewLabel(std::string newLabel) {
     this->bannerText.setOrigin(textRec.width * 0.5, textRec.height * 0.5);
 }
 
-void IncomingBanner::updateAnimation(Game &game, bool &animationRuns) {
+bool IncomingBanner::runAnimation(Game &game) {
+    static bool animationRuns = true;
     int changeTimeMillSec = 1000;
     int bannerMovementime = 300;
     static int pastTimeInMillSec = 0;
@@ -45,13 +46,15 @@ void IncomingBanner::updateAnimation(Game &game, bool &animationRuns) {
         pastMovementTime += game.gameStatus.elapsedTime.asMilliseconds();
     }
     if (pastTimeInMillSec >= changeTimeMillSec) {
-        animationRuns = false;
-        bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
-        this->banner.setPosition(bannerPos.x, bannerPos.y);
-        this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
-        pastTimeInMillSec = 0;
-        pastMovementTime = 0;
+      std::cout << "Banner Zeit abgelaufen" << std::endl;
+      animationRuns = false;
+      bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
+      this->banner.setPosition(bannerPos.x, bannerPos.y);
+      this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
+      pastTimeInMillSec = 0;
+      pastMovementTime = 0;
     }
+    return animationRuns;
 }
 
 void IncomingBanner::drawAnimation(sf::RenderWindow* gameWindow) {

@@ -1,10 +1,13 @@
 #ifndef PLAYERSTURN_HPP
 #define PLAYERSTURN_HPP
 
-#include "FightStates/FightState.hpp"
+#include <iostream>
+
+#include "FightStates/StateFight.hpp"
 #include "Game.hpp"
 #include "Color.hpp"
 #include "GenerateColorIMG.hpp"
+#include "FightStateEnum.hpp"
 
 enum PlayerPhase {
   PICK_COLOR,
@@ -13,9 +16,9 @@ enum PlayerPhase {
   END_TURN
 };
 
-class PlayersTurn: public FightState {
+class PlayersTurn: public StateFight {
   public:
-    void run(Game &game, FightEnv &fightEnv) override;
+    FightStateEnum run(Game &game, FightEnv &fightEnv) override;
 
   private:
     PlayerPhase playerPhase = PlayerPhase::PICK_COLOR;
@@ -24,6 +27,7 @@ class PlayersTurn: public FightState {
 
     void processAttack(FightEnv &fightEnv, Game &game);
     void changeColoPickerImage(Game &game, FightEnv &fightEnv);
+    double computeCurrentPixel(double formerPixel, double newPixel, float elapsedRatio);
 
     // Compute damage multiplier
     float mapInInterval(float value);
