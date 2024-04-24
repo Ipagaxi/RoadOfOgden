@@ -18,6 +18,7 @@ enum PlayerPhase {
 
 class PlayersTurn: public FightState {
   public:
+    PlayersTurn(FightEnv &fightEnv);
     ~PlayersTurn();
     FightStateEnum run(Game &game, FightEnv &fightEnv) override;
 
@@ -25,6 +26,10 @@ class PlayersTurn: public FightState {
     PlayerPhase playerPhase = PlayerPhase::PICK_COLOR;
     bool colorPicked = false;
     sf::Vector2f clickedPos;
+    sf::Image oldColorImage;
+    sf::Image newColorImage;
+    bool newColorImageSet = false;
+    float passedMillSec = 0.0;
 
     void processAttack(FightEnv &fightEnv, Game &game);
     void changeColoPickerImage(Game &game, FightEnv &fightEnv);

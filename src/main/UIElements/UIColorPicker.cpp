@@ -108,3 +108,7 @@ void UIColorPicker::setColorImage(sf::Image image) {
   this->colorIMG = image;
   this->colorTX.loadFromImage(this->colorIMG);
 }
+
+void UIColorPicker::refreshColorTX() {
+  this->colorTX.loadFromImage(this->colorIMG);
+}

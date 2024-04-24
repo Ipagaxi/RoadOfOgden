@@ -1,7 +1,12 @@
 #include "FightStates/PlayersTurn.hpp"
 
+PlayersTurn::PlayersTurn(FightEnv &fightEnv) {
+  generateTexture();
+  this->newColorImage.loadFromFile(RESOURCE_PATH "color_textures/colorPIC_new.png");
+  this->oldColorImage = fightEnv.enemyOverview.colorPicker.colorIMG;
+}
+
 PlayersTurn::~PlayersTurn() {
-  std::cout << "PlayersTurn destructor called!";
 }
 
 FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
@@ -46,44 +51,33 @@ void PlayersTurn::processAttack(FightEnv &fightEnv, Game &game) {
     fightEnv.turnSP.setTexture(fightEnv.enemiesTurnTX);
     fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
     this->colorPicked = false;
-    generateTexture();
     this->playerPhase = PlayerPhase::CHANGE_COLOR;
   }
 }
 
 void PlayersTurn::changeColoPickerImage(Game &game, FightEnv &fightEnv) {
-  static bool initialized = false;
-  static bool newColorImageSet = false;
-  static sf::Image oldColorImage = fightEnv.enemyOverview.colorPicker.colorIMG;
-  static sf::Image currentColorImage;
-  static sf::Image newColorImage;
   static int changingMillSec = 3000;
-  static int passedMillSec = 0;
-  if (passedMillSec >= changingMillSec) {
-    this->playerPhase = PlayerPhase::END_TURN;
-  }
-  static float elapsedRatio = static_cast<float>(passedMillSec)/changingMillSec;
-  if (!initialized) {
-    newColorImage.loadFromFile(RESOURCE_PATH "color_textures/colorPIC_new.png");
-    initialized = true;
-  }
+  float elapsedRatio = this->passedMillSec/changingMillSec;
   for (int y = 0; y < GEN_IMG_HEIGHT; ++y) {
     for (int x = 0; x < GEN_IMG_WIDTH; ++x) {
-      const double red = this->computeCurrentPixel(oldColorImage.getPixel(y, x).r, newColorImage.getPixel(y, x).r, elapsedRatio);
-      const double green = this->computeCurrentPixel(oldColorImage.getPixel(y, x).g, newColorImage.getPixel(y, x).g, elapsedRatio);
-      const double blue = this->computeCurrentPixel(oldColorImage.getPixel(y, x).b, newColorImage.getPixel(y, x).b, elapsedRatio);
+      const double red = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).r, this->newColorImage.getPixel(x, y).r, elapsedRatio);
+      const double green = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).g, this->newColorImage.getPixel(x, y).g, elapsedRatio);
+      const double blue = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).b, this->newColorImage.getPixel(x, y).b, elapsedRatio);
       fightEnv.enemyOverview.colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
+      if (y == 200 && x == 200) {
+        //std::cout << this->oldColorImage.getPixel(y, x)
+      }
     }
   }
-  if (newColorImageSet) {
-    newColorImageSet = false;
+  fightEnv.enemyOverview.colorPicker.refreshColorTX();
+  this->passedMillSec += game.gameStatus.elapsedTime.asMilliseconds();
+  if (this->passedMillSec >= changingMillSec) {
     this->playerPhase = PlayerPhase::END_TURN;
   }
-  passedMillSec += game.gameStatus.elapsedTime.asMilliseconds();
 }
 
 double PlayersTurn::computeCurrentPixel(double formerPixelColor, double newPixelColor, float elapsedRatio) {
-  return formerPixelColor - (formerPixelColor - newPixelColor) * elapsedRatio;
+  return formerPixelColor - ((formerPixelColor - newPixelColor) * elapsedRatio);
 }
 
 float PlayersTurn::mapInInterval(float value) {

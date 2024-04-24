@@ -39,6 +39,7 @@ class UIColorPicker: public UIElement {
     void setColorBox(std::string picPath, std::string borderPath);
     void setColorImage(std::string picPath);
     void setColorImage(sf::Image);
+    void refreshColorTX();
 };
 
 #endif
