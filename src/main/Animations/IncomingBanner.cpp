@@ -56,7 +56,6 @@ bool IncomingBanner::runAnimation(Game &game) {
 }
 
 void IncomingBanner::drawAnimation(sf::RenderWindow* gameWindow) {
-    std::cout << "Banner is drawn!" << std::endl;
     gameWindow->draw(this->banner);
     gameWindow->draw(this->bannerText);
 }

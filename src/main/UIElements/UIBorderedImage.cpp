@@ -2,8 +2,10 @@
 
 UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFilePath) {
     this->imageTX.loadFromFile(RESOURCE_PATH + imageFilePath);
+    std::cout << "Loaded 1" << std::endl;
     this->imageSP.setTexture(this->imageTX);
     this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
+    std::cout << "Loaded 2" << std::endl;
     this->borderSP.setTexture(this->borderTX);
 
     sf::FloatRect imageRect = this->imageSP.getGlobalBounds();
@@ -19,11 +21,6 @@ UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFi
 void UIBorderedImage::setImage(std::string imagePath) {
   this->imageTX.loadFromFile(RESOURCE_PATH + imagePath);
   this->imageSP.setTexture(this->imageTX);
-  sf::FloatRect imageRect = this->imageSP.getGlobalBounds();
-  sf::Vector2f borderPos = this->borderSP.getPosition();
-  sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
-  this->imageSP.setOrigin(imageRect.width/2.f, imageRect.height/2.f);
-  this->imageSP.setPosition(borderPos.x + (borderSize.width/2.f), borderPos.y + (borderSize.height/2.f));
 }
 
 void UIBorderedImage::draw(sf::RenderWindow* gameWindow) {

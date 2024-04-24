@@ -45,7 +45,7 @@ void UIColorPicker::draw(sf::RenderWindow* window) {
 void UIColorPicker::setPosition(float x, float y) {
   this->borderSP.setPosition(x, y);
   sf::FloatRect borderSize = this->getSize();
-  this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2));
+  this->colorSP.setPosition(x + (borderSize.width/2), y + (borderSize.height/2)- borderSize.height*0.01);
 }
 
 sf::Vector2f UIColorPicker::getPosition() {

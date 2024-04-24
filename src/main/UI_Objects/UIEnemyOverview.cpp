@@ -48,7 +48,7 @@ UIEnemyOverview::UIEnemyOverview(Game &game, Enemy enemy): statsComponent(game, 
 void UIEnemyOverview::setEnemy(Enemy enemy) {
   this->creature = enemy;
   this->statsComponent.setActor(enemy);
-  this->creatureFrame.setImage(enemy.picPath);
+  this->creatureFrame.setImage("monster_landscape_cut/" + enemy.picPath);
   this->colorPicker.setColorImage(enemy.colorPicPath);
 }
 
