@@ -25,7 +25,6 @@ FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
         int millSecToLive = 600;
         fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
         fightEnv.enemyOverview.changeHealth(damage);
-        fightEnv.newColorIMGNeeded = true;
         this->playerPhase = PlayerPhase::ANIMATE_ATTACK;
       }
       break;
@@ -36,7 +35,6 @@ FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
       this->changeColoPickerImage(game, fightEnv);
       break;
     case PlayerPhase::END_TURN:
-      fightEnv.turnIsChanging = true;
       currentState = FightStateEnum::TURN_CHANGE;
       break;
   }
@@ -49,14 +47,13 @@ void PlayersTurn::processAttack(FightEnv &fightEnv, Game &game) {
     fightEnv.isPlayersTurn = (fightEnv.isPlayersTurn + 1) % 2;
     fightEnv.enemyDamageCalculated = false;
     fightEnv.turnSP.setTexture(fightEnv.enemiesTurnTX);
-    fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
     this->colorPicked = false;
     this->playerPhase = PlayerPhase::CHANGE_COLOR;
   }
 }
 
 void PlayersTurn::changeColoPickerImage(Game &game, FightEnv &fightEnv) {
-  static int changingMillSec = 3000;
+  static int changingMillSec = 2000;
   float elapsedRatio = this->passedMillSec/changingMillSec;
   for (int y = 0; y < GEN_IMG_HEIGHT; ++y) {
     for (int x = 0; x < GEN_IMG_WIDTH; ++x) {
@@ -64,9 +61,6 @@ void PlayersTurn::changeColoPickerImage(Game &game, FightEnv &fightEnv) {
       const double green = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).g, this->newColorImage.getPixel(x, y).g, elapsedRatio);
       const double blue = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).b, this->newColorImage.getPixel(x, y).b, elapsedRatio);
       fightEnv.enemyOverview.colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
-      if (y == 200 && x == 200) {
-        //std::cout << this->oldColorImage.getPixel(y, x)
-      }
     }
   }
   fightEnv.enemyOverview.colorPicker.refreshColorTX();

@@ -1,7 +1,7 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game) {
+FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game), currentFightState(std::make_unique<TurnChangeState>(game, fightEnv)) {
   this->fightEnv.enemyOverview.setEnemy(initEnemy());
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
@@ -29,13 +29,12 @@ FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game) {
 
   if (this->fightEnv.isPlayersTurn) {
     this->fightEnv.turnSP.setTexture(this->fightEnv.playersTurnTX);
-    this->fightEnv.turnChangeBanner.setNewLabel("Your Turn");
   } else {
     this->fightEnv.turnSP.setTexture(this->fightEnv.enemiesTurnTX);
-    this->fightEnv.turnChangeBanner.setNewLabel("Enemies Turn");
   }
   sf::FloatRect turnStateSignSize = this->fightEnv.turnSP.getGlobalBounds();
   this->fightEnv.turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
+  this->currentFightStateEnum = FightStateEnum::TURN_CHANGE;
 }
 
 FightActivity::~FightActivity() {
@@ -52,7 +51,7 @@ void FightActivity::runCurrentState(Game &game) {
         this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
         break;
       case FightStateEnum::TURN_CHANGE:
-        this->currentFightState = std::move(std::make_unique<TurnChangeState>());
+        this->currentFightState = std::move(std::make_unique<TurnChangeState>(game, this->fightEnv));
         break;
       default:
         break;
@@ -65,17 +64,14 @@ ActivityEnum FightActivity::executeActivity(Game &game) {
   sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
-  this->runCurrentState(game);
-
   gameWindow->draw(this->fightEnv.turnSP);
   gameWindow->draw(this->fightEnv.backgroundSP);
   this->fightEnv.playerOverview.draw(gameWindow);
   this->fightEnv.enemyOverview.draw(gameWindow);
   this->exitButton.draw(gameWindow);
   this->fightEnv.textFadingManager.run(gameWindow, game.gameStatus);
-  if (this->fightEnv.turnIsChanging) {
-    this->fightEnv.turnChangeBanner.drawAnimation(gameWindow);
-  }
+
+  this->runCurrentState(game);
 
   if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
     this->fightEnv.backgroundMusic.stop();

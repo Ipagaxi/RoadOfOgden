@@ -1,12 +1,21 @@
 #include "FightStates/TurnChangeState.hpp"
 
+TurnChangeState::TurnChangeState(Game &game, FightEnv &fightEnv): turnChangeBanner(game) {
+  if (fightEnv.isPlayersTurn) {
+    fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
+    this->turnChangeBanner.setNewLabel("Your Turn");
+  } else {
+    this->turnChangeBanner.setNewLabel("Enemies Turn");
+  }
+}
+
 TurnChangeState::~TurnChangeState() {
-  std::cout << "TurnChangeState destructor called!" << std::endl;
 }
 
 FightStateEnum TurnChangeState::run(Game &game, FightEnv &fightEnv) {
   FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
-  if (!fightEnv.turnChangeBanner.runAnimation(game)) {
+  this->turnChangeBanner.drawAnimation(game.renderEngine.gameWindow);
+  if (!this->turnChangeBanner.runAnimation(game)) {
     if (fightEnv.isPlayersTurn) {
       currentFightState = FightStateEnum::PLAYER_STATE;
     } else {

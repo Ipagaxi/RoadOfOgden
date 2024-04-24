@@ -22,15 +22,12 @@ class FightEnv {
     sf::Texture playersTurnTX;
     sf::Texture enemiesTurnTX;
     sf::Sprite turnSP;
-    IncomingBanner turnChangeBanner;
     sf::Music backgroundMusic;
 
     sf::Color pickedColor;
     int maxMultiplier = 2;
     int isPlayersTurn;
     bool enemyDamageCalculated = false;
-    bool turnIsChanging = true;
-    bool newColorIMGNeeded = false;
 
 };
 

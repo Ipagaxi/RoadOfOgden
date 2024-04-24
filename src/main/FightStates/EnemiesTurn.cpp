@@ -1,13 +1,11 @@
 #include "FightStates/EnemiesTurn.hpp"
 
 EnemiesTurn::~EnemiesTurn() {
-  std::cout << "EnemiesTurn destructor called!" << std::endl;
 }
 
 FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
   FightStateEnum currentState = FightStateEnum::ENEMY_STATE;
   if (!fightEnv.enemyDamageCalculated) {
-    fightEnv.turnIsChanging = false;
     std::random_device randSeed;
     std::mt19937 gen(randSeed());
     int minDamage = int(0.75 * fightEnv.enemyOverview.creature.attackStrength);
@@ -27,10 +25,7 @@ FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
     fightEnv.textFadingManager.fadingText.pastMillSec = 0;
     fightEnv.isPlayersTurn = (fightEnv.isPlayersTurn + 1) % 2;
     fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
-    fightEnv.turnChangeBanner.setNewLabel("Your Turn");
-    fightEnv.turnIsChanging = true;
     currentState = FightStateEnum::TURN_CHANGE;
-    std::cout << "Fight -> Change" << std::endl;
   }
   return currentState;
 }

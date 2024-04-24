@@ -43,7 +43,7 @@ class FightActivity: public Activity {
     FightEnv fightEnv;
     FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
 
-    std::unique_ptr<FightState> currentFightState = std::make_unique<TurnChangeState>();
+    std::unique_ptr<FightState> currentFightState;
 
     Enemy initEnemy();
     void runPlayersTurn(Game &game);

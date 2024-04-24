@@ -17,9 +17,13 @@ class IncomingBanner {
         void drawAnimation(sf::RenderWindow* gameWindow);
 
     private:
-        sf::RectangleShape banner;
-        sf::Text bannerText;
-        void init(Game &game);
+      int pastTimeInMillSec = 0;
+      int pastMovementTime = 0;
+      bool animationStillActive = true;
+
+      sf::RectangleShape banner;
+      sf::Text bannerText;
+      void init(Game &game);
 };
 
 #endif

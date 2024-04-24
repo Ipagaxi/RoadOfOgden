@@ -29,35 +29,34 @@ void IncomingBanner::setNewLabel(std::string newLabel) {
 }
 
 bool IncomingBanner::runAnimation(Game &game) {
-    static bool animationRuns = true;
-    int changeTimeMillSec = 1000;
-    int bannerMovementime = 300;
-    static int pastTimeInMillSec = 0;
-    static int pastMovementTime = 0;
-    float pastTimeRatio = std::min(pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
+
+    int changeTimeMillSec = 1000; // The entire screen time of the banner
+    int bannerMovementime = 300; // The time only for movement of the banner => after movement ended banner is still on screen shortly
+
+    float pastTimeRatio = std::min(this->pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
     sf::FloatRect bannerSize = this->banner.getGlobalBounds();
     sf::Vector2f bannerPos = sf::Vector2f(-windowSize.x + pastTimeRatio * windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
     this->banner.setPosition(bannerPos.x, bannerPos.y);
     this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
 
-    pastTimeInMillSec += game.gameStatus.elapsedTime.asMilliseconds();
-    if (pastMovementTime < bannerMovementime) {
-        pastMovementTime += game.gameStatus.elapsedTime.asMilliseconds();
+    this->pastTimeInMillSec += game.gameStatus.elapsedTime.asMilliseconds();
+    if (this->pastMovementTime < bannerMovementime) {
+        this->pastMovementTime += game.gameStatus.elapsedTime.asMilliseconds();
     }
-    if (pastTimeInMillSec >= changeTimeMillSec) {
-      std::cout << "Banner Zeit abgelaufen" << std::endl;
-      animationRuns = false;
+    if (this->pastTimeInMillSec >= changeTimeMillSec) {
+      this->animationStillActive = false;
       bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
       this->banner.setPosition(bannerPos.x, bannerPos.y);
       this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
-      pastTimeInMillSec = 0;
-      pastMovementTime = 0;
+      this->pastTimeInMillSec = 0;
+      this->pastMovementTime = 0;
     }
-    return animationRuns;
+    return animationStillActive;
 }
 
 void IncomingBanner::drawAnimation(sf::RenderWindow* gameWindow) {
+    std::cout << "Banner is drawn!" << std::endl;
     gameWindow->draw(this->banner);
     gameWindow->draw(this->bannerText);
 }
