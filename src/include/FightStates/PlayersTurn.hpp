@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "FightStates/StateFight.hpp"
+#include "FightStates/FightState.hpp"
 #include "Game.hpp"
 #include "Color.hpp"
 #include "GenerateColorIMG.hpp"
@@ -16,8 +16,9 @@ enum PlayerPhase {
   END_TURN
 };
 
-class PlayersTurn: public StateFight {
+class PlayersTurn: public FightState {
   public:
+    ~PlayersTurn();
     FightStateEnum run(Game &game, FightEnv &fightEnv) override;
 
   private:

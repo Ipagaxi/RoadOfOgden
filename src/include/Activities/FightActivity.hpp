@@ -27,7 +27,8 @@
 #include "FightEnv.hpp"
 #include "FightStates/PlayersTurn.hpp"
 #include "FightStates/EnemiesTurn.hpp"
-#include "FightStates/StateTurnChange.hpp"
+#include "FightStates/TurnChangeState.hpp"
+#include "FightStates/FightState.hpp"
 #include "FightStateEnum.hpp"
 
 class FightActivity: public Activity {
@@ -40,11 +41,9 @@ class FightActivity: public Activity {
 
   private:
     FightEnv fightEnv;
-    FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
+    FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
 
-    PlayersTurn playersTurn;
-    EnemiesTurn enemiesTurn;
-    StateTurnChange stateTurnChange;
+    std::unique_ptr<FightState> currentFightState = std::make_unique<TurnChangeState>();
 
     Enemy initEnemy();
     void runPlayersTurn(Game &game);

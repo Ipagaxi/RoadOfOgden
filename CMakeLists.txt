@@ -31,7 +31,7 @@ FetchContent_MakeAvailable(SFML)
 add_executable (
     ${PROJECT_NAME}
     ${SOURCES}
-        src/include/FightStates/StateFight.hpp
+        src/include/FightStates/FightState.hpp
         src/include/FightEnv.hpp
 )
 

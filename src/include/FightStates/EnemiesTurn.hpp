@@ -2,12 +2,13 @@
 #define ENEMIESTURN_HPP
 
 #include <random>
-#include "FightStates/StateFight.hpp"
+#include "FightStates/FightState.hpp"
 #include "FightStateEnum.hpp"
 
-class EnemiesTurn: public StateFight {
+class EnemiesTurn: public FightState {
   public:
-   FightStateEnum run(Game &game, FightEnv &fightEnv) override;
+    ~EnemiesTurn();
+    FightStateEnum run(Game &game, FightEnv &fightEnv) override;
 
   private:
 };

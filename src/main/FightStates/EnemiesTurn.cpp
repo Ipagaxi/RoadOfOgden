@@ -1,5 +1,9 @@
 #include "FightStates/EnemiesTurn.hpp"
 
+EnemiesTurn::~EnemiesTurn() {
+  std::cout << "EnemiesTurn destructor called!" << std::endl;
+}
+
 FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
   FightStateEnum currentState = FightStateEnum::ENEMY_STATE;
   if (!fightEnv.enemyDamageCalculated) {

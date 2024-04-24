@@ -41,45 +41,24 @@ FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game) {
 FightActivity::~FightActivity() {
 }
 
-void FightActivity::runEnemiesTurn(Game &game) {
-  this->enemiesTurn.run(game, this->fightEnv);
-}
-
-
-void FightActivity::runDefeat(Game &game) {
-  //Here comes the Defeat
-}
-
-void FightActivity::runVictory(Game &game) {
-  //Here comes the Vidtory
-}
-
 void FightActivity::runCurrentState(Game &game) {
-  switch (this->currentFightState) {
-    case FightStateEnum::PLAYER_STATE:
-      this->currentFightState = this->playersTurn.run(game, this->fightEnv);
-      break;
-    case FightStateEnum::ENEMY_STATE:
-      this->currentFightState = this->enemiesTurn.run(game, this->fightEnv);
-      break;
-    case FightStateEnum::TURN_CHANGE:
-      this->currentFightState = this->stateTurnChange.run(game, this->fightEnv);
-      break;
-    default:
-      break;
+  FightStateEnum newStateFightEnum = this->currentFightState->run(game, this->fightEnv);
+  if (newStateFightEnum != this->currentFightStateEnum) {
+    switch (newStateFightEnum) {
+      case FightStateEnum::PLAYER_STATE:
+        this->currentFightState = std::move(std::make_unique<PlayersTurn>());
+        break;
+      case FightStateEnum::ENEMY_STATE:
+        this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
+        break;
+      case FightStateEnum::TURN_CHANGE:
+        this->currentFightState = std::move(std::make_unique<TurnChangeState>());
+        break;
+      default:
+        break;
+    }
+    this->currentFightStateEnum = newStateFightEnum;
   }
-  /*
-  if (this->fightEnv.playerOverview.player.health == 0) {
-    this->runDefeat(game);
-  } else if (this->fightEnv.enemyOverview.creature.health == 0) {
-    this->runVictory(game);
-  } else if (this->fightEnv.turnIsChanging) {
-    this->fightEnv.turnChangeBanner.runAnimation(game, this->fightEnv.turnIsChanging);
-  } else if (this->fightEnv.isPlayersTurn) {
-    this->runPlayersTurn(game);
-  } else {
-    this->runEnemiesTurn(game);
-  }*/
 }
 
 ActivityEnum FightActivity::executeActivity(Game &game) {

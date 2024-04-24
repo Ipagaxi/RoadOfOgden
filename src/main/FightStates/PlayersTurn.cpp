@@ -1,5 +1,9 @@
 #include "FightStates/PlayersTurn.hpp"
 
+PlayersTurn::~PlayersTurn() {
+  std::cout << "PlayersTurn destructor called!";
+}
+
 FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
   FightStateEnum currentState = FightStateEnum::PLAYER_STATE;
   switch (this->playerPhase) {

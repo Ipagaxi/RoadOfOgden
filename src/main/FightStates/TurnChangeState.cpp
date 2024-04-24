@@ -1,6 +1,10 @@
-#include "FightStates/StateTurnChange.hpp"
+#include "FightStates/TurnChangeState.hpp"
 
-FightStateEnum StateTurnChange::run(Game &game, FightEnv &fightEnv) {
+TurnChangeState::~TurnChangeState() {
+  std::cout << "TurnChangeState destructor called!" << std::endl;
+}
+
+FightStateEnum TurnChangeState::run(Game &game, FightEnv &fightEnv) {
   FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
   if (!fightEnv.turnChangeBanner.runAnimation(game)) {
     if (fightEnv.isPlayersTurn) {
