@@ -2,10 +2,8 @@
 
 UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFilePath) {
     this->imageTX.loadFromFile(RESOURCE_PATH + imageFilePath);
-    std::cout << "Loaded 1" << std::endl;
     this->imageSP.setTexture(this->imageTX);
     this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
-    std::cout << "Loaded 2" << std::endl;
     this->borderSP.setTexture(this->borderTX);
 
     sf::FloatRect imageRect = this->imageSP.getGlobalBounds();

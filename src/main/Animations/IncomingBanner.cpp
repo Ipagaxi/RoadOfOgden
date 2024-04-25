@@ -11,6 +11,11 @@ void IncomingBanner::init(Game &game) {
     this->bannerText.setFillColor(sf::Color::White);
     sf::FloatRect textRec = this->bannerText.getGlobalBounds();
     this->bannerText.setOrigin(textRec.width * 0.5, textRec.height * 0.5);
+
+    sf::FloatRect bannerSize = this->banner.getGlobalBounds();
+    sf::Vector2f bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
+    this->banner.setPosition(bannerPos.x, bannerPos.y);
+    this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
 }
 
 IncomingBanner::IncomingBanner(Game &game) {
