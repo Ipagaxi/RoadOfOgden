@@ -38,6 +38,7 @@ FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game), curre
 }
 
 FightActivity::~FightActivity() {
+  this->fightEnv.backgroundMusic.stop();
 }
 
 void FightActivity::runCurrentState(Game &game) {
@@ -74,7 +75,7 @@ ActivityEnum FightActivity::executeActivity(Game &game) {
   this->runCurrentState(game);
 
   if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
-    this->fightEnv.backgroundMusic.stop();
+
     currentActivity = ActivityEnum::Menu;
   }
   return currentActivity;
