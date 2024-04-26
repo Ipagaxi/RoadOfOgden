@@ -1,13 +1,13 @@
 #ifndef UIPLAYERSTATS_HPP
 #define UIPLAYERSTATS_HPP
 
-#include "UIComponents/UIComponent.hpp"
 #include "UIElements/UIBox.hpp"
+#include "UIElements/UIElement.hpp"
 #include "Actors/Actor.hpp"
 #include "Game.hpp"
 #include <iostream>
 
-class UIStats: public UIComponent {
+class UIStats: public UIElement {
     public:
         UIStats(Game &game, Actor actor);
 

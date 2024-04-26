@@ -1,4 +1,4 @@
-#include "UIComponents/UIStats.hpp"
+#include "UIElements/UIStats.hpp"
 
 
 UIStats::UIStats(Game &game, Actor actor) {

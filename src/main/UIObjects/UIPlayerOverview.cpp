@@ -1,4 +1,4 @@
-#include "UI_Objects/UIPlayerOverview.hpp"
+#include "UIObjects/UIPlayerOverview.hpp"
 
 UIPlayerOverview::UIPlayerOverview(Game &game): statsComponent(game, game.player), player(game.player), playerFrame("monster_landscape_cut/" + game.player.picPath, "actor_borders/fight_border.png") {
     sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();

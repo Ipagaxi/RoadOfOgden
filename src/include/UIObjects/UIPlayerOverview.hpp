@@ -7,7 +7,7 @@
 #include "Game.hpp"
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIBorderedImage.hpp"
-#include "UIComponents/UIStats.hpp"
+#include "UIElements/UIStats.hpp"
 
 
 class UIPlayerOverview {

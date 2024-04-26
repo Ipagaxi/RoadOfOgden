@@ -6,10 +6,9 @@ file(GLOB source_files
     "src/main/*.cpp"
     "src/main/Activities/*.cpp"
     "src/main/UIElements/*.cpp"
-    "src/main/UIComponents/*.cpp"
     "src/main/Actors/*.cpp"
     "src/main/Animations/*.cpp"
-    "src/main/UI_Objects/*.cpp"
+    "src/main/UIObjects/*.cpp"
     "src/main/FightStates/*.cpp"
 )
 set(SOURCES ${source_files})
@@ -31,8 +30,6 @@ FetchContent_MakeAvailable(SFML)
 add_executable (
     ${PROJECT_NAME}
     ${SOURCES}
-        src/include/FightStates/FightState.hpp
-        src/include/FightEnv.hpp
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE "src/include")

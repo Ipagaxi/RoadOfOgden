@@ -1,4 +1,4 @@
-#include "UI_Objects/UIEnemyOverview.hpp"
+#include "UIObjects/UIEnemyOverview.hpp"
 
 UIEnemyOverview::UIEnemyOverview(Game &game): UIEnemyOverview(game, Enemy()) {
 }

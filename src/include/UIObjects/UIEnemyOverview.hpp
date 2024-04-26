@@ -4,7 +4,7 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-#include "UIComponents/UIStats.hpp"
+#include "UIElements/UIStats.hpp"
 #include "UIElements/UIColorPicker.hpp"
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIElements/UIBox.hpp"

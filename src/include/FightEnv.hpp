@@ -2,9 +2,9 @@
 #define FIGHTEVENTS_HPP
 
 #include <SFML/Graphics.hpp>
-#include "UIComponents/UIStats.hpp"
-#include "UI_Objects/UIEnemyOverview.hpp"
-#include "UI_Objects/UIPlayerOverview.hpp"
+#include "UIElements/UIStats.hpp"
+#include "UIObjects/UIEnemyOverview.hpp"
+#include "UIObjects/UIPlayerOverview.hpp"
 #include "Animations/TextFadingManager.hpp"
 #include "Animations/IncomingBanner.hpp"
 #include "Game.hpp"
