@@ -1,6 +1,6 @@
 #include "FightStates/TurnChangeState.hpp"
 
-TurnChangeState::TurnChangeState(Game &game, FightEnv &fightEnv): turnChangeBanner(game) {
+TurnChangeState::TurnChangeState(FightEnv &fightEnv): turnChangeBanner() {
   if (fightEnv.isPlayersTurn) {
     fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
     this->turnChangeBanner.setNewLabel("Your Turn");
@@ -12,10 +12,11 @@ TurnChangeState::TurnChangeState(Game &game, FightEnv &fightEnv): turnChangeBann
 TurnChangeState::~TurnChangeState() {
 }
 
-FightStateEnum TurnChangeState::run(Game &game, FightEnv &fightEnv) {
+FightStateEnum TurnChangeState::run(FightEnv &fightEnv) {
+  Game game = Game::getInstance();
   FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
-  this->turnChangeBanner.drawAnimation(game.renderEngine.gameWindow);
-  if (!this->turnChangeBanner.runAnimation(game)) {
+  this->turnChangeBanner.drawAnimation();
+  if (!this->turnChangeBanner.runAnimation()) {
     if (fightEnv.isPlayersTurn) {
       currentFightState = FightStateEnum::PLAYER_STATE;
     } else {

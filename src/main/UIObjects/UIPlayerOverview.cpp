@@ -1,8 +1,8 @@
 #include "UIObjects/UIPlayerOverview.hpp"
 
-UIPlayerOverview::UIPlayerOverview(Game &game): statsComponent(game, game.player), player(game.player), playerFrame("monster_landscape_cut/" + game.player.picPath, "actor_borders/fight_border.png") {
-    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
-
+UIPlayerOverview::UIPlayerOverview(): statsComponent(Game::getInstance().player), player(Game::getInstance().player), playerFrame("monster_landscape_cut/" + Game::getInstance().player.picPath, "actor_borders/fight_border.png") {
+    Game game = Game::getInstance();
+    sf::Vector2u windowSize = game.gameWindow.getSize();
     sf::FloatRect boxRect = this->backgroundBox.getSize();
     this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
     
@@ -33,9 +33,10 @@ void UIPlayerOverview::changeHealth(int value) {
     this->statsComponent.updateHealth(newHealth);
 }
 
-void UIPlayerOverview::draw(sf::RenderWindow* gameWindow) {
-    this->backgroundBox.draw(gameWindow);
-    this->statsComponent.draw(gameWindow);
-    gameWindow->draw(this->playerBackgroundSP);
-    this->playerFrame.draw(gameWindow);
+void UIPlayerOverview::draw() {
+    Game game = Game::getInstance();
+    this->backgroundBox.draw();
+    this->statsComponent.draw();
+    game.gameWindow.draw(this->playerBackgroundSP);
+    this->playerFrame.draw();
 }

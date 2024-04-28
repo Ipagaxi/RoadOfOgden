@@ -4,6 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
+
+#include "Game.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
 
@@ -12,7 +14,7 @@ class UIBorderedImage: public UIElement {
         UIBorderedImage(std::string imageFilePath, std::string borderFilePath);
 
         void setImage(std::string imagePath);
-        void draw(sf::RenderWindow* gameWindow) override;
+        void draw() override;
         void setPosition(float x, float y) override;
         sf::Vector2f getPosition() override;
         sf::FloatRect getSize() override;

@@ -23,8 +23,9 @@ TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, 
     this->millSecToLive = _millSecToLive;
 }
 
-void TextFading::draw(sf::RenderWindow* gameWindow) {
-    gameWindow->draw(this->text);
+void TextFading::draw() {
+    Game game = Game::getInstance();
+    game.gameWindow.draw(this->text);
 }
 
 float TextFading::computeParabel(float value) {
@@ -51,47 +52,44 @@ void TextFading::setNewParabelPos() {
     this->text.setPosition(this->initPosX + newRelativePosX, this->initPosY + newRelativePosY);
 }
 
-void TextFadingManager::updateAnimationState(GameStatus &gameStatus) {
-    //std::cout << "Remaining Visibility: " << std::to_string(this->fadingText.remainingVisibilty) << std::endl;
-    sf::Color oldColor = this->fadingText.text.getFillColor();
-    sf::Vector2f oldPos = this->fadingText.text.getPosition();
-    //std::cout << "Pos: " << std::to_string(oldPos.x) << ", " << std::to_string(oldPos.y) << std::endl;
-    float pastRatio = gameStatus.elapsedTime.asMilliseconds() / static_cast<float>(this->fadingText.millSecToLive);
-    int visRatio = int(255*pastRatio);
-    this->fadingText.remainingVisibilty -= visRatio;
-    this->fadingText.text.setFillColor(sf::Color(oldColor.r, oldColor.g, oldColor.b, this->fadingText.remainingVisibilty));
-    float distanceToTravel = (this->fadingText.pixelPerMillSec * gameStatus.elapsedTime.asMilliseconds());
-    switch (this->fadingText.animationPath) {
-        case Left:
-            this->fadingText.text.setPosition(oldPos.x - distanceToTravel, oldPos.y);
-            break;
-        case Right:
-            this->fadingText.text.setPosition(oldPos.x + distanceToTravel, oldPos.y);
-            break;
-        case Up:
-            this->fadingText.text.setPosition(oldPos.x, oldPos.y - distanceToTravel);
-            break;
-        case Down:
-            this->fadingText.text.setPosition(oldPos.x, oldPos.y + distanceToTravel);
-            break;
-        case Parabel:
-            this->fadingText.setNewParabelPos();
-            break;
-        default:
-            break;
-    }
-    this->fadingText.pastMillSec += gameStatus.elapsedTime.asMilliseconds();
-    if (this->fadingText.pastMillSec >= this->fadingText.millSecToLive) {
-        //this->fadingText.pastMillSec = 0;
-        this->isRunning = false;
-    }
-    //std::cout << "####################" << std::endl;
+void TextFadingManager::updateAnimationState() {
+  Game game = Game::getInstance();
+  sf::Color oldColor = this->fadingText.text.getFillColor();
+  sf::Vector2f oldPos = this->fadingText.text.getPosition();
+  float pastRatio = game.gameStatus.elapsedTime.asMilliseconds() / static_cast<float>(this->fadingText.millSecToLive);
+  int visRatio = int(255*pastRatio);
+  this->fadingText.remainingVisibilty -= visRatio;
+  this->fadingText.text.setFillColor(sf::Color(oldColor.r, oldColor.g, oldColor.b, this->fadingText.remainingVisibilty));
+  float distanceToTravel = (this->fadingText.pixelPerMillSec * game.gameStatus.elapsedTime.asMilliseconds());
+  switch (this->fadingText.animationPath) {
+      case Left:
+          this->fadingText.text.setPosition(oldPos.x - distanceToTravel, oldPos.y);
+          break;
+      case Right:
+          this->fadingText.text.setPosition(oldPos.x + distanceToTravel, oldPos.y);
+          break;
+      case Up:
+          this->fadingText.text.setPosition(oldPos.x, oldPos.y - distanceToTravel);
+          break;
+      case Down:
+          this->fadingText.text.setPosition(oldPos.x, oldPos.y + distanceToTravel);
+          break;
+      case Parabel:
+          this->fadingText.setNewParabelPos();
+          break;
+      default:
+          break;
+  }
+  this->fadingText.pastMillSec += game.gameStatus.elapsedTime.asMilliseconds();
+  if (this->fadingText.pastMillSec >= this->fadingText.millSecToLive) {
+      this->isRunning = false;
+  }
 }
 
-void TextFadingManager::run(sf::RenderWindow* gameWindow, GameStatus &gameStatus) {
+void TextFadingManager::run() {
     if (this->isRunning) {
-        this->fadingText.draw(gameWindow);
-        this->updateAnimationState(gameStatus);
+        this->fadingText.draw();
+        this->updateAnimationState();
     }
 }
 

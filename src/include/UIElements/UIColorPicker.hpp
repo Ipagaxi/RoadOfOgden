@@ -28,13 +28,13 @@ class UIColorPicker: public UIElement {
     sf::Image colorIMG;
     sf::Sound releaseSound;
 
-    void draw(sf::RenderWindow* window) override;
+    void draw() override;
     void setPosition(float x, float y) override;
     sf::Vector2f getPosition() override;
     sf::FloatRect getSize() override;
     void scale(float x, float y) override;
 
-    bool clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos);
+    bool clickListener(sf::Vector2f &clickedPos);
     sf::Color getPixelColor(sf::Vector2f pos);
     void setColorBox(std::string picPath, std::string borderPath);
     void setColorImage(std::string picPath);

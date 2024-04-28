@@ -1,7 +1,8 @@
 #include "Activities/FightActivity.hpp"
 
 
-FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game), currentFightState(std::make_unique<TurnChangeState>(game, fightEnv)) {
+FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::make_unique<TurnChangeState>(fightEnv)) {
+  Game& game = Game::getInstance();
   this->fightEnv.enemyOverview.setEnemy(initEnemy());
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
@@ -10,7 +11,7 @@ FightActivity::FightActivity(Game &game) : Activity(game), fightEnv(game), curre
   this->fightEnv.backgroundMusic.setLoop(true);
   this->fightEnv.backgroundMusic.play();
 
-  sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());
   sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->fightEnv.backgroundTX.getSize());
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
@@ -42,7 +43,7 @@ FightActivity::~FightActivity() {
 }
 
 void FightActivity::runCurrentState(Game &game) {
-  FightStateEnum newStateFightEnum = this->currentFightState->run(game, this->fightEnv);
+  FightStateEnum newStateFightEnum = this->currentFightState->run(this->fightEnv);
   if (newStateFightEnum != this->currentFightStateEnum) {
     switch (newStateFightEnum) {
       case FightStateEnum::PLAYER_STATE:
@@ -52,7 +53,7 @@ void FightActivity::runCurrentState(Game &game) {
         this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
         break;
       case FightStateEnum::TURN_CHANGE:
-        this->currentFightState = std::move(std::make_unique<TurnChangeState>(game, this->fightEnv));
+        this->currentFightState = std::move(std::make_unique<TurnChangeState>(this->fightEnv));
         break;
       default:
         break;
@@ -61,20 +62,20 @@ void FightActivity::runCurrentState(Game &game) {
   }
 }
 
-ActivityEnum FightActivity::executeActivity(Game &game) {
-  sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
+ActivityEnum FightActivity::executeActivity() {
+  Game game = Game::getInstance();
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
-  gameWindow->draw(this->fightEnv.turnSP);
-  gameWindow->draw(this->fightEnv.backgroundSP);
-  this->fightEnv.playerOverview.draw(gameWindow);
-  this->fightEnv.enemyOverview.draw(gameWindow);
-  this->exitButton.draw(gameWindow);
-  this->fightEnv.textFadingManager.run(gameWindow, game.gameStatus);
+  game.gameWindow.draw(this->fightEnv.turnSP);
+  game.gameWindow.draw(this->fightEnv.backgroundSP);
+  this->fightEnv.playerOverview.draw();
+  this->fightEnv.enemyOverview.draw();
+  this->exitButton.draw();
+  this->fightEnv.textFadingManager.run();
 
   this->runCurrentState(game);
 
-  if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
+  if (this->exitButton.clickListener()) {
 
     currentActivity = ActivityEnum::Menu;
   }

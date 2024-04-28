@@ -9,30 +9,29 @@ PlayersTurn::PlayersTurn(FightEnv &fightEnv) {
 PlayersTurn::~PlayersTurn() {
 }
 
-FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
+FightStateEnum PlayersTurn::run(FightEnv &fightEnv) {
+  Game game = Game::getInstance();
   FightStateEnum currentState = FightStateEnum::PLAYER_STATE;
   switch (this->playerPhase) {
     case PlayerPhase::PICK_COLOR:
-      if (fightEnv.enemyOverview.colorPicker.clickListener(game.gameEvents, this->clickedPos) && !colorPicked) {
+      if (fightEnv.enemyOverview.colorPicker.clickListener(this->clickedPos) && !colorPicked) {
         this->colorPicked = true;
         fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
         fightEnv.pickedColor = fightEnv.enemyOverview.colorPicker.getPixelColor(clickedPos);
         fightEnv.enemyOverview.updatePickedColorText("(" + std::to_string(fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", fightEnv.pickedColor);
         float attackMultiplier = this->calculateAttackMult(fightEnv);
-        //std::cout << "Attack Multiplier: " << std::to_string(attackMultiplier) << std::endl;
         int damage = game.player.attackStrength * attackMultiplier;
-        //std::cout << "Damage: " << damage << std::endl;
         int millSecToLive = 600;
-        fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
+        fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
         fightEnv.enemyOverview.changeHealth(damage);
         this->playerPhase = PlayerPhase::ANIMATE_ATTACK;
       }
       break;
     case PlayerPhase::ANIMATE_ATTACK:
-      this->processAttack(fightEnv, game);
+      this->processAttack(fightEnv);
       break;
     case PlayerPhase::CHANGE_COLOR:
-      this->changeColoPickerImage(game, fightEnv);
+      this->changeColoPickerImage(fightEnv);
       break;
     case PlayerPhase::END_TURN:
       currentState = FightStateEnum::TURN_CHANGE;
@@ -41,7 +40,7 @@ FightStateEnum PlayersTurn::run(Game &game, FightEnv &fightEnv) {
   return currentState;
 }
 
-void PlayersTurn::processAttack(FightEnv &fightEnv, Game &game) {
+void PlayersTurn::processAttack(FightEnv &fightEnv) {
   if (fightEnv.textFadingManager.fadingText.pastMillSec >= fightEnv.textFadingManager.fadingText.millSecToLive) {
     fightEnv.textFadingManager.fadingText.pastMillSec = 0;
     fightEnv.isPlayersTurn = (fightEnv.isPlayersTurn + 1) % 2;
@@ -52,7 +51,8 @@ void PlayersTurn::processAttack(FightEnv &fightEnv, Game &game) {
   }
 }
 
-void PlayersTurn::changeColoPickerImage(Game &game, FightEnv &fightEnv) {
+void PlayersTurn::changeColoPickerImage(FightEnv &fightEnv) {
+  Game game = Game::getInstance();
   static int changingMillSec = 2000;
   float elapsedRatio = this->passedMillSec/changingMillSec;
   for (int y = 0; y < GEN_IMG_HEIGHT; ++y) {

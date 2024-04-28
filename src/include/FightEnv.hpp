@@ -11,7 +11,7 @@
 
 class FightEnv {
   public:
-    FightEnv(Game &game);
+    FightEnv();
 
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;

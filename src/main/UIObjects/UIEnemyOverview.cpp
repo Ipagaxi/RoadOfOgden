@@ -1,11 +1,11 @@
 #include "UIObjects/UIEnemyOverview.hpp"
 
-UIEnemyOverview::UIEnemyOverview(Game &game): UIEnemyOverview(game, Enemy()) {
+UIEnemyOverview::UIEnemyOverview(): UIEnemyOverview(Enemy()) {
 }
 
-UIEnemyOverview::UIEnemyOverview(Game &game, Enemy enemy): statsComponent(game, enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
-    sf::Vector2u windowSize = game.renderEngine.gameWindow->getSize();
-
+UIEnemyOverview::UIEnemyOverview(Enemy enemy): statsComponent(enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
+    Game game = Game::getInstance();
+    sf::Vector2u windowSize = game.gameWindow.getSize();
     sf::FloatRect boxRect = this->backgroundBox.getSize();
     sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
     this->backgroundBox.setPosition(overviewPos.x, overviewPos.y);
@@ -38,7 +38,7 @@ UIEnemyOverview::UIEnemyOverview(Game &game, Enemy enemy): statsComponent(game, 
 
     this->pickedColorText.setFont(game.mainFont);
     this->pickedColorText.setString("(0, 0, 0)");
-    this->pickedColorText.setCharacterSize(game.renderEngine.gameWindow->getSize().y * 0.04);
+    this->pickedColorText.setCharacterSize(game.gameWindow.getSize().y * 0.04);
     this->pickedColorText.setFillColor(sf::Color::Yellow);
     sf::FloatRect textRec = this->pickedColorText.getGlobalBounds();
     this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
@@ -52,13 +52,14 @@ void UIEnemyOverview::setEnemy(Enemy enemy) {
   this->colorPicker.setColorImage(enemy.colorPicPath);
 }
 
-void UIEnemyOverview::draw(sf::RenderWindow* gameWindow) {
-    this->backgroundBox.draw(gameWindow);
-    this->statsComponent.draw(gameWindow);
-    this->colorPicker.draw(gameWindow);
-    gameWindow->draw(this->pickedColorText);
-    gameWindow->draw(this->creatureBackgroundSP);
-    this->creatureFrame.draw(gameWindow);
+void UIEnemyOverview::draw() {
+  Game game = Game::getInstance();
+  this->backgroundBox.draw();
+  this->statsComponent.draw();
+  this->colorPicker.draw();
+  game.gameWindow.draw(this->pickedColorText);
+  game.gameWindow.draw(this->creatureBackgroundSP);
+  this->creatureFrame.draw();
 }
 
 void UIEnemyOverview::changeHealth(int value) {

@@ -1,6 +1,6 @@
 #include "UIElements/UIElement.hpp"
 
-void UIElement::draw(sf::RenderWindow* window) {
+void UIElement::draw() {
 
 }
 

@@ -10,7 +10,7 @@
 class FightState {
   public:
     virtual ~FightState();
-    virtual FightStateEnum run(Game &game, FightEnv &fightEnv);
+    virtual FightStateEnum run(FightEnv &fightEnv);
 };
 
 #endif

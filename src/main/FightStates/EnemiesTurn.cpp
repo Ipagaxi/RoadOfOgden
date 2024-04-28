@@ -3,7 +3,8 @@
 EnemiesTurn::~EnemiesTurn() {
 }
 
-FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
+FightStateEnum EnemiesTurn::run(FightEnv &fightEnv) {
+  Game game = Game::getInstance();
   FightStateEnum currentState = FightStateEnum::ENEMY_STATE;
   if (!fightEnv.enemyDamageCalculated) {
     std::random_device randSeed;
@@ -17,7 +18,7 @@ FightStateEnum EnemiesTurn::run(Game &game, FightEnv &fightEnv) {
     sf::FloatRect playerIconSize = fightEnv.playerOverview.playerFrame.getSize();
     sf::Vector2f damagePos = sf::Vector2f(playerIconPos.x + (playerIconSize.width * 0.5), playerIconPos.y + (playerIconSize.height * 0.5));
 
-    fightEnv.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.renderEngine.gameWindow->getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
+    fightEnv.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, game.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
     fightEnv.playerOverview.changeHealth(enemyDamage);
     fightEnv.enemyDamageCalculated = true;
   }

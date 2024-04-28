@@ -27,8 +27,8 @@ class UIButton: public UIElement {
     sf::Sound releaseSound;
 
     void init(std::string fileName);
-    void hoverListener(sf::RenderWindow* gameWindow, GameEvents &gameEvents);
-    bool buttonContainsMouse(sf::RenderWindow* gameWindow);
+    void hoverListener();
+    bool buttonContainsMouse();
 
   public:
     sf::Font font;
@@ -38,13 +38,13 @@ class UIButton: public UIElement {
     UIButton(std::string labelText, std::string fileName);
     UIButton(std::string fileName);
 
-    bool clickListener(sf::RenderWindow* gameWindow, GameEvents &gameEvents);
+    bool clickListener();
 
     void setPosition(float x, float y) override;
     sf::Vector2f getPosition() override;
     sf::FloatRect getSize() override;
 
-    void draw(sf::RenderWindow* window) override;
+    void draw() override;
 
     void scale(float x, float y) override;
 };

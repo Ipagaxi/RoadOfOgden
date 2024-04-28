@@ -33,10 +33,10 @@
 
 class FightActivity: public Activity {
   public:
-    FightActivity(Game &game);
+    FightActivity();
     ~FightActivity();
   
-    ActivityEnum executeActivity(Game &game) override;
+    ActivityEnum executeActivity() override;
     void runCurrentState(Game &game);
 
   private:
@@ -46,10 +46,10 @@ class FightActivity: public Activity {
     std::unique_ptr<FightState> currentFightState;
 
     Enemy initEnemy();
-    void runPlayersTurn(Game &game);
-    void runEnemiesTurn(Game &game);
-    void runDefeat(Game &game);
-    void runVictory(Game &game);
+    void runPlayersTurn();
+    void runEnemiesTurn();
+    void runDefeat();
+    void runVictory();
 };
 
 #endif

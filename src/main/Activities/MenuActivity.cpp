@@ -1,6 +1,7 @@
 #include "Activities/MenuActivity.hpp"
 
-MenuActivity::MenuActivity(Game &game): Activity(game) {
+MenuActivity::MenuActivity(): Activity() {
+    Game game = Game::getInstance();
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -11,7 +12,7 @@ MenuActivity::MenuActivity(Game &game): Activity(game) {
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
 
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
@@ -31,32 +32,32 @@ MenuActivity::MenuActivity(Game &game): Activity(game) {
 MenuActivity::~MenuActivity() {
 }
 
-ActivityEnum MenuActivity::executeActivity(Game &game) {
-  sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
+ActivityEnum MenuActivity::executeActivity() {
+  Game game = Game::getInstance();
 
   ActivityEnum currentActivity = ActivityEnum::Menu;
 
-  gameWindow->draw(this->backgroundSP);
-  gameWindow->draw(this->buttonsBackgroundSP);
+  game.gameWindow.draw(this->backgroundSP);
+  game.gameWindow.draw(this->buttonsBackgroundSP);
 
-  this->buttonFight.draw(gameWindow);
-  this->buttonCharacter.draw(gameWindow);
-  this->buttonExit.draw(gameWindow);
+  this->buttonFight.draw();
+  this->buttonCharacter.draw();
+  this->buttonExit.draw();
 
-  if (buttonFight.clickListener(gameWindow, game.gameEvents)) {
+  if (buttonFight.clickListener()) {
       this->backgroundMusic.stop();
       currentActivity = ActivityEnum::Fight;
   }
 
-  if (buttonCharacter.clickListener(gameWindow, game.gameEvents)) {
+  if (buttonCharacter.clickListener()) {
       this->backgroundMusic.stop();
       currentActivity = ActivityEnum::Character;
   }
 
-  if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
-      //game.backgroundMusic.stop();
-      this->backgroundMusic.stop();
-      gameWindow->close();
+  if (buttonExit.clickListener()) {
+    Game game = Game::getInstance();
+    this->backgroundMusic.stop();
+    game.gameWindow.close();
   }
   return currentActivity;
 }

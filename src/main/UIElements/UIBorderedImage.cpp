@@ -21,9 +21,10 @@ void UIBorderedImage::setImage(std::string imagePath) {
   this->imageSP.setTexture(this->imageTX);
 }
 
-void UIBorderedImage::draw(sf::RenderWindow* gameWindow) {
-    gameWindow->draw(this->imageSP);
-    gameWindow->draw(this->borderSP);
+void UIBorderedImage::draw() {
+  Game game = Game::getInstance();
+  game.gameWindow.draw(this->imageSP);
+  game.gameWindow.draw(this->borderSP);
 }
 
 void UIBorderedImage::setPosition(float x, float y) {

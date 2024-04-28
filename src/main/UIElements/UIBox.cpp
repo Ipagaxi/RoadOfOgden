@@ -12,9 +12,10 @@ UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
     this->backgroundREC.setOrigin(backgroundSize.width/2, backgroundSize.height/2);
 }
 
-void UIBox::draw(sf::RenderWindow* window) {
-    window->draw(this->backgroundREC);
-    window->draw(this->borderSP);
+void UIBox::draw() {
+  Game game = Game::getInstance();
+  game.gameWindow.draw(this->backgroundREC);
+  game.gameWindow.draw(this->borderSP);
 }
 
 sf::FloatRect UIBox::getSize() {

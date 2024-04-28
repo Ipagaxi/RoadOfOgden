@@ -9,12 +9,12 @@
 
 class IncomingBanner {
     public:
-        IncomingBanner(Game &game);
-        IncomingBanner(Game &game, std::string label);
+        IncomingBanner();
+        IncomingBanner(std::string label);
 
         void setNewLabel(std::string newLabel);
-        bool runAnimation(Game &game);
-        void drawAnimation(sf::RenderWindow* gameWindow);
+        bool runAnimation();
+        void drawAnimation();
 
     private:
       int pastTimeInMillSec = 0;
@@ -23,7 +23,7 @@ class IncomingBanner {
 
       sf::RectangleShape banner;
       sf::Text bannerText;
-      void init(Game &game);
+      void init();
 };
 
 #endif

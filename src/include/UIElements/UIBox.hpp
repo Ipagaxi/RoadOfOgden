@@ -7,22 +7,23 @@
 
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
+#include "Game.hpp"
 
 class UIBox : UIElement {
-    public:
-        UIBox(sf::Color fillColor, std::string borderFilePath);
+  public:
+    UIBox(sf::Color fillColor, std::string borderFilePath);
 
-        void draw(sf::RenderWindow* window) override;
-        void setPosition(float x, float y) override;
-        sf::Vector2f getPosition() override;
-        sf::FloatRect getSize() override;
-        void scale(float x, float y) override;
-        void setBackgroundMargin(float x, float y);
+    void draw() override;
+    void setPosition(float x, float y) override;
+    sf::Vector2f getPosition() override;
+    sf::FloatRect getSize() override;
+    void scale(float x, float y) override;
+    void setBackgroundMargin(float x, float y);
 
-    private: 
-        sf::RectangleShape backgroundREC;
-        sf::Texture borderTX;
-        sf::Sprite borderSP;
+  private:
+    sf::RectangleShape backgroundREC;
+    sf::Texture borderTX;
+    sf::Sprite borderSP;
 
 };
 

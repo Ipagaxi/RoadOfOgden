@@ -8,7 +8,7 @@
 class EnemiesTurn: public FightState {
   public:
     ~EnemiesTurn();
-    FightStateEnum run(Game &game, FightEnv &fightEnv) override;
+    FightStateEnum run(FightEnv &fightEnv) override;
 
   private:
 };

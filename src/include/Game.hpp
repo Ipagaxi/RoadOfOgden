@@ -17,14 +17,16 @@
 class Game {
   public:
     sf::Font mainFont;
-    //sf::Music backgroundMusic;
     GameEvents gameEvents;
-    RenderEngine renderEngine;
     GameStatus gameStatus;
+    sf::RenderWindow& gameWindow;
 
     Player player = Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png");
 
-    Game(sf::RenderWindow &window, ActivityEnum activity);
+    static Game& getInstance();
+  private:
+    Game();
+    static Game* instance;
 };
 
 #endif

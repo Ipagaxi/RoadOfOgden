@@ -13,8 +13,8 @@
 
 class UIEnemyOverview {
     public:
-        UIEnemyOverview(Game &game, Enemy enemy);
-        UIEnemyOverview(Game &game);
+        UIEnemyOverview(Enemy enemy);
+        UIEnemyOverview();
         
         Enemy creature;
         UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");
@@ -23,7 +23,7 @@ class UIEnemyOverview {
         void setEnemy(Enemy enemy);
         void changeHealth(int value);
         void updatePickedColorText(std::string newText, sf::Color pickedColor);
-        void draw(sf::RenderWindow* gameWindow);
+        void draw();
 
     private:
         UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");

@@ -8,9 +8,9 @@
 
 class TurnChangeState: public FightState {
   public:
-    TurnChangeState(Game &gam, FightEnv &fightEnv);
+    TurnChangeState(FightEnv &fightEnv);
     ~TurnChangeState();
-    FightStateEnum run(Game &game, FightEnv &fightEnv) override;
+    FightStateEnum run(FightEnv &fightEnv) override;
 
   private:
     IncomingBanner turnChangeBanner;

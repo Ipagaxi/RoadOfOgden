@@ -20,7 +20,7 @@ class PlayersTurn: public FightState {
   public:
     PlayersTurn(FightEnv &fightEnv);
     ~PlayersTurn();
-    FightStateEnum run(Game &game, FightEnv &fightEnv) override;
+    FightStateEnum run(FightEnv &fightEnv) override;
 
   private:
     PlayerPhase playerPhase = PlayerPhase::PICK_COLOR;
@@ -31,8 +31,8 @@ class PlayersTurn: public FightState {
     bool newColorImageSet = false;
     float passedMillSec = 0.0;
 
-    void processAttack(FightEnv &fightEnv, Game &game);
-    void changeColoPickerImage(Game &game, FightEnv &fightEnv);
+    void processAttack(FightEnv &fightEnv);
+    void changeColoPickerImage(FightEnv &fightEnv);
     double computeCurrentPixel(double formerPixel, double newPixel, float elapsedRatio);
 
     // Compute damage multiplier

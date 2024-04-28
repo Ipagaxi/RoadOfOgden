@@ -12,9 +12,9 @@ class Game;
 
 class Activity {
   public:
-    Activity(Game &game);
+    Activity();
     virtual ~Activity();
-    virtual ActivityEnum executeActivity(Game &game);
+    virtual ActivityEnum executeActivity();
 
   private:
 

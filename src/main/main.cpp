@@ -9,17 +9,17 @@
 #include "ActivityEnum.hpp"
 
 
-std::unique_ptr<Activity> setCurrentActivity(Game &game, ActivityEnum newActivityEnum) {
+std::unique_ptr<Activity> setCurrentActivity(ActivityEnum newActivityEnum) {
   std::unique_ptr<Activity> newActivity;
   switch (newActivityEnum) {
     case ActivityEnum::Menu:
-      newActivity = std::move(std::make_unique<MenuActivity>(game));
+      newActivity = std::move(std::make_unique<MenuActivity>());
       break;
     case ActivityEnum::Fight:
-      newActivity = std::move(std::make_unique<FightActivity>(game));
+      newActivity = std::move(std::make_unique<FightActivity>());
       break;
     case ActivityEnum::Character:
-      newActivity = std::move(std::make_unique<CharacterActivity>(game));
+      newActivity = std::move(std::make_unique<CharacterActivity>());
       break;
     default:
       break;
@@ -29,36 +29,35 @@ std::unique_ptr<Activity> setCurrentActivity(Game &game, ActivityEnum newActivit
 
 int main()
 {
-  sf::RenderWindow window(sf::VideoMode(), "Road of Ogden", sf::Style::Fullscreen);
-  window.setFramerateLimit(60);
 
-  Game game = Game(window, Fight);
+
+  Game game = Game::getInstance();
 
   sf::Vector2i mousePos;
   sf::Vector2f mousePosF;
 
   //generateTexture();
 
-  std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>(game);
+  std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>();
   ActivityEnum currentActivityEnum = ActivityEnum::Menu;
   ActivityEnum oldActivityEnum = ActivityEnum::Menu;
 
   sf::Clock clock;
   sf::Time time;
 
-  while (window.isOpen()) {
+  while (game.gameWindow.isOpen()) {
     sf::Event event;
 
     time = clock.restart();
     game.gameStatus.elapsedTime = time;
     //std::cout << "Elapsed Time: " << std::to_string(time.asMilliseconds()) << std::endl;
 
-    while (window.pollEvent(event)) {
+    while (game.gameWindow.pollEvent(event)) {
 
         switch (event.type) {
         case sf::Event::Closed:
             //game.backgroundMusic.stop();
-            window.close();
+            game.gameWindow.close();
             break;
 
         case sf::Event::MouseMoved:
@@ -67,14 +66,14 @@ int main()
 
         case sf::Event::MouseButtonPressed:
           game.gameEvents.mousePressed = true;
-            mousePos = sf::Mouse::getPosition(window);
+            mousePos = sf::Mouse::getPosition(game.gameWindow);
             mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
             game.gameEvents.pressedPos = mousePosF;
             break;
 
         case sf::Event::MouseButtonReleased:
           game.gameEvents.mouseReleased = true;
-            mousePos = sf::Mouse::getPosition(window);
+            mousePos = sf::Mouse::getPosition(game.gameWindow);
             mousePosF = sf::Vector2f(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
             game.gameEvents.releasedPos = mousePosF;
             break;
@@ -83,13 +82,13 @@ int main()
             break;
         }
     }
-    window.clear();
-    currentActivityEnum = currentActivity->executeActivity(game);
+    game.gameWindow.clear();
+    currentActivityEnum = currentActivity->executeActivity();
     if (currentActivityEnum != oldActivityEnum) {
-      currentActivity = std::move(setCurrentActivity(game, currentActivityEnum));
+      currentActivity = std::move(setCurrentActivity(currentActivityEnum));
       oldActivityEnum = currentActivityEnum;
     }
-    window.display();
+    game.gameWindow.display();
     game.gameEvents.mousePressed = false;
     game.gameEvents.mouseReleased = false;
     game.gameEvents.mouseMoved = false;

@@ -37,9 +37,10 @@ UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
   this->colorIMG = image;
 }
 
-void UIColorPicker::draw(sf::RenderWindow* window) {
-  window->draw(this->colorSP);
-  window->draw(this->borderSP);
+void UIColorPicker::draw() {
+  Game game = Game::getInstance();
+  game.gameWindow.draw(this->colorSP);
+  game.gameWindow.draw(this->borderSP);
 }
 
 void UIColorPicker::setPosition(float x, float y) {
@@ -73,17 +74,18 @@ sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {
   return this->colorIMG.getPixel(posImg.x, posImg.y);
 }
 
-bool UIColorPicker::clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos) {
-  if (gameEvents.mousePressed && this->colorSP.getGlobalBounds().contains(gameEvents.pressedPos)) {
+bool UIColorPicker::clickListener(sf::Vector2f &clickedPos) {
+  Game game = Game::getInstance();
+  if (game.gameEvents.mousePressed && this->colorSP.getGlobalBounds().contains(game.gameEvents.pressedPos)) {
     this->pressed = true;
-  } else if (gameEvents.mousePressed){
+  } else if (game.gameEvents.mousePressed){
     this->pressed = false;
   }
   if (this->pressed) {
-    if (gameEvents.mouseReleased) {
+    if (game.gameEvents.mouseReleased) {
       this->pressed = false;
-      if (this->colorSP.getGlobalBounds().contains(gameEvents.releasedPos)) {
-        clickedPos = sf::Vector2f(gameEvents.releasedPos.x, gameEvents.releasedPos.y);
+      if (this->colorSP.getGlobalBounds().contains(game.gameEvents.releasedPos)) {
+        clickedPos = sf::Vector2f(game.gameEvents.releasedPos.x, game.gameEvents.releasedPos.y);
         this->releaseSound.play();
         return true;
       }

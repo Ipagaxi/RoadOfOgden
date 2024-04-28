@@ -7,9 +7,9 @@
 
 class CharacterActivity : public Activity {
     public :
-        CharacterActivity(Game &game);
+        CharacterActivity();
 
-        ActivityEnum executeActivity(Game &game) override;
+        ActivityEnum executeActivity() override;
 
 
     private :

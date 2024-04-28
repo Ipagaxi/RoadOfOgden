@@ -1,17 +1,16 @@
 #include "Activities/CharacterActivity.hpp"
 
-CharacterActivity::CharacterActivity(Game &game): Activity(game) {
+CharacterActivity::CharacterActivity(): Activity() {
   this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
   this->backgroundSP.setTexture(this->backgroundTX);
 }
 
-ActivityEnum CharacterActivity::executeActivity(Game &game) {
+ActivityEnum CharacterActivity::executeActivity() {
+  Game game = Game::getInstance();
   ActivityEnum currentActivity = ActivityEnum::Character;
-
-  sf::RenderWindow *gameWindow = game.renderEngine.gameWindow;
-  gameWindow->draw(this->backgroundSP);
-  this->exitButton.draw(gameWindow);
-  if (this->exitButton.clickListener(gameWindow, game.gameEvents)) {
+  game.gameWindow.draw(this->backgroundSP);
+  this->exitButton.draw();
+  if (this->exitButton.clickListener()) {
     currentActivity = ActivityEnum::Menu;
   }
   return currentActivity;

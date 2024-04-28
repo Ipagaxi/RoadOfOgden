@@ -33,7 +33,7 @@ class TextFading {
       float initPosY;
       float initPosX;
 
-      void draw(sf::RenderWindow* gameWindow);
+      void draw();
       float computeParabel(float value);
       void setNewParabelPos();
 
@@ -43,9 +43,9 @@ class TextFading {
 
 class TextFadingManager: Animation {
     public:
-        void run(sf::RenderWindow* gameWindow, GameStatus &gameStatus);
+        void run();
         void startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath animationPath, int millSecToLive);
-        void updateAnimationState(GameStatus &gameStatus);
+        void updateAnimationState();
         TextFading fadingText;
         bool isRunning = false;
 };

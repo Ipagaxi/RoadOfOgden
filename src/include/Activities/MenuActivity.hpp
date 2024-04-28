@@ -13,10 +13,10 @@
 
 class MenuActivity: public Activity {
   public:
-    MenuActivity(Game &game);
+    MenuActivity();
     ~MenuActivity();
 
-    ActivityEnum executeActivity(Game &game) override;
+    ActivityEnum executeActivity() override;
 
   private:
     sf::Texture backgroundTX;

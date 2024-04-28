@@ -9,10 +9,10 @@
 
 class UIStats: public UIElement {
     public:
-        UIStats(Game &game, Actor actor);
+        UIStats(Actor actor);
 
         void setActor(Actor actor);
-        void draw(sf::RenderWindow* gameWindow) override;
+        void draw() override;
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;
         sf::FloatRect getSize() override;
