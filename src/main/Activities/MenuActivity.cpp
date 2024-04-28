@@ -1,6 +1,6 @@
 #include "Activities/MenuActivity.hpp"
 
-MenuActivity::MenuActivity(GameState &gameState) {
+MenuActivity::MenuActivity(Game &game): Activity(game) {
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -10,45 +10,53 @@ MenuActivity::MenuActivity(GameState &gameState) {
 
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
-    //this->buttonsBackgroundSP.setColor(sf::Color(132, 78, 27, 220));
 
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(gameState.gameWindow->getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.renderEngine.gameWindow->getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
 
     sf::FloatRect buttonsBackgroundRect = this->buttonsBackgroundSP.getGlobalBounds();
-    this->buttonsBackgroundSP.setPosition((windowSize.x - buttonsBackgroundRect.width)*0.5, (windowSize.y - buttonsBackgroundRect.height)*0.5);
+    sf::Vector2f buttonsBackgroundPos = sf::Vector2f((windowSize.x - buttonsBackgroundRect.width)*0.5, (windowSize.y - buttonsBackgroundRect.height)*0.5);
+    this->buttonsBackgroundSP.setPosition(buttonsBackgroundPos.x, buttonsBackgroundPos.y);
 
-    sf::FloatRect buttonFightSize = this->buttonFight.getSize();
-    this->buttonFight.setPosition((windowSize.x - buttonFightSize.width)*0.5, windowSize.y * 0.65);
+    sf::FloatRect buttonSize = this->buttonFight.getSize();
+    this->buttonFight.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.6);
 
-    sf::FloatRect buttonExitSize = this->buttonExit.getSize();
-    this->buttonExit.setPosition((windowSize.x - buttonExitSize.width)*0.5, windowSize.y * 0.72);
+    this->buttonCharacter.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.68);
+
+    this->buttonExit.setPosition(buttonsBackgroundPos.x + (buttonsBackgroundRect.width - buttonSize.width)*0.5, buttonsBackgroundPos.y + buttonsBackgroundRect.height * 0.76);
 }
 
 MenuActivity::~MenuActivity() {
 }
 
-void MenuActivity::executeActivity(GameState &gameState) {
-    sf::RenderWindow *window = gameState.gameWindow;
+ActivityEnum MenuActivity::executeActivity(Game &game) {
+  sf::RenderWindow* gameWindow = game.renderEngine.gameWindow;
 
-    window->draw(this->backgroundSP);
-    window->draw(this->buttonsBackgroundSP);
-    
-    this->buttonFight.draw(*gameState.gameWindow);
-    this->buttonExit.draw(*gameState.gameWindow);
+  ActivityEnum currentActivity = ActivityEnum::Menu;
 
-    if (buttonFight.clickListener(gameState)) {
-        this->backgroundMusic.stop();
-        std::unique_ptr<FightActivity> fight = std::make_unique<FightActivity>(gameState);
-        gameState.setCurrentActivity(std::move(fight));
+  gameWindow->draw(this->backgroundSP);
+  gameWindow->draw(this->buttonsBackgroundSP);
 
-    }
+  this->buttonFight.draw(gameWindow);
+  this->buttonCharacter.draw(gameWindow);
+  this->buttonExit.draw(gameWindow);
 
-    if (buttonExit.clickListener(gameState)) {
-        //gameState.backgroundMusic.stop();
-        this->backgroundMusic.stop();
-        gameState.gameWindow->close();
-    }
+  if (buttonFight.clickListener(gameWindow, game.gameEvents)) {
+      this->backgroundMusic.stop();
+      currentActivity = ActivityEnum::Fight;
+  }
+
+  if (buttonCharacter.clickListener(gameWindow, game.gameEvents)) {
+      this->backgroundMusic.stop();
+      currentActivity = ActivityEnum::Character;
+  }
+
+  if (buttonExit.clickListener(gameWindow, game.gameEvents)) {
+      //game.backgroundMusic.stop();
+      this->backgroundMusic.stop();
+      gameWindow->close();
+  }
+  return currentActivity;
 }

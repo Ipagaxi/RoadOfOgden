@@ -1,1 +1,0 @@
-#include "Activities/CharacterManagementActivity.hpp"

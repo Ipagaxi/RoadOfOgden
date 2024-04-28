@@ -11,7 +11,8 @@ class UIBorderedImage: public UIElement {
     public:
         UIBorderedImage(std::string imageFilePath, std::string borderFilePath);
 
-        void draw(sf::RenderWindow &gameWindow) override;
+        void setImage(std::string imagePath);
+        void draw(sf::RenderWindow* gameWindow) override;
         void setPosition(float x, float y) override;
         sf::Vector2f getPosition() override;
         sf::FloatRect getSize() override;

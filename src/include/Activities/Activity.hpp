@@ -4,13 +4,22 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <iostream>
+#include "GameEvents.hpp"
+#include "ActivityEnum.hpp"
+#include "UIElements/UIButton.hpp"
 
-class GameState;
+class Game;
 
 class Activity {
   public:
+    Activity(Game &game);
     virtual ~Activity();
-    virtual void executeActivity(GameState &gameState);
+    virtual ActivityEnum executeActivity(Game &game);
+
+  private:
+
+  protected:
+    UIButton exitButton = UIButton("buttonClose/buttonClose.png");
 };
 
 #endif

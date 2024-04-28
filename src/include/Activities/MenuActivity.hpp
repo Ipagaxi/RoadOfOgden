@@ -6,12 +6,18 @@
 #include <SFML/Graphics.hpp>
 
 #include "Activities/Activity.hpp"
-#include "GameState.hpp"
-#include "Activities/FightActivity.hpp"
+#include "Game.hpp"
+#include "Activities/CharacterActivity.hpp"
 #include "Defines.hpp"
 #include "UIElements/UIButton.hpp"
 
 class MenuActivity: public Activity {
+  public:
+    MenuActivity(Game &game);
+    ~MenuActivity();
+
+    ActivityEnum executeActivity(Game &game) override;
+
   private:
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
@@ -21,13 +27,8 @@ class MenuActivity: public Activity {
 
 
     UIButton buttonFight = UIButton("Fight!", "button1/button1.png");
+    UIButton buttonCharacter = UIButton("Character", "button1/button1.png");
     UIButton buttonExit = UIButton("Exit", "button1/button1.png");
-
-  public:
-    MenuActivity(GameState &gameState);
-    ~MenuActivity();
-
-    void executeActivity(GameState &gameState) override;
 };
 
 #endif

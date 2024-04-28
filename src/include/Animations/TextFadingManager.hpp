@@ -5,7 +5,7 @@
 #include <thread>
 #include <vector>
 
-#include "GameState.hpp"
+#include "Game.hpp"
 #include "Defines.hpp"
 #include "Animations/Animation.hpp"
 
@@ -20,22 +20,22 @@ enum AnimationPath {
 
 class TextFading {
     public:
-        TextFading();
-        TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font);
-        sf::Font font;
-        sf::Text text;
-        int remainingVisibilty = 0;
-        int millSecToLive = 600;
-        AnimationPath animationPath = Right;
-        float pixelPerMillSec = 0.15;
-        // Used for parabel computation
-        int pastMillSec = 0;
-        float initPosY;
-        float initPosX;
+      TextFading();
+      TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, sf::Font _font, int _millSecToLive);
+      sf::Font font;
+      sf::Text text;
+      int remainingVisibilty = 0;
+      int millSecToLive = 600;
+      AnimationPath animationPath = Right;
+      float pixelPerMillSec = 0.15;
+      // Used for parabel computation
+      int pastMillSec = 0;
+      float initPosY;
+      float initPosX;
 
-        void draw(GameState &gameState);
-        float computeParabel(float value);
-        void setNewParabelPos();
+      void draw(sf::RenderWindow* gameWindow);
+      float computeParabel(float value);
+      void setNewParabelPos();
 
     private:
 
@@ -43,9 +43,9 @@ class TextFading {
 
 class TextFadingManager: Animation {
     public:
-        void run(GameState &gameState);
-        void startAnimation(GameState &gameState, std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath animationPath);
-        void updateAnimationState(GameState &gameState);
+        void run(sf::RenderWindow* gameWindow, GameStatus &gameStatus);
+        void startAnimation(std::string text, sf::Vector2f pos, sf::Color textColor, int textSize, AnimationPath animationPath, int millSecToLive);
+        void updateAnimationState(GameStatus &gameStatus);
         TextFading fadingText;
         bool isRunning = false;
 };

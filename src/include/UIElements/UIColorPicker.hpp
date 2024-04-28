@@ -7,7 +7,8 @@
 
 #include "UIElements/UIElement.hpp"
 #include "Defines.hpp"
-#include "GameState.hpp"
+#include "GameEvents.hpp"
+#include "Game.hpp"
 
 class UIColorPicker: public UIElement {
   private:
@@ -15,7 +16,6 @@ class UIColorPicker: public UIElement {
     sf::Texture borderTX;
     sf::Sprite colorSP;
     sf::Sprite borderSP;
-    sf::Image colorIMG;
 
     sf::SoundBuffer releaseSoundBuffer;
 
@@ -25,17 +25,21 @@ class UIColorPicker: public UIElement {
     UIColorPicker(std::string imagePath, std::string borderPath);
     UIColorPicker(sf::Image image, std::string borderPath);
 
+    sf::Image colorIMG;
     sf::Sound releaseSound;
 
-    void draw(sf::RenderWindow &window) override;
+    void draw(sf::RenderWindow* window) override;
     void setPosition(float x, float y) override;
     sf::Vector2f getPosition() override;
     sf::FloatRect getSize() override;
     void scale(float x, float y) override;
 
-    bool clickListener(GameState &gameState, sf::Vector2f &clickedPos);
+    bool clickListener(GameEvents &gameEvents, sf::Vector2f &clickedPos);
     sf::Color getPixelColor(sf::Vector2f pos);
     void setColorBox(std::string picPath, std::string borderPath);
+    void setColorImage(std::string picPath);
+    void setColorImage(sf::Image);
+    void refreshColorTX();
 };
 
 #endif
