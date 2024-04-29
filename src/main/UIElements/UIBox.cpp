@@ -13,7 +13,7 @@ UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
 }
 
 void UIBox::draw() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   game.gameWindow.draw(this->backgroundREC);
   game.gameWindow.draw(this->borderSP);
 }

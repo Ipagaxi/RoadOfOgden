@@ -1,7 +1,7 @@
 #include "Animations/IncomingBanner.hpp"
 
 void IncomingBanner::init() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
 
   this->banner.setSize(sf::Vector2f(windowSize.x, windowSize.y * 0.2));
@@ -35,7 +35,7 @@ void IncomingBanner::setNewLabel(std::string newLabel) {
 }
 
 bool IncomingBanner::runAnimation() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   int changeTimeMillSec = 1000; // The entire screen time of the banner
   int bannerMovementime = 300; // The time only for movement of the banner => after movement ended banner is still on screen shortly
 
@@ -62,7 +62,7 @@ bool IncomingBanner::runAnimation() {
 }
 
 void IncomingBanner::drawAnimation() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   game.gameWindow.draw(this->banner);
   game.gameWindow.draw(this->bannerText);
 }

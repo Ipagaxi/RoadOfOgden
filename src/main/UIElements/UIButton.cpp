@@ -48,7 +48,7 @@ void UIButton::scale(float x, float y) {
 }
 
 void UIButton::draw() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   game.gameWindow.draw(this->buttonSP);
   game.gameWindow.draw(this->label);
 }
@@ -68,14 +68,14 @@ sf::Vector2f UIButton::getPosition() {
 }
 
 bool UIButton::buttonContainsMouse() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   sf::Vector2i mousePos = sf::Mouse::getPosition(game.gameWindow);
   sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
   return this->buttonSP.getGlobalBounds().contains(mousePosF);
 }
 
 void UIButton::hoverListener() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   if (game.gameEvents.mouseMoved) {
     if(this->buttonContainsMouse()) {
       this->buttonSP.setTexture(this->hoveredTX);
@@ -90,7 +90,7 @@ void UIButton::hoverListener() {
 }
 
 bool UIButton::clickListener() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   this->hoverListener();
   if (game.gameEvents.mousePressed && this->buttonSP.getGlobalBounds().contains(game.gameEvents.pressedPos)) {
     this->pressSound.play();

@@ -27,11 +27,13 @@ std::unique_ptr<Activity> setCurrentActivity(ActivityEnum newActivityEnum) {
   return newActivity;
 }
 
+Game* Game::instance = nullptr;
+
 int main()
 {
 
 
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
 
   sf::Vector2i mousePos;
   sf::Vector2f mousePosF;

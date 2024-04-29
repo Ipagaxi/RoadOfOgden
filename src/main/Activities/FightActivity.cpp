@@ -63,7 +63,7 @@ void FightActivity::runCurrentState(Game &game) {
 }
 
 ActivityEnum FightActivity::executeActivity() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
   game.gameWindow.draw(this->fightEnv.turnSP);

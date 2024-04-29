@@ -24,7 +24,7 @@ TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, 
 }
 
 void TextFading::draw() {
-    Game game = Game::getInstance();
+    Game& game = Game::getInstance();
     game.gameWindow.draw(this->text);
 }
 
@@ -53,7 +53,7 @@ void TextFading::setNewParabelPos() {
 }
 
 void TextFadingManager::updateAnimationState() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   sf::Color oldColor = this->fadingText.text.getFillColor();
   sf::Vector2f oldPos = this->fadingText.text.getPosition();
   float pastRatio = game.gameStatus.elapsedTime.asMilliseconds() / static_cast<float>(this->fadingText.millSecToLive);

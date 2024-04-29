@@ -38,7 +38,7 @@ UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
 }
 
 void UIColorPicker::draw() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   game.gameWindow.draw(this->colorSP);
   game.gameWindow.draw(this->borderSP);
 }
@@ -75,7 +75,7 @@ sf::Color UIColorPicker::getPixelColor(sf::Vector2f pos) {
 }
 
 bool UIColorPicker::clickListener(sf::Vector2f &clickedPos) {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   if (game.gameEvents.mousePressed && this->colorSP.getGlobalBounds().contains(game.gameEvents.pressedPos)) {
     this->pressed = true;
   } else if (game.gameEvents.mousePressed){

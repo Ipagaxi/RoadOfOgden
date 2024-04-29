@@ -13,7 +13,7 @@ TurnChangeState::~TurnChangeState() {
 }
 
 FightStateEnum TurnChangeState::run(FightEnv &fightEnv) {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   FightStateEnum currentFightState = FightStateEnum::TURN_CHANGE;
   this->turnChangeBanner.drawAnimation();
   if (!this->turnChangeBanner.runAnimation()) {

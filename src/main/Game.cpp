@@ -12,3 +12,6 @@ Game::Game(): gameWindow(*(new sf::RenderWindow(sf::VideoMode(), "Road of Ogden"
   this->gameWindow.setFramerateLimit(60);
   this->mainFont.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
 }
+
+Game::~Game() {
+}

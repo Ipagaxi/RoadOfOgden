@@ -10,7 +10,7 @@ PlayersTurn::~PlayersTurn() {
 }
 
 FightStateEnum PlayersTurn::run(FightEnv &fightEnv) {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   FightStateEnum currentState = FightStateEnum::PLAYER_STATE;
   switch (this->playerPhase) {
     case PlayerPhase::PICK_COLOR:
@@ -52,7 +52,7 @@ void PlayersTurn::processAttack(FightEnv &fightEnv) {
 }
 
 void PlayersTurn::changeColoPickerImage(FightEnv &fightEnv) {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   static int changingMillSec = 2000;
   float elapsedRatio = this->passedMillSec/changingMillSec;
   for (int y = 0; y < GEN_IMG_HEIGHT; ++y) {

@@ -22,7 +22,7 @@ void UIBorderedImage::setImage(std::string imagePath) {
 }
 
 void UIBorderedImage::draw() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   game.gameWindow.draw(this->imageSP);
   game.gameWindow.draw(this->borderSP);
 }

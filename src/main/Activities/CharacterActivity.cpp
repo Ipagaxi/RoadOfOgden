@@ -6,7 +6,7 @@ CharacterActivity::CharacterActivity(): Activity() {
 }
 
 ActivityEnum CharacterActivity::executeActivity() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   ActivityEnum currentActivity = ActivityEnum::Character;
   game.gameWindow.draw(this->backgroundSP);
   this->exitButton.draw();

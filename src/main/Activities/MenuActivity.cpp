@@ -1,7 +1,7 @@
 #include "Activities/MenuActivity.hpp"
 
 MenuActivity::MenuActivity(): Activity() {
-    Game game = Game::getInstance();
+    Game& game = Game::getInstance();
     this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -33,7 +33,7 @@ MenuActivity::~MenuActivity() {
 }
 
 ActivityEnum MenuActivity::executeActivity() {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
 
   ActivityEnum currentActivity = ActivityEnum::Menu;
 
@@ -55,7 +55,7 @@ ActivityEnum MenuActivity::executeActivity() {
   }
 
   if (buttonExit.clickListener()) {
-    Game game = Game::getInstance();
+    Game& game = Game::getInstance();
     this->backgroundMusic.stop();
     game.gameWindow.close();
   }

@@ -4,7 +4,7 @@ EnemiesTurn::~EnemiesTurn() {
 }
 
 FightStateEnum EnemiesTurn::run(FightEnv &fightEnv) {
-  Game game = Game::getInstance();
+  Game& game = Game::getInstance();
   FightStateEnum currentState = FightStateEnum::ENEMY_STATE;
   if (!fightEnv.enemyDamageCalculated) {
     std::random_device randSeed;

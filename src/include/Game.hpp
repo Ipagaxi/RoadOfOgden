@@ -24,8 +24,12 @@ class Game {
     Player player = Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png");
 
     static Game& getInstance();
+
+    Game(const Game&) = delete;
+    Game& operator=(const Game&) = delete;
   private:
     Game();
+    ~Game();
     static Game* instance;
 };
 
