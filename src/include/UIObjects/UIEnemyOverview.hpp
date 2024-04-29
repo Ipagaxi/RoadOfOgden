@@ -12,25 +12,25 @@
 #include "Game.hpp"
 
 class UIEnemyOverview {
-    public:
-        UIEnemyOverview(Enemy enemy);
-        UIEnemyOverview();
-        
-        Enemy creature;
-        UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");
-        sf::Text pickedColorText;
+  public:
+    UIEnemyOverview(Enemy enemy);
+    UIEnemyOverview();
 
-        void setEnemy(Enemy enemy);
-        void changeHealth(int value);
-        void updatePickedColorText(std::string newText, sf::Color pickedColor);
-        void draw();
+    Enemy enemy;
+    UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");
+    sf::Text pickedColorText;
 
-    private:
-        UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
-        sf::Texture creatureBackgroundTX;
-        sf::Sprite creatureBackgroundSP;
-        UIStats statsComponent;
-        UIBorderedImage creatureFrame;
+    void initEnemy(Enemy enemy);
+    void changeHealth(int value);
+    void updatePickedColorText(std::string newText, sf::Color pickedColor);
+    void draw();
+
+  private:
+    UIBox box = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
+    sf::Texture enemyIconBackgroundTX;
+    sf::Sprite enemyIconBackgroundSP;
+    UIStats enemyStats;
+    UIBorderedImage enemyBorderedImage;
 };
 
 #endif

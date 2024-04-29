@@ -9,8 +9,8 @@ FightStateEnum EnemiesTurn::run(FightEnv &fightEnv) {
   if (!fightEnv.enemyDamageCalculated) {
     std::random_device randSeed;
     std::mt19937 gen(randSeed());
-    int minDamage = int(0.75 * fightEnv.enemyOverview.creature.attackStrength);
-    int maxDamage = int(1.25 * fightEnv.enemyOverview.creature.attackStrength);
+    int minDamage = int(0.75 * fightEnv.enemyOverview.enemy.attackStrength);
+    int maxDamage = int(1.25 * fightEnv.enemyOverview.enemy.attackStrength);
     std::uniform_int_distribution<int> dist(minDamage, maxDamage);
     int enemyDamage = dist(gen);
     int millSecToLive = 600;

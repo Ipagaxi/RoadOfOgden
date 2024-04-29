@@ -1,37 +1,37 @@
 #include "UIObjects/UIEnemyOverview.hpp"
 
-UIEnemyOverview::UIEnemyOverview(): UIEnemyOverview(Enemy()) {
+UIEnemyOverview::UIEnemyOverview() {
 }
 
-UIEnemyOverview::UIEnemyOverview(Enemy enemy): statsComponent(enemy), creature(enemy), creatureFrame("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
+UIEnemyOverview::UIEnemyOverview(Enemy enemy): enemyStats(enemy), enemy(enemy), enemyBorderedImage("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
-  sf::FloatRect boxRect = this->backgroundBox.getSize();
+  sf::FloatRect boxRect = this->box.getSize();
   sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
-  this->backgroundBox.setPosition(overviewPos.x, overviewPos.y);
+  this->box.setPosition(overviewPos.x, overviewPos.y);
 
   float relativeOuterPaddingStatBoxes = 0.05;
-  sf::FloatRect statsBoxSize = this->statsComponent.getSize();
-  this->statsComponent.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, windowSize.y * 0.35);
+  sf::FloatRect statsBoxSize = this->enemyStats.getSize();
+  this->enemyStats.setPosition(windowSize.x * (1.0 - relativeOuterPaddingStatBoxes) - statsBoxSize.width, windowSize.y * 0.35);
 
-  sf::FloatRect creatureFrameRect = this->creatureFrame.getSize();
+  sf::FloatRect creatureFrameRect = this->enemyBorderedImage.getSize();
   float creatureBoxScale = (windowSize.x*0.22)/creatureFrameRect.width;
-  this->creatureFrame.scale(creatureBoxScale, creatureBoxScale);
-  creatureFrameRect = this->creatureFrame.getSize();
+  this->enemyBorderedImage.scale(creatureBoxScale, creatureBoxScale);
+  creatureFrameRect = this->enemyBorderedImage.getSize();
   float creatureFrameMargin = boxRect.width * 0.05;
   sf::Vector2f creatureFramePos = sf::Vector2f(overviewPos.x + creatureFrameMargin, overviewPos.y + creatureFrameMargin);
-  this->creatureFrame.setPosition(creatureFramePos.x, creatureFramePos.y);
+  this->enemyBorderedImage.setPosition(creatureFramePos.x, creatureFramePos.y);
 
-  this->creatureBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
-  this->creatureBackgroundSP.setTexture(this->creatureBackgroundTX);
-  sf::FloatRect creatureBackgroundRect = this->creatureBackgroundSP.getGlobalBounds();
-  this->creatureBackgroundSP.setOrigin(creatureBackgroundRect.width/2.f, creatureBackgroundRect.height/2.f);
-  this->creatureBackgroundSP.setPosition(creatureFramePos.x + creatureFrameRect.width/2.f, creatureFramePos.y + creatureFrameRect.height/2.f);
-  this->creatureBackgroundSP.scale(creatureBoxScale, creatureBoxScale);
+  this->enemyIconBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
+  this->enemyIconBackgroundSP.setTexture(this->enemyIconBackgroundTX);
+  sf::FloatRect creatureBackgroundRect = this->enemyIconBackgroundSP.getGlobalBounds();
+  this->enemyIconBackgroundSP.setOrigin(creatureBackgroundRect.width / 2.f, creatureBackgroundRect.height / 2.f);
+  this->enemyIconBackgroundSP.setPosition(creatureFramePos.x + creatureFrameRect.width / 2.f, creatureFramePos.y + creatureFrameRect.height / 2.f);
+  this->enemyIconBackgroundSP.scale(creatureBoxScale, creatureBoxScale);
 
   float colorPickerScale = creatureFrameRect.width / colorPicker.getSize().width;
   this->colorPicker.scale(colorPickerScale, colorPickerScale);
-  this->colorPicker.setColorBox(this->creature.colorPicPath, this->creature.colorPicBorderPath);
+  this->colorPicker.setColorBox(this->enemy.colorPicPath, this->enemy.colorPicBorderPath);
   sf::Vector2f colorPickerPos = sf::Vector2f(creatureFramePos.x, creatureFramePos.y  + creatureFrameRect.height + boxRect.height * 0);
   this->colorPicker.setPosition(colorPickerPos.x, colorPickerPos.y);
   sf::FloatRect colorPickerSize = this->colorPicker.getSize();
@@ -45,27 +45,27 @@ UIEnemyOverview::UIEnemyOverview(Enemy enemy): statsComponent(enemy), creature(e
   this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
 }
 
-void UIEnemyOverview::setEnemy(Enemy enemy) {
-  this->creature = enemy;
-  this->statsComponent.setActor(enemy);
-  this->creatureFrame.setImage("monster_landscape_cut/" + enemy.picPath);
+void UIEnemyOverview::initEnemy(Enemy enemy) {
+  this->enemy = enemy;
+  this->enemyStats.setActor(enemy);
+  this->enemyBorderedImage.setImage("monster_landscape_cut/" + enemy.picPath);
   this->colorPicker.setColorImage(enemy.colorPicPath);
 }
 
 void UIEnemyOverview::draw() {
   Game& game = Game::getInstance();
-  this->backgroundBox.draw();
-  this->statsComponent.draw();
+  this->box.draw();
+  this->enemyStats.draw();
   this->colorPicker.draw();
   game.gameWindow.draw(this->pickedColorText);
-  game.gameWindow.draw(this->creatureBackgroundSP);
-  this->creatureFrame.draw();
+  game.gameWindow.draw(this->enemyIconBackgroundSP);
+  this->enemyBorderedImage.draw();
 }
 
 void UIEnemyOverview::changeHealth(int value) {
-  int newHealth = std::max(this->creature.health - value, 0);
-  this->creature.health = newHealth;
-  this->statsComponent.updateHealth(newHealth);
+  int newHealth = std::max(this->enemy.health - value, 0);
+  this->enemy.health = newHealth;
+  this->enemyStats.updateHealth(newHealth);
 }
 
 void UIEnemyOverview::updatePickedColorText(std::string newText, sf::Color pickedColor) {

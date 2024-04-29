@@ -85,15 +85,15 @@ float PlayersTurn::sameColorMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      defenseColorValue = fightEnv.enemyOverview.creature.defense.red;
+      defenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      defenseColorValue = fightEnv.enemyOverview.creature.defense.green;
+      defenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      defenseColorValue = fightEnv.enemyOverview.creature.defense.blue;
+      defenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
       break;
     default:
       break;
@@ -110,15 +110,15 @@ float PlayersTurn::counterColorMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.green;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.blue;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.red;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
       break;
     default:
       break;
@@ -136,18 +136,18 @@ float PlayersTurn::tugOfWarMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.green;
-      counterDefenseColorValue = fightEnv.enemyOverview.creature.defense.blue;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
+      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.blue;
-      counterDefenseColorValue = fightEnv.enemyOverview.creature.defense.red;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
+      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      weakDefenseColorValue = fightEnv.enemyOverview.creature.defense.red;
-      counterDefenseColorValue = fightEnv.enemyOverview.creature.defense.green;
+      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
+      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
       break;
     default:
       break;

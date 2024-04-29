@@ -86,8 +86,10 @@ void UIStats::setPosition(float x, float y) {
   float statsOffsetY = actorStatsBoxSize.height * 0.3;
   float statsSeparationPaddingY = actorStatsBoxSize.height * 0.05;
 
+  std::string currentActor = this->actorName.getString();
+  std::cout << currentActor << std::endl;
   sf::FloatRect actorNameRec = this->actorName.getGlobalBounds();
-  this->actorName.setPosition(x + (actorStatsBoxSize.width - actorNameRec.width)/2, y + actorStatsBoxSize.height * 0.15);
+  this->actorName.setPosition(x + ((actorStatsBoxSize.width - actorNameRec.width)/2), y + actorStatsBoxSize.height * 0.15);
   this->actorHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
   this->actorHealthValue.setPosition(statsValuePosX, y + statsOffsetY);
   this->actorAttackStrengthLabel.setPosition(statsLabelPosX, y + statsOffsetY + statsTextHeight + statsSeparationPaddingY);
@@ -95,6 +97,7 @@ void UIStats::setPosition(float x, float y) {
   this->actorRGBDefenseLabel.setPosition(statsLabelPosX, y + statsOffsetY + (statsTextHeight + statsSeparationPaddingY)*2);
   this->actorRGBDefenseValues.setPosition(statsValuePosX, y + statsOffsetY + (statsTextHeight + statsSeparationPaddingY)*2);
 }
+
 sf::FloatRect UIStats::getSize() {
   return this->actorStatsBox.getSize();
 }

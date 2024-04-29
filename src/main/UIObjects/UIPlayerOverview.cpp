@@ -6,8 +6,6 @@ UIPlayerOverview::UIPlayerOverview(): statsComponent(Game::getInstance().player)
   sf::FloatRect boxRect = this->backgroundBox.getSize();
   this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
 
-  float relativeOuterPaddingStatBoxes = 0.05;
-  sf::FloatRect statsBoxSize = this->statsComponent.getSize();
   this->statsComponent.setPosition(windowSize.x * 0.08, windowSize.y * 0.35);
 
   sf::Vector2f statsPos = this->statsComponent.getPosition();
