@@ -2,17 +2,17 @@
 
 void UIPlayerOverview::init() {
   Game& game = Game::getInstance();
-  statsComponent.init(game.player);
+  playerStats.init(game.player);
   playerFrame.init("monster_landscape_cut/" + Game::getInstance().player.picPath, "actor_borders/fight_border.png");
 
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::FloatRect boxRect = this->backgroundBox.getSize();
   this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
 
-  this->statsComponent.setPosition(windowSize.x * 0.08, windowSize.y * 0.35);
+  this->playerStats.setPosition(windowSize.x * 0.08, windowSize.y * 0.35);
 
-  sf::Vector2f statsPos = this->statsComponent.getPosition();
-  sf::FloatRect statsSize = this->statsComponent.getSize();
+  sf::Vector2f statsPos = this->playerStats.getPosition();
+  sf::FloatRect statsSize = this->playerStats.getSize();
   sf::FloatRect playerFrameRect = this->playerFrame.getSize();
   float playerBoxScale = (windowSize.x*0.22)/playerFrameRect.width;
   this->playerFrame.scale(playerBoxScale, playerBoxScale);
@@ -31,13 +31,13 @@ void UIPlayerOverview::init() {
 void UIPlayerOverview::changeHealth(int value) {
   int newHealth = std::max(this->player.health - value, 0);
   this->player.health = newHealth;
-  this->statsComponent.updateHealth(newHealth);
+  this->playerStats.updateHealth(newHealth);
 }
 
 void UIPlayerOverview::draw() {
   Game& game = Game::getInstance();
   this->backgroundBox.draw();
-  this->statsComponent.draw();
+  this->playerStats.draw();
   game.gameWindow.draw(this->playerBackgroundSP);
   this->playerFrame.draw();
 }

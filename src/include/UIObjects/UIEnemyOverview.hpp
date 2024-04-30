@@ -13,11 +13,11 @@
 
 class UIEnemyOverview {
   public:
-    Enemy enemy;
+    Enemy& enemy;
     UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");
     sf::Text pickedColorText;
 
-    void init(Enemy enemy);
+    void init(Enemy& enemy);
     void changeHealth(int value);
     void updatePickedColorText(std::string newText, sf::Color pickedColor);
     void draw();

@@ -1,9 +1,10 @@
 #include "UIElements/UIStats.hpp"
 
 
-void UIStats::init(Actor actor) {
+void UIStats::init(Actor& _actor) {
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
+  this->actor = _actor;
   sf::Color statsValueFontColor = sf::Color::Yellow;
   sf::Color statsLabelFontColor = sf::Color::White;
   this->statsTextHeight = windowSize.y * 0.015;
@@ -15,7 +16,7 @@ void UIStats::init(Actor actor) {
   this->actorStatsBox.setBackgroundMargin(actorStatsBoxSize.width * 0.1, actorStatsBoxSize.height * 0.04);
 
   this->actorName.setFont(game.mainFont);
-  this->actorName.setString(actor.name);
+  this->actorName.setString(this->actor.name);
   this->actorName.setCharacterSize(windowSize.y*0.02);
   this->actorName.setFillColor(sf::Color::White);
 

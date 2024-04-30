@@ -1,6 +1,6 @@
 #include "UIObjects/UIEnemyOverview.hpp"
 
-void UIEnemyOverview::init(Enemy _enemy) {
+void UIEnemyOverview::init(Enemy& _enemy) {
   Game& game = Game::getInstance();
   this->enemy = _enemy;
   this->enemyBorderedImage.init("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png");

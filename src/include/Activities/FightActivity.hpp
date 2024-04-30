@@ -37,7 +37,7 @@ class FightActivity: public Activity {
     ~FightActivity();
   
     ActivityEnum executeActivity() override;
-    void runCurrentState(Game &game);
+    void runCurrentState();
 
   private:
     FightEnv fightEnv;
@@ -46,10 +46,6 @@ class FightActivity: public Activity {
     std::unique_ptr<FightState> currentFightState;
 
     Enemy initEnemy();
-    void runPlayersTurn();
-    void runEnemiesTurn();
-    void runDefeat();
-    void runVictory();
 };
 
 #endif

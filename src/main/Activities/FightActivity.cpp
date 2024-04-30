@@ -44,7 +44,7 @@ FightActivity::~FightActivity() {
   this->fightEnv.backgroundMusic.stop();
 }
 
-void FightActivity::runCurrentState(Game &game) {
+void FightActivity::runCurrentState() {
   FightStateEnum newStateFightEnum = this->currentFightState->run(this->fightEnv);
   if (newStateFightEnum != this->currentFightStateEnum) {
     switch (newStateFightEnum) {
@@ -52,6 +52,7 @@ void FightActivity::runCurrentState(Game &game) {
         this->currentFightState = std::move(std::make_unique<PlayersTurn>(this->fightEnv));
         break;
       case FightStateEnum::ENEMY_STATE:
+        std::cout << "Player health: " << Game::getInstance().player.health << std::endl;
         this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
         break;
       case FightStateEnum::TURN_CHANGE:
@@ -75,7 +76,7 @@ ActivityEnum FightActivity::executeActivity() {
   this->exitButton.draw();
   this->fightEnv.textFadingManager.run();
 
-  this->runCurrentState(game);
+  this->runCurrentState();
 
   if (this->exitButton.clickListener()) {
 
