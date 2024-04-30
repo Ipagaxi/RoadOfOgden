@@ -1,7 +1,10 @@
 #include "UIObjects/UIPlayerOverview.hpp"
 
-UIPlayerOverview::UIPlayerOverview(): statsComponent(Game::getInstance().player), player(Game::getInstance().player), playerFrame("monster_landscape_cut/" + Game::getInstance().player.picPath, "actor_borders/fight_border.png") {
+void UIPlayerOverview::init() {
   Game& game = Game::getInstance();
+  statsComponent.init(game.player);
+  playerFrame.init("monster_landscape_cut/" + Game::getInstance().player.picPath, "actor_borders/fight_border.png");
+
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::FloatRect boxRect = this->backgroundBox.getSize();
   this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);

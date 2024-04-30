@@ -9,9 +9,7 @@
 
 class UIStats: public UIElement {
     public:
-        UIStats(Actor actor);
-
-        void setActor(Actor actor);
+        void init(Actor actor);
         void draw() override;
         sf::Vector2f getPosition() override;
         void setPosition(float x, float y) override;

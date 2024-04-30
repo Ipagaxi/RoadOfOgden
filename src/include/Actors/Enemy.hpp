@@ -6,14 +6,15 @@
 #include "Defines.hpp"
 
 class Enemy: public Actor {
-    public:
-        Enemy();
-        Enemy(std::string name, int health, int attackStrength, RGB defense, std::string picPath, std::string colorPicPath, std::string colorPicBorderPath);
+  public:
+    Enemy();
+    Enemy(std::string name, int health, int attackStrength, RGB defense, std::string picPath, std::string colorPicPath, std::string colorPicBorderPath);
 
-        std::string colorPicPath;
-        std::string colorPicBorderPath;
+    void init();
+    std::string colorPicPath;
+    std::string colorPicBorderPath;
 
-    private:
+  private:
 
 };
 

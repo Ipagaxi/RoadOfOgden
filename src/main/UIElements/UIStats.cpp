@@ -1,13 +1,11 @@
 #include "UIElements/UIStats.hpp"
 
 
-UIStats::UIStats(Actor actor) {
+void UIStats::init(Actor actor) {
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::Color statsValueFontColor = sf::Color::Yellow;
   sf::Color statsLabelFontColor = sf::Color::White;
-  int numStats = 2;
-  sf::Vector2f actorStatsBoxPosition = this->actorStatsBox.getPosition();
   this->statsTextHeight = windowSize.y * 0.015;
 
   float scale = (windowSize.y * 0.4) / this->actorStatsBox.getSize().height;
@@ -52,13 +50,6 @@ UIStats::UIStats(Actor actor) {
   this->actorRGBDefenseValues.setFillColor(statsValueFontColor);
 
   this->setPosition(0., 0.);
-}
-
-void UIStats::setActor(Actor actor) {
-  this->actorName.setString(actor.name);
-  this->actorHealthValue.setString(std::to_string(actor.health));
-  this->actorAttackStrengthValue.setString(std::to_string(actor.attackStrength));
-  this->actorRGBDefenseValues.setString("(" + std::to_string(actor.defense.red) + ", " + std::to_string(actor.defense.green) + ", " + std::to_string(actor.defense.blue) + ")");
 }
 
 void UIStats::draw() {

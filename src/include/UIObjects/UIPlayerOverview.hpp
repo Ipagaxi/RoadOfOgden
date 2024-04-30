@@ -9,22 +9,20 @@
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIElements/UIStats.hpp"
 
-
 class UIPlayerOverview {
-    public:
-        UIPlayerOverview();
+  public:
+    UIBorderedImage playerFrame;
+    Player player;
 
-        UIBorderedImage playerFrame;
-        Player player;
+    void init();
+    void changeHealth(int value);
+    void draw();
 
-        void changeHealth(int value);
-        void draw();
-
-    private:
-        UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
-        sf::Texture playerBackgroundTX;
-        sf::Sprite playerBackgroundSP;
-        UIStats statsComponent;
+  private:
+    UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
+    sf::Texture playerBackgroundTX;
+    sf::Sprite playerBackgroundSP;
+    UIStats statsComponent;
 };
 
 #endif

@@ -19,3 +19,7 @@ Enemy::Enemy(std::string _name, int _health, int _attackStrength, RGB _defense, 
     this->colorPicPath = _colorPicPath;
     this->colorPicBorderPath = _colorPicBorderPath;
 }
+
+void Enemy::init() {
+
+}

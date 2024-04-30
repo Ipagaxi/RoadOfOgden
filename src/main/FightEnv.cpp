@@ -1,4 +1,5 @@
 #include "FightEnv.hpp"
 
-FightEnv::FightEnv(): playerStatsBox(Game::getInstance().player) {
+FightEnv::FightEnv() {
+  playerStatsBox.init(Game::getInstance().player);
 }

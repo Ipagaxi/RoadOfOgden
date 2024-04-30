@@ -1,10 +1,11 @@
 #include "UIObjects/UIEnemyOverview.hpp"
 
-UIEnemyOverview::UIEnemyOverview() {
-}
-
-UIEnemyOverview::UIEnemyOverview(Enemy enemy): enemyStats(enemy), enemy(enemy), enemyBorderedImage("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png") {
+void UIEnemyOverview::init(Enemy _enemy) {
   Game& game = Game::getInstance();
+  this->enemy = _enemy;
+  this->enemyBorderedImage.init("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png");
+  this->enemyStats.init(_enemy);
+
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::FloatRect boxRect = this->box.getSize();
   sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
@@ -43,13 +44,6 @@ UIEnemyOverview::UIEnemyOverview(Enemy enemy): enemyStats(enemy), enemy(enemy), 
   sf::FloatRect textRec = this->pickedColorText.getGlobalBounds();
   this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
   this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
-}
-
-void UIEnemyOverview::initEnemy(Enemy enemy) {
-  this->enemy = enemy;
-  this->enemyStats.setActor(enemy);
-  this->enemyBorderedImage.setImage("monster_landscape_cut/" + enemy.picPath);
-  this->colorPicker.setColorImage(enemy.colorPicPath);
 }
 
 void UIEnemyOverview::draw() {

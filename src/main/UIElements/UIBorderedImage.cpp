@@ -1,19 +1,20 @@
 #include "UIElements/UIBorderedImage.hpp"
 
-UIBorderedImage::UIBorderedImage(std::string imageFilePath, std::string borderFilePath) {
-    this->imageTX.loadFromFile(RESOURCE_PATH + imageFilePath);
-    this->imageSP.setTexture(this->imageTX);
-    this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
-    this->borderSP.setTexture(this->borderTX);
 
-    sf::FloatRect imageRect = this->imageSP.getGlobalBounds();
-    sf::Vector2f borderPos = this->borderSP.getPosition();
-    sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
-    this->imageSP.setOrigin(imageRect.width/2.f, imageRect.height/2.f);
-    this->imageSP.setPosition(borderPos.x + (borderSize.width/2.f), borderPos.y + (borderSize.height/2.f));
+void UIBorderedImage::init(std::string imageFilePath, std::string borderFilePath) {
+  this->imageTX.loadFromFile(RESOURCE_PATH + imageFilePath);
+  this->imageSP.setTexture(this->imageTX);
+  this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
+  this->borderSP.setTexture(this->borderTX);
 
-    // For a save small overlap
-    this->borderSP.scale(0.97, 0.97);
+  sf::FloatRect imageRect = this->imageSP.getGlobalBounds();
+  sf::Vector2f borderPos = this->borderSP.getPosition();
+  sf::FloatRect borderSize = this->borderSP.getGlobalBounds();
+  this->imageSP.setOrigin(imageRect.width/2.f, imageRect.height/2.f);
+  this->imageSP.setPosition(borderPos.x + (borderSize.width/2.f), borderPos.y + (borderSize.height/2.f));
+
+  // For a save small overlap
+  this->borderSP.scale(0.97, 0.97);
 }
 
 void UIBorderedImage::setImage(std::string imagePath) {
