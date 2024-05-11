@@ -10,6 +10,7 @@ file(GLOB source_files
     "src/main/Animations/*.cpp"
     "src/main/UIObjects/*.cpp"
     "src/main/FightStates/*.cpp"
+    "src/main/ObserverPattern/*cpp"
 )
 set(SOURCES ${source_files})
 

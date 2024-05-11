@@ -2,6 +2,7 @@
 
 
 void UIStats::init(Actor actor) {
+  actor.attachObserver(*this);
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::Color statsValueFontColor = sf::Color::Yellow;
@@ -95,4 +96,8 @@ sf::FloatRect UIStats::getSize() {
 
 void UIStats::updateHealth(int value) {
   this->actorHealthValue.setString(std::to_string(value));
+}
+
+void UIStats::onNotify(int newValue) {
+  this->actorHealthValue.setString(std::to_string(newValue));
 }

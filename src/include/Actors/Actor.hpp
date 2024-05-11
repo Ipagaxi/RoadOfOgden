@@ -2,6 +2,10 @@
 #define ACTOR_HPP
 
 #include <string>
+#include <list>
+
+#include "ObserverPattern/Observer.hpp"
+#include "ObserverPattern/Subject.hpp"
 
 struct RGB {
     int red = 0;
@@ -9,18 +13,16 @@ struct RGB {
     int blue = 0;
 };
 
-class Actor {
-    public:
-        std::string name;
-        int health;
-        int attackStrength;
-        RGB defense;
+class Actor: public Subject {
+  public:
+    std::string name;
+    int health;
+    int attackStrength;
+    RGB defense;
 
-        std::string picPath;
+    std::string picPath;
 
     Actor();
-
-    private:
 
 };
 

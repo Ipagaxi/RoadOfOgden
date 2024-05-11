@@ -1,21 +1,24 @@
 #ifndef UIPLAYERSTATS_HPP
 #define UIPLAYERSTATS_HPP
 
+#include <iostream>
+
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Actors/Actor.hpp"
 #include "Game.hpp"
-#include <iostream>
+#include "ObserverPattern/Observer.hpp"
 
-class UIStats: public UIElement {
+class UIStats: public UIElement, Observer {
     public:
-        void init(Actor actor);
-        void draw() override;
-        sf::Vector2f getPosition() override;
-        void setPosition(float x, float y) override;
-        sf::FloatRect getSize() override;
+      void init(Actor actor);
+      void draw() override;
+      sf::Vector2f getPosition() override;
+      void setPosition(float x, float y) override;
+      sf::FloatRect getSize() override;
 
-        void updateHealth(int value);
+      void updateHealth(int value);
+      void onNotify(int newValue) override;
     
     private:
         UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");
