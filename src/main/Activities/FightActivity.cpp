@@ -19,8 +19,8 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
   this->fightEnv.backgroundSP.scale(backgroundScale);
 
-  float relativeOuterPaddingStatBoxes = 0.02;
-  this->fightEnv.playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->fightEnv.playerStatsBox.getSize().height)/2);
+  //float relativeOuterPaddingStatBoxes = 0.02;
+  //this->fightEnv.playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->fightEnv.playerStatsBox.getSize().height)/2);
 
   std::random_device randSeed;
   std::mt19937 gen(randSeed());

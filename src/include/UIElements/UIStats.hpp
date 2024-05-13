@@ -11,6 +11,8 @@
 
 class UIStats: public UIElement, Observer {
     public:
+      UIStats();
+      ~UIStats();
       void init(Actor actor);
       void draw() override;
       sf::Vector2f getPosition() override;

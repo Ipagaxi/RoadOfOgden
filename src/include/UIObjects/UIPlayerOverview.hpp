@@ -11,7 +11,9 @@
 
 class UIPlayerOverview {
   public:
-    UIBorderedImage playerFrame;
+  UIPlayerOverview() {}
+
+  UIBorderedImage playerFrame;
     Player player;
 
     void init();

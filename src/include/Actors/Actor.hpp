@@ -5,7 +5,6 @@
 #include <list>
 
 #include "ObserverPattern/Observer.hpp"
-#include "ObserverPattern/Subject.hpp"
 
 struct RGB {
     int red = 0;

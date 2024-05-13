@@ -1,5 +1,10 @@
 #include "UIElements/UIStats.hpp"
 
+UIStats::UIStats() {
+}
+
+UIStats::~UIStats() {
+}
 
 void UIStats::init(Actor actor) {
   actor.attachObserver(*this);
@@ -79,7 +84,6 @@ void UIStats::setPosition(float x, float y) {
   float statsSeparationPaddingY = actorStatsBoxSize.height * 0.05;
 
   std::string currentActor = this->actorName.getString();
-  std::cout << currentActor << std::endl;
   sf::FloatRect actorNameRec = this->actorName.getGlobalBounds();
   this->actorName.setPosition(x + ((actorStatsBoxSize.width - actorNameRec.width)/2), y + actorStatsBoxSize.height * 0.15);
   this->actorHealthLabel.setPosition(statsLabelPosX, y + statsOffsetY);
