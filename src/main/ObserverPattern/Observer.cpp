@@ -8,7 +8,7 @@ Observer::Observer() {
 
 Observer::~Observer() {
   std::cout << "~Observer" << std::endl;
-  //this->subject->detachObserver(*this);
+  this->subject->detachObserver(*this);
 }
 
 void Observer::onNotify(int newValue) {}

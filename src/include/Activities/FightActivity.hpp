@@ -42,6 +42,7 @@ class FightActivity: public Activity {
   private:
     FightEnv fightEnv;
     FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
+    std::shared_ptr<Enemy> enemy;
 
     std::unique_ptr<FightState> currentFightState;
 

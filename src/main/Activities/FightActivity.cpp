@@ -3,8 +3,8 @@
 
 FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::make_unique<TurnChangeState>(fightEnv)) {
   Game& game = Game::getInstance();
-  Enemy enemy = this->initEnemy();
-  this->fightEnv.enemyOverview = std::make_unique<UIEnemyOverview>(enemy);
+  this->enemy = std::make_shared<Enemy>(this->initEnemy());
+  this->fightEnv.enemyOverview = std::make_unique<UIEnemyOverview>(*this->enemy);
   this->fightEnv.playerOverview.init();
 
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
