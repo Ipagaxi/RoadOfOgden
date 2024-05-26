@@ -13,6 +13,7 @@
 
 class UIEnemyOverview {
   public:
+    UIEnemyOverview(Enemy& enemy);
     Enemy enemy;
     UIColorPicker colorPicker = UIColorPicker("colorPIC_default.png", "color_picker_border.png");
     sf::Text pickedColorText;

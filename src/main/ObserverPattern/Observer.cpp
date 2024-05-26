@@ -8,7 +8,7 @@ Observer::Observer() {
 
 Observer::~Observer() {
   std::cout << "~Observer" << std::endl;
-  this->subject->detachObserver(*this);
+  //this->subject->detachObserver(*this);
 }
 
 void Observer::onNotify(int newValue) {}
@@ -20,6 +20,7 @@ void Subject::notify(int newValue) {
 }
 
 void Subject::attachObserver(Observer &observer) {
+  std::cout << "Observer attached" << std::endl;
   this->observers.push_front(observer);
 }
 

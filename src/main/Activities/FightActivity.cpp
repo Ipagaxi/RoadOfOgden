@@ -3,7 +3,8 @@
 
 FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::make_unique<TurnChangeState>(fightEnv)) {
   Game& game = Game::getInstance();
-  this->fightEnv.enemyOverview.init(this->initEnemy());
+  Enemy enemy = this->initEnemy();
+  this->fightEnv.enemyOverview = new UIEnemyOverview(enemy);
   this->fightEnv.playerOverview.init();
 
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
@@ -41,6 +42,7 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
 }
 
 FightActivity::~FightActivity() {
+  delete this->fightEnv.enemyOverview;
   this->fightEnv.backgroundMusic.stop();
 }
 
@@ -71,7 +73,7 @@ ActivityEnum FightActivity::executeActivity() {
   game.gameWindow.draw(this->fightEnv.turnSP);
   game.gameWindow.draw(this->fightEnv.backgroundSP);
   this->fightEnv.playerOverview.draw();
-  this->fightEnv.enemyOverview.draw();
+  this->fightEnv.enemyOverview->draw();
   this->exitButton.draw();
   this->fightEnv.textFadingManager.run();
 

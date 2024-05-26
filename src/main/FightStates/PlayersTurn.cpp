@@ -3,7 +3,7 @@
 PlayersTurn::PlayersTurn(FightEnv &fightEnv) {
   generateTexture();
   this->newColorImage.loadFromFile(RESOURCE_PATH "color_textures/colorPIC_new.png");
-  this->oldColorImage = fightEnv.enemyOverview.colorPicker.colorIMG;
+  this->oldColorImage = fightEnv.enemyOverview->colorPicker.colorIMG;
 }
 
 PlayersTurn::~PlayersTurn() {
@@ -14,16 +14,16 @@ FightStateEnum PlayersTurn::run(FightEnv &fightEnv) {
   FightStateEnum currentState = FightStateEnum::PLAYER_STATE;
   switch (this->playerPhase) {
     case PlayerPhase::PICK_COLOR:
-      if (fightEnv.enemyOverview.colorPicker.clickListener(this->clickedPos) && !colorPicked) {
+      if (fightEnv.enemyOverview->colorPicker.clickListener(this->clickedPos) && !colorPicked) {
         this->colorPicked = true;
         fightEnv.turnSP.setTexture(fightEnv.playersTurnTX);
-        fightEnv.pickedColor = fightEnv.enemyOverview.colorPicker.getPixelColor(clickedPos);
-        fightEnv.enemyOverview.updatePickedColorText("(" + std::to_string(fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", fightEnv.pickedColor);
+        fightEnv.pickedColor = fightEnv.enemyOverview->colorPicker.getPixelColor(clickedPos);
+        fightEnv.enemyOverview->updatePickedColorText("(" + std::to_string(fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", fightEnv.pickedColor);
         float attackMultiplier = this->calculateAttackMult(fightEnv);
         int damage = game.player.attackStrength * attackMultiplier;
         int millSecToLive = 600;
         fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
-        fightEnv.enemyOverview.changeHealth(damage);
+        fightEnv.enemyOverview->changeHealth(damage);
         this->playerPhase = PlayerPhase::ANIMATE_ATTACK;
       }
       break;
@@ -60,10 +60,10 @@ void PlayersTurn::changeColoPickerImage(FightEnv &fightEnv) {
       const double red = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).r, this->newColorImage.getPixel(x, y).r, elapsedRatio);
       const double green = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).g, this->newColorImage.getPixel(x, y).g, elapsedRatio);
       const double blue = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).b, this->newColorImage.getPixel(x, y).b, elapsedRatio);
-      fightEnv.enemyOverview.colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
+      fightEnv.enemyOverview->colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
     }
   }
-  fightEnv.enemyOverview.colorPicker.refreshColorTX();
+  fightEnv.enemyOverview->colorPicker.refreshColorTX();
   this->passedMillSec += game.gameStatus.elapsedTime.asMilliseconds();
   if (this->passedMillSec >= changingMillSec) {
     this->playerPhase = PlayerPhase::END_TURN;
@@ -85,15 +85,15 @@ float PlayersTurn::sameColorMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      defenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
+      defenseColorValue = fightEnv.enemyOverview->enemy.defense.red;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      defenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
+      defenseColorValue = fightEnv.enemyOverview->enemy.defense.green;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      defenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
+      defenseColorValue = fightEnv.enemyOverview->enemy.defense.blue;
       break;
     default:
       break;
@@ -110,15 +110,15 @@ float PlayersTurn::counterColorMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.green;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.blue;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.red;
       break;
     default:
       break;
@@ -136,18 +136,18 @@ float PlayersTurn::tugOfWarMetric(Color color, FightEnv &fightEnv) {
   switch (color) {
     case RED:
       pickedColorValue = fightEnv.pickedColor.r;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
-      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.green;
+      counterDefenseColorValue = fightEnv.enemyOverview->enemy.defense.blue;
       break;
     case GREEN:
       pickedColorValue = fightEnv.pickedColor.g;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.blue;
-      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.blue;
+      counterDefenseColorValue = fightEnv.enemyOverview->enemy.defense.red;
       break;
     case BLUE:
       pickedColorValue = fightEnv.pickedColor.b;
-      weakDefenseColorValue = fightEnv.enemyOverview.enemy.defense.red;
-      counterDefenseColorValue = fightEnv.enemyOverview.enemy.defense.green;
+      weakDefenseColorValue = fightEnv.enemyOverview->enemy.defense.red;
+      counterDefenseColorValue = fightEnv.enemyOverview->enemy.defense.green;
       break;
     default:
       break;

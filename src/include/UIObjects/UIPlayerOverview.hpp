@@ -11,7 +11,7 @@
 
 class UIPlayerOverview {
   public:
-  UIPlayerOverview() {}
+  UIPlayerOverview();
 
   UIBorderedImage playerFrame;
     Player player;
@@ -24,7 +24,7 @@ class UIPlayerOverview {
     UIBox backgroundBox = UIBox(sf::Color(51, 25, 0, 150), "borders/metal_border_900x900.png");
     sf::Texture playerBackgroundTX;
     sf::Sprite playerBackgroundSP;
-    UIStats statsComponent;
+    UIStats uiPlayerStats;
 };
 
 #endif

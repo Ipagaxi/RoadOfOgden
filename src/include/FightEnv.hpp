@@ -16,7 +16,7 @@ class FightEnv {
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;
     //UIStats playerStatsBox;
-    UIEnemyOverview enemyOverview;
+    UIEnemyOverview* enemyOverview;
     UIPlayerOverview playerOverview;
     TextFadingManager textFadingManager;
     sf::Texture playersTurnTX;

@@ -11,6 +11,7 @@
 
 class UIBorderedImage: public UIElement {
     public:
+        UIBorderedImage(std::string imageFilePath, std::string borderFilePath);
         void init(std::string imageFilePath, std::string borderFilePath);
         void setImage(std::string imagePath);
         void draw() override;
