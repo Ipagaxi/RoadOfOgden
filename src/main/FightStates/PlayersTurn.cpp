@@ -20,7 +20,7 @@ FightStateEnum PlayersTurn::run(FightEnv &fightEnv) {
         fightEnv.pickedColor = fightEnv.enemyOverview->colorPicker.getPixelColor(clickedPos);
         fightEnv.enemyOverview->updatePickedColorText("(" + std::to_string(fightEnv.pickedColor.r) +  ", " + std::to_string(fightEnv.pickedColor.g) + ", " + std::to_string(fightEnv.pickedColor.b) + ")", fightEnv.pickedColor);
         float attackMultiplier = this->calculateAttackMult(fightEnv);
-        int damage = game.player.attackStrength * attackMultiplier;
+        int damage = game.player->attackStrength * attackMultiplier;
         int millSecToLive = 600;
         fightEnv.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
         fightEnv.enemyOverview->changeHealth(damage);

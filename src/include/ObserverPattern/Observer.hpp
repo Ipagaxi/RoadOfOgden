@@ -12,20 +12,25 @@ class Observer {
     //Observer(Actor& subject);
     virtual ~Observer();
     virtual void onNotify(int newValue);
+    void invalidateSubject();
+
   private:
-    Subject* subject;
+  Subject* subject;
 };
 
 class Subject {
   public:
-  void attachObserver(Observer& observer);
-  void detachObserver(Observer& observer);
+    ~Subject();
+    using RefObserver = std::reference_wrapper<Observer>;
+    void attachObserver(Observer& observer);
+    void detachObserver(Observer& observer);
+    bool valid = true;
 
   private:
-  std::list<Observer> observers;
+    std::list<RefObserver> observers;
 
   protected:
-  virtual void notify(int newValue);
+    virtual void notify(int newValue);
 };
 
 #endif

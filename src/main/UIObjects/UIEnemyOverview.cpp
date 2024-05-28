@@ -1,10 +1,8 @@
 #include "UIObjects/UIEnemyOverview.hpp"
 
-UIEnemyOverview::UIEnemyOverview(Enemy &_enemy): enemyBorderedImage("monster_landscape_cut/" + _enemy.picPath, "actor_borders/fight_border.png"), enemyStats(_enemy) {
+UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedImage("monster_landscape_cut/" + (*_enemy).picPath, "actor_borders/fight_border.png"), enemyStats(_enemy) {
   Game& game = Game::getInstance();
-  this->enemy = _enemy;
-  //this->enemyBorderedImage.init("monster_landscape_cut/" + enemy.picPath, "actor_borders/fight_border.png");
-  //this->enemyStats.init(_enemy);
+  this->enemy = *_enemy;
 
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::FloatRect boxRect = this->box.getSize();

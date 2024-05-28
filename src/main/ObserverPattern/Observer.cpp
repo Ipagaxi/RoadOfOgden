@@ -8,10 +8,24 @@ Observer::Observer() {
 
 Observer::~Observer() {
   std::cout << "~Observer" << std::endl;
-  this->subject->detachObserver(*this);
+  if (subject && subject->valid) {
+    subject->detachObserver(*this);
+  }
 }
 
 void Observer::onNotify(int newValue) {}
+
+void Observer::invalidateSubject() {
+  this->subject = nullptr;
+}
+
+Subject::~Subject() {
+  this->valid = false;
+  for (RefObserver& obs : observers) {
+    obs.get().invalidateSubject();
+  }
+}
+
 
 void Subject::notify(int newValue) {
   for (Observer obs: observers) {
@@ -20,13 +34,13 @@ void Subject::notify(int newValue) {
 }
 
 void Subject::attachObserver(Observer &observer) {
-  std::cout << "Observer attached" << std::endl;
   this->observers.push_front(observer);
 }
 
 void Subject::detachObserver(Observer &observer) {
   std::cout << "Size: " << this->observers.size() << std::endl;
-  this->observers.remove_if([&observer] (const Observer obs) {
-    return &obs == &observer;
+  this->observers.remove_if([&observer] (const RefObserver& obs) {
+
+    return &obs.get() == &observer;
   });
 }

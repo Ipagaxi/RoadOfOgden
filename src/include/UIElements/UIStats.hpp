@@ -12,7 +12,7 @@
 class UIStats: public UIElement, Observer {
   public:
     ~UIStats();
-    UIStats(Actor& actor);
+    UIStats(std::shared_ptr<Actor> actor);
     void init(Actor actor);
     void draw() override;
     sf::Vector2f getPosition() override;

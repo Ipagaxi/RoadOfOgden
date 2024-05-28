@@ -40,6 +40,9 @@ class FightActivity: public Activity {
     void runCurrentState(Game &game);
 
   private:
+    /*
+     * fightEnv is a personal current view state of FightActivity. Therefore, can not be included in Game.hpp or a derived class
+    */
     FightEnv fightEnv;
     FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
     std::shared_ptr<Enemy> enemy;

@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+
 class GameStatus {
   public:
     sf::Time elapsedTime;

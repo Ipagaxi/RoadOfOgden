@@ -1,6 +1,6 @@
 #include "UIObjects/UIPlayerOverview.hpp"
 
-UIPlayerOverview::UIPlayerOverview(): uiPlayerStats(Game::getInstance().player), playerFrame("monster_landscape_cut/" + Game::getInstance().player.picPath, "actor_borders/fight_border.png") {
+UIPlayerOverview::UIPlayerOverview(): uiPlayerStats(Game::getInstance().player), playerFrame("monster_landscape_cut/" + Game::getInstance().player->picPath, "actor_borders/fight_border.png") {
 
 }
 
