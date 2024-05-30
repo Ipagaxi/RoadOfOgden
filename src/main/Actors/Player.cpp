@@ -17,5 +17,5 @@ Player::Player(std::string _name, int _health, int _attackStrength, RGB _defense
 }
 
 void Player::notify(int newValue) const {
-    std::cout << "Got a notification" << std::endl;
+    std::cout << "Player changed!" << std::endl;
 }

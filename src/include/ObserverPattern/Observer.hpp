@@ -15,7 +15,7 @@ class Observer {
     Observer(const Observer&) = delete; // rule of three
     Observer& operator=(const Observer&) = delete;
 
-    virtual void update(int newValue) const;
+    virtual void update(int newValue);
     void invalidateSubject();
     bool subjectIsValid() const;
 

@@ -20,7 +20,7 @@ class UIStats: public UIElement, Observer {
     sf::FloatRect getSize() override;
 
     void updateHealth(int value);
-    void update(int newValue) const override;
+    void update(int newValue) override;
 
   private:
       UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");

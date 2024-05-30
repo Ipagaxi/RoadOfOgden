@@ -11,7 +11,7 @@
 
 class UIPlayerOverview {
   public:
-  UIPlayerOverview();
+  UIPlayerOverview(std::shared_ptr<Player> player);
 
   UIBorderedImage playerFrame;
     Player player;

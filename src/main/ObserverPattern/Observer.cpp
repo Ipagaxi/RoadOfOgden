@@ -11,7 +11,7 @@ Observer::~Observer() {
   }
 }
 
-void Observer::update(int newValue) const {
+void Observer::update(int newValue) {
   std::cout << "Got a notification" << std::endl;
 }
 
@@ -43,7 +43,6 @@ void Subject::attachObserver(Observer& observer) {
 }
 
 void Subject::detachObserver(Observer &observer) {
-  std::cout << "Size: " << this->observers.size() << std::endl;
   this->observers.remove_if([&observer] (const RefObserver& obs) {
 
     return &obs.get() == &observer;

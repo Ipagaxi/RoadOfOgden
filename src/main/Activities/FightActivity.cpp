@@ -5,7 +5,7 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
   Game& game = Game::getInstance();
   this->enemy = std::make_shared<Enemy>(this->initEnemy());
   this->fightEnv.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
-  this->fightEnv.playerOverview.init();
+  this->fightEnv.playerOverview = std::make_unique<UIPlayerOverview>(Game::getInstance().player);
 
   this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/background_fight.png");
   this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
@@ -19,9 +19,6 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
   this->fightEnv.backgroundSP.scale(backgroundScale);
-
-  //float relativeOuterPaddingStatBoxes = 0.02;
-  //this->fightEnv.playerStatsBox.setPosition(windowSize.x * relativeOuterPaddingStatBoxes, (windowSize.y - this->fightEnv.playerStatsBox.getSize().height)/2);
 
   std::random_device randSeed;
   std::mt19937 gen(randSeed());
@@ -71,7 +68,7 @@ ActivityEnum FightActivity::executeActivity() {
 
   game.gameWindow.draw(this->fightEnv.turnSP);
   game.gameWindow.draw(this->fightEnv.backgroundSP);
-  this->fightEnv.playerOverview.draw();
+  this->fightEnv.playerOverview->draw();
   this->fightEnv.enemyOverview->draw();
   this->exitButton.draw();
   this->fightEnv.textFadingManager.run();
