@@ -4,9 +4,9 @@ UIStats::~UIStats() {
   std::cout << "~UIStats" << std::endl;
 }
 
-UIStats::UIStats(std::shared_ptr<Actor> actor) {
+UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(*actor) {
   std::cout << "UIStats(actor)" << std::endl;
-  actor->attachObserver(*this);
+  //actor->attachObserver(*this);
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::Color statsValueFontColor = sf::Color::Yellow;

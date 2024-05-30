@@ -3,30 +3,32 @@
 
 #include <list>
 #include <iostream>
+#include <memory>
 
 class Subject;
 
 class Observer {
   public:
-    Observer();
+    Observer(Subject& subject);
     virtual ~Observer();
 
     Observer(const Observer&) = delete; // rule of three
     Observer& operator=(const Observer&) = delete;
 
     virtual void update(int newValue) const;
-    void invalidateSubject() const;
+    void invalidateSubject();
+    bool subjectIsValid() const;
 
   private:
-  bool valid = true;
-  Subject* subject;
+    bool valid = true;
+    Subject& subject;
 };
 
 class Subject {
   public:
     ~Subject();
-    using RefObserver = std::reference_wrapper<const Observer>;
-    void attachObserver(const Observer& observer);
+    using RefObserver = std::reference_wrapper<Observer>;
+    void attachObserver(Observer& observer);
     void detachObserver(Observer& observer);
     bool valid = true;
 

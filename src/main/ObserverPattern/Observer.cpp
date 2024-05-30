@@ -1,15 +1,13 @@
 #include "ObserverPattern/Observer.hpp"
 
-//constructor and destructor defined in ObserverPattern/Subject.cpp
-
-Observer::Observer() {
+Observer::Observer(Subject& _subject): subject(_subject) {
+  subject.attachObserver(*this);
   std::cout << "Observer" << std::endl;
 }
 
 Observer::~Observer() {
-  std::cout << "~Observer" << std::endl;
   if (this->valid) {
-    subject->detachObserver(*this);
+    subject.detachObserver(*this);
   }
 }
 
@@ -18,13 +16,15 @@ void Observer::update(int newValue) const {
 }
 
 
-void Observer::invalidateSubject() const {
-  //this->subject = nullptr;
-  //this->valid = false;
+void Observer::invalidateSubject() {
+  this->valid = false;
+}
+
+bool Observer::subjectIsValid() const {
+  return this->valid;
 }
 
 Subject::~Subject() {
-  std::cout << "~Subject" << std::endl;
   this->valid = false;
   for (auto& obs : observers) {
     obs.get().invalidateSubject();
@@ -38,7 +38,7 @@ void Subject::notify(int newValue) const {
   }
 }
 
-void Subject::attachObserver(const Observer& observer) {
+void Subject::attachObserver(Observer& observer) {
   this->observers.push_front(observer);
 }
 
