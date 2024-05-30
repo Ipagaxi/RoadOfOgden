@@ -15,3 +15,7 @@ Player::Player(std::string _name, int _health, int _attackStrength, RGB _defense
     this->defense = _defense;
     this->picPath = _picFilePath;
 }
+
+void Player::notify(int newValue) const {
+    std::cout << "Got a notification" << std::endl;
+}

@@ -13,14 +13,14 @@ class UIStats: public UIElement, Observer {
   public:
     ~UIStats();
     UIStats(std::shared_ptr<Actor> actor);
-    void init(Actor actor);
+    //void init(Actor actor);
     void draw() override;
     sf::Vector2f getPosition() override;
     void setPosition(float x, float y) override;
     sf::FloatRect getSize() override;
 
     void updateHealth(int value);
-    void onNotify(int newValue) override;
+    void update(int newValue) const override;
 
   private:
       UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");

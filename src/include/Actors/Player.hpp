@@ -7,9 +7,11 @@
 class Player: public Actor {
     private:
 
-    public:
-        Player();
-        Player(std::string name, int health, int attackStrength, RGB defense, std::string picFilePath);
+  public:
+      Player();
+      Player(std::string name, int health, int attackStrength, RGB defense, std::string picFilePath);
+
+      void notify(int newValue) const override;
 };
 
 #endif

@@ -20,6 +20,11 @@ Enemy::Enemy(std::string _name, int _health, int _attackStrength, RGB _defense, 
     this->colorPicBorderPath = _colorPicBorderPath;
 }
 
+void Enemy::notify(int newValue) const {
+    std::cout << "Got a notification" << std::endl;
+}
+
+
 void Enemy::init() {
 
 }

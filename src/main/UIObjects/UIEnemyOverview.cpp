@@ -44,7 +44,7 @@ UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedIm
   this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
 }
 
-
+/*
 void UIEnemyOverview::init(Enemy _enemy) {
   Game& game = Game::getInstance();
   this->enemy = _enemy;
@@ -92,6 +92,7 @@ void UIEnemyOverview::init(Enemy _enemy) {
   this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
   this->pickedColorText.setPosition(colorPickerPos.x + colorPickerSize.width*0.5, colorPickerPos.y + colorPickerSize.height + windowSize.y*0.02);
 }
+*/
 
 void UIEnemyOverview::draw() {
   Game& game = Game::getInstance();

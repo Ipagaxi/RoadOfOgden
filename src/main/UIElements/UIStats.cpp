@@ -57,6 +57,7 @@ UIStats::UIStats(std::shared_ptr<Actor> actor) {
   this->setPosition(0., 0.);
 }
 
+/*
 void UIStats::init(Actor actor) {
   actor.attachObserver(*this);
   Game& game = Game::getInstance();
@@ -107,7 +108,7 @@ void UIStats::init(Actor actor) {
   this->actorRGBDefenseValues.setFillColor(statsValueFontColor);
 
   this->setPosition(0., 0.);
-}
+}*/
 
 void UIStats::draw() {
   Game& game = Game::getInstance();
@@ -153,6 +154,6 @@ void UIStats::updateHealth(int value) {
   this->actorHealthValue.setString(std::to_string(value));
 }
 
-void UIStats::onNotify(int newValue) {
-  this->actorHealthValue.setString(std::to_string(newValue));
+void UIStats::update(int newValue) const {
+  //this->actorHealthValue.setString(std::to_string(newValue));
 }

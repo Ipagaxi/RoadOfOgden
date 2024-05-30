@@ -8,32 +8,37 @@ Observer::Observer() {
 
 Observer::~Observer() {
   std::cout << "~Observer" << std::endl;
-  if (subject && subject->valid) {
+  if (this->valid) {
     subject->detachObserver(*this);
   }
 }
 
-void Observer::onNotify(int newValue) {}
+void Observer::update(int newValue) const {
+  std::cout << "Got a notification" << std::endl;
+}
 
-void Observer::invalidateSubject() {
-  this->subject = nullptr;
+
+void Observer::invalidateSubject() const {
+  //this->subject = nullptr;
+  //this->valid = false;
 }
 
 Subject::~Subject() {
+  std::cout << "~Subject" << std::endl;
   this->valid = false;
-  for (RefObserver& obs : observers) {
+  for (auto& obs : observers) {
     obs.get().invalidateSubject();
   }
 }
 
 
-void Subject::notify(int newValue) {
-  for (Observer obs: observers) {
-    obs.onNotify(newValue);
+void Subject::notify(int newValue) const {
+  for (const auto& obs: observers) {
+    obs.get().update(newValue);
   }
 }
 
-void Subject::attachObserver(Observer &observer) {
+void Subject::attachObserver(const Observer& observer) {
   this->observers.push_front(observer);
 }
 

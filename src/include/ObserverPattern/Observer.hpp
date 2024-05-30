@@ -9,20 +9,24 @@ class Subject;
 class Observer {
   public:
     Observer();
-    //Observer(Actor& subject);
     virtual ~Observer();
-    virtual void onNotify(int newValue);
-    void invalidateSubject();
+
+    Observer(const Observer&) = delete; // rule of three
+    Observer& operator=(const Observer&) = delete;
+
+    virtual void update(int newValue) const;
+    void invalidateSubject() const;
 
   private:
+  bool valid = true;
   Subject* subject;
 };
 
 class Subject {
   public:
     ~Subject();
-    using RefObserver = std::reference_wrapper<Observer>;
-    void attachObserver(Observer& observer);
+    using RefObserver = std::reference_wrapper<const Observer>;
+    void attachObserver(const Observer& observer);
     void detachObserver(Observer& observer);
     bool valid = true;
 
@@ -30,7 +34,7 @@ class Subject {
     std::list<RefObserver> observers;
 
   protected:
-    virtual void notify(int newValue);
+    virtual void notify(int newValue) const = 0;
 };
 
 #endif
