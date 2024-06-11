@@ -11,7 +11,7 @@ class Player: public Actor {
       Player();
       Player(std::string name, int health, int attackStrength, RGB defense, std::string picFilePath);
 
-      void notify(int newValue) const override;
+
 };
 
 #endif

@@ -19,7 +19,7 @@ class UIEnemyOverview {
     sf::Text pickedColorText;
 
     //void init(Enemy enemy);
-    void changeHealth(int value);
+    void changeHealth(int lostHealth);
     void updatePickedColorText(std::string newText, sf::Color pickedColor);
     void draw();
 

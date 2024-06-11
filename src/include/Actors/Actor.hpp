@@ -12,7 +12,8 @@ struct RGB {
     int blue = 0;
 };
 
-class Actor: public Subject {
+
+class Actor: public Subject<Actor> {
   public:
     std::string name;
     int health;

@@ -3,7 +3,7 @@
 UIStats::~UIStats() {
 }
 
-UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(*actor) {
+UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subject<Actor> &>(*actor)) {
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
   sf::Color statsValueFontColor = sf::Color::Yellow;
@@ -94,10 +94,6 @@ sf::FloatRect UIStats::getSize() {
   return this->actorStatsBox.getSize();
 }
 
-void UIStats::updateHealth(int value) {
-  this->actorHealthValue.setString(std::to_string(value));
-}
-
-void UIStats::update(int newValue) {
-  this->actorHealthValue.setString(std::to_string(newValue));
+void UIStats::update(Actor newActor) {
+  this->actorHealthValue.setString(std::to_string(newActor.health));
 }

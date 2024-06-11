@@ -5,38 +5,70 @@
 #include <iostream>
 #include <memory>
 
+template <typename T>
 class Subject;
 
+template <typename T>
 class Observer {
   public:
-    Observer(Subject& subject);
-    virtual ~Observer();
+    Observer(Subject<T>& _subject): subject(_subject) {
+        this->subject.attachObserver(*this);
+        std::cout << "Observer" << std::endl;
+    }
+
+    virtual ~Observer() {
+        if (this->valid) {
+            subject.detachObserver(*this);
+        }
+    }
 
     Observer(const Observer&) = delete; // rule of three
     Observer& operator=(const Observer&) = delete;
 
-    virtual void update(int newValue);
-    void invalidateSubject();
-    bool subjectIsValid() const;
+    virtual void update(T entity) {
+        std::cout << "Got a notification" << std::endl;
+    }
+
+    void invalidateSubject() {
+        this->valid = false;
+    }
 
   private:
     bool valid = true;
-    Subject& subject;
+    Subject<T>& subject;
 };
 
+template <typename T>
 class Subject {
   public:
-    ~Subject();
-    using RefObserver = std::reference_wrapper<Observer>;
-    void attachObserver(Observer& observer);
-    void detachObserver(Observer& observer);
+    virtual ~Subject() {
+        this->valid = false;
+        for (auto& obs : this->observers) {
+            obs.get().invalidateSubject();
+        }
+    };
+    using RefObserver = std::reference_wrapper<Observer<T>>;
+    void attachObserver(Observer<T>& observer) {
+        this->observers.push_front(observer);
+    }
+
+    void detachObserver(Observer<T> &observer) {
+        this->observers.remove_if([&observer] (const RefObserver& obs) {
+
+            return &obs.get() == &observer;
+        });
+    }
     bool valid = true;
 
   private:
     std::list<RefObserver> observers;
 
   protected:
-    virtual void notify(int newValue) const = 0;
+    void notify(T entity) const {
+        for (const auto& obs: observers) {
+            obs.get().update(entity);
+        }
+    }
 };
 
 #endif

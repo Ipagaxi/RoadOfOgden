@@ -10,8 +10,6 @@ class Enemy: public Actor {
     Enemy();
     Enemy(std::string name, int health, int attackStrength, RGB defense, std::string picPath, std::string colorPicPath, std::string colorPicBorderPath);
 
-    void notify(int newValue) const override;
-
     void init();
     std::string colorPicPath;
     std::string colorPicBorderPath;

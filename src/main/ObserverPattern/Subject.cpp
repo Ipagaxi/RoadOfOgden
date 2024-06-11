@@ -1,2 +1,0 @@
-#include "ObserverPattern/Subject.hpp"
-

@@ -54,10 +54,10 @@ void UIEnemyOverview::draw() {
   this->enemyBorderedImage.draw();
 }
 
-void UIEnemyOverview::changeHealth(int value) {
-  int newHealth = std::max(this->enemy.health - value, 0);
+void UIEnemyOverview::changeHealth(int lostHealth) {
+  int newHealth = std::max(this->enemy.health - lostHealth, 0);
   this->enemy.health = newHealth;
-  this->enemyStats.update(newHealth);
+  this->enemyStats.update(this->enemy);
 }
 
 void UIEnemyOverview::updatePickedColorText(std::string newText, sf::Color pickedColor) {

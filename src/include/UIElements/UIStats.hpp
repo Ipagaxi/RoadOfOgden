@@ -9,18 +9,16 @@
 #include "Game.hpp"
 #include "ObserverPattern/Observer.hpp"
 
-class UIStats: public UIElement, Observer {
+class UIStats: public UIElement, Observer<Actor> {
   public:
     ~UIStats();
     UIStats(std::shared_ptr<Actor> actor);
-    //void init(Actor actor);
     void draw() override;
     sf::Vector2f getPosition() override;
     void setPosition(float x, float y) override;
     sf::FloatRect getSize() override;
 
-    void updateHealth(int value);
-    void update(int newValue) override;
+    void update(Actor newActor) override;
 
   private:
       UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");
