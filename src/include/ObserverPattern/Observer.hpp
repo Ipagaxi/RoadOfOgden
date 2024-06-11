@@ -58,17 +58,19 @@ class Subject {
             return &obs.get() == &observer;
         });
     }
+
+    virtual void notify(T entity) const {
+        for (const auto& obs: observers) {
+            obs.get().update(entity);
+        }
+    }
+
     bool valid = true;
 
   private:
     std::list<RefObserver> observers;
 
   protected:
-    void notify(T entity) const {
-        for (const auto& obs: observers) {
-            obs.get().update(entity);
-        }
-    }
 };
 
 #endif

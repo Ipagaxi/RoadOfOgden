@@ -57,7 +57,7 @@ void UIPlayerOverview::init() {
 void UIPlayerOverview::changeHealth(int value) {
   int newHealth = std::max(this->player.health - value, 0);
   this->player.health = newHealth;
-  this->uiPlayerStats.update(this->player);
+  this->player.notify(this->player);
 }
 
 void UIPlayerOverview::draw() {

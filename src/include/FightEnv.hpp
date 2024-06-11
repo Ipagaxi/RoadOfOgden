@@ -9,6 +9,11 @@
 #include "Animations/IncomingBanner.hpp"
 #include "Game.hpp"
 
+/*
+ * This class has the UI components and therefore provides these to the different fight phases
+ * Not an ideal solution
+ */
+
 class FightEnv {
   public:
     FightEnv();
