@@ -17,7 +17,7 @@ class UIStats: public UIElement, Observer<Actor> {
     sf::Vector2f getPosition() override;
     void setPosition(float x, float y) override;
     sf::FloatRect getSize() override;
-
+  
     void update(Actor newActor) override;
 
   private:

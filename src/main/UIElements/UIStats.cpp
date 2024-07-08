@@ -3,9 +3,12 @@
 UIStats::~UIStats() {
 }
 
+
 UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subject<Actor> &>(*actor)) {
+
   Game& game = Game::getInstance();
   sf::Vector2u windowSize = game.gameWindow.getSize();
+  this->actor = _actor;
   sf::Color statsValueFontColor = sf::Color::Yellow;
   sf::Color statsLabelFontColor = sf::Color::White;
   this->statsTextHeight = windowSize.y * 0.015;
