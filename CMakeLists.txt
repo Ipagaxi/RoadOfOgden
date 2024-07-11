@@ -3,14 +3,18 @@ set(PROJECT_NAME PnC)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB source_files
-    "src/main/*.cpp"
-    "src/main/Activities/*.cpp"
-    "src/main/UIElements/*.cpp"
-    "src/main/Actors/*.cpp"
-    "src/main/Animations/*.cpp"
-    "src/main/UIObjects/*.cpp"
-    "src/main/FightStates/*.cpp"
-    "src/main/ObserverPattern/*cpp"
+    "src/*.cpp"
+    "src/Activities/*.cpp"
+    "src/Activities/FightActivity/*.cpp"
+    "src/Activities/FightActivity/FightStates/*.cpp"
+    "src/Activities/MenuActivity/*.cpp"
+    "src/Activities/CharacterActivity/*.cpp"
+    "src/Actors/*.cpp"
+    "src/Animations/*.cpp"
+    "src/Global/*.cpp"
+    "src/ObserverPattern/*.cpp"
+    "src/System/*.cpp"
+    "src/UIElements/*.cpp"
 )
 set(SOURCES ${source_files})
 
@@ -33,7 +37,7 @@ add_executable (
     ${SOURCES}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE "src/include")
+target_include_directories(${PROJECT_NAME} PRIVATE "src")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
@@ -48,8 +52,8 @@ endif()
 add_custom_command(
     TARGET ${PROJECT_NAME}
     COMMENT "Copy resources"
-    PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
     VERBATIM)
 
 install(TARGETS ${PROJECT_NAME})
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/resources DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/resources DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
