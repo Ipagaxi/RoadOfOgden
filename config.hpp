@@ -1,3 +1,3 @@
 
 
-#define RESOURCE_PATH ""
+#define RESOURCE_PATH "test"
