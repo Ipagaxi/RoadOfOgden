@@ -6,7 +6,7 @@
 #include <vector>
 
 #include "System/Game.hpp"
-#include "Global/Defines.hpp"
+#include "config.hpp"
 #include "Animations/Animation.hpp"
 
 enum AnimationPath {

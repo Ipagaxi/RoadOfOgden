@@ -6,6 +6,7 @@
 
 #include "Lib/PerlinNoise/PerlinNoise.hpp"
 #include "Global/Defines.hpp"
+#include "config.hpp"
 
 void generateTexture();
 

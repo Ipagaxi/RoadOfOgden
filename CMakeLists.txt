@@ -19,6 +19,8 @@ file(GLOB source_files
 set(SOURCES ${source_files})
 
 set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/project_build)
+set(RESOURCE_DIR "${CMAKE_SOURCE_DIR}/resources")
+
 message (STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
@@ -37,7 +39,12 @@ add_executable (
     ${SOURCES}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE "src")
+configure_file(
+    ${CMAKE_SOURCE_DIR}/config.hpp.in
+    ${CMAKE_SOURCE_DIR}/config.hpp
+)
+
+target_include_directories(${PROJECT_NAME} PRIVATE "src" "${CMAKE_SOURCE_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 

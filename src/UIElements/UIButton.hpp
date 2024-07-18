@@ -8,7 +8,7 @@
 
 #include "System/GameEvents.hpp"
 #include "UIElements/UIElement.hpp"
-#include "Global/Defines.hpp"
+#include "config.hpp"
 #include "System/Game.hpp"
 
 class UIButton: public UIElement {

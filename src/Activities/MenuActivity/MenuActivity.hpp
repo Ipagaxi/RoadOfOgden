@@ -8,7 +8,7 @@
 #include "Activities/Activity.hpp"
 #include "System/Game.hpp"
 #include "Activities/CharacterActivity/CharacterActivity.hpp"
-#include "Global/Defines.hpp"
+#include "config.hpp"
 #include "UIElements/UIButton.hpp"
 
 class MenuActivity: public Activity {

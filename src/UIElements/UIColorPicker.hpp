@@ -6,7 +6,7 @@
 #include <iostream>
 
 #include "UIElements/UIElement.hpp"
-#include "Global/Defines.hpp"
+#include "config.hpp"
 #include "System/GameEvents.hpp"
 #include "System/Game.hpp"
 
