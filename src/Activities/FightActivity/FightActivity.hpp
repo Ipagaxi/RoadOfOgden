@@ -16,6 +16,7 @@
 #include "FightStates/TurnChangeState.hpp"
 #include "FightStates/FightState.hpp"
 #include "FightStateEnum.hpp"
+#include "Global/Utility.hpp"
 
 class FightActivity: public Activity {
   public:

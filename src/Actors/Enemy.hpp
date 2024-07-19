@@ -3,7 +3,6 @@
 
 #include "Actors/Actor.hpp"
 #include "UIElements/UIColorPicker.hpp"
-#include "config.hpp"
 
 class Enemy: public Actor {
   public:

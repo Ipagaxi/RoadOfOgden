@@ -7,6 +7,7 @@
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIElements/UIStats.hpp"
+#include "Global/Utility.hpp"
 
 class UIPlayerOverview {
   public:

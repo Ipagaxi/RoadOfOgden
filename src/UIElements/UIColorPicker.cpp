@@ -1,10 +1,10 @@
 #include "UIElements/UIColorPicker.hpp"
 
 UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
-  this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + imagePath);
+  this->colorIMG.loadFromFile(RESOURCES + "color_textures/" + imagePath);
   this->colorTX.loadFromImage(this->colorIMG);
   this->colorSP.setTexture(this->colorTX);
-  this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
+  this->borderTX.loadFromFile(RESOURCES + "borders/" + borderPath);
   this->borderSP.setTexture(this->borderTX);
 
   sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
@@ -16,7 +16,7 @@ UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
   // For a save small overlap
   this->borderSP.scale(0.97, 0.97);
 
-  this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/softair.wav");
+  this->releaseSoundBuffer.loadFromFile(RESOURCES + "test_sounds/softair.wav");
   this->releaseSound.setBuffer(this->releaseSoundBuffer);
   this->releaseSound.setPitch(1.5);
 }
@@ -25,7 +25,7 @@ UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
   this->colorTX.loadFromImage(image);
   this->colorSP.setTexture(this->colorTX);
 
-  this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
+  this->borderTX.loadFromFile(RESOURCES + "borders/" + borderPath);
   this->borderSP.setTexture(this->borderTX);
 
   sf::FloatRect colorRect = this->colorSP.getGlobalBounds();
@@ -96,13 +96,13 @@ bool UIColorPicker::clickListener(sf::Vector2f &clickedPos) {
 }
 
 void UIColorPicker::setColorBox(std::string picPath, std::string borderPath) {
-  this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+  this->colorIMG.loadFromFile(RESOURCES + "color_textures/" + picPath);
   this->colorTX.loadFromImage(this->colorIMG);
-  this->borderTX.loadFromFile(RESOURCE_PATH "borders/" + borderPath);
+  this->borderTX.loadFromFile(RESOURCES + "borders/" + borderPath);
 }
 
 void UIColorPicker::setColorImage(std::string picPath) {
-  this->colorIMG.loadFromFile(RESOURCE_PATH "color_textures/" + picPath);
+  this->colorIMG.loadFromFile(RESOURCES + "color_textures/" + picPath);
   this->colorTX.loadFromImage(this->colorIMG);
 }
 

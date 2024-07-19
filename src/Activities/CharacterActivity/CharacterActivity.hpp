@@ -2,7 +2,7 @@
 #define CHARACTERACTIVITY_HPP
 
 #include "Activities/Activity.hpp"
-#include "config.hpp"
+#include "Global/Utility.hpp"
 #include "System/Game.hpp"
 
 class CharacterActivity : public Activity {

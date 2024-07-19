@@ -19,7 +19,7 @@ UIPlayerOverview::UIPlayerOverview(std::shared_ptr<Player> _player): uiPlayerSta
   this->playerFrame.setPosition(statsPos.x + statsSize.width*0.5 - playerFrameRect.width/2.f, windowSize.y * 0.14);
 
   sf::Vector2f playerFramePos = this->playerFrame.getPosition();
-  this->playerBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
+  this->playerBackgroundTX.loadFromFile(RESOURCES + "actor_landscape_backgrounds/forest.png");
   this->playerBackgroundSP.setTexture(this->playerBackgroundTX);
   sf::FloatRect playerBackgroundRect = this->playerBackgroundSP.getGlobalBounds();
   this->playerBackgroundSP.setOrigin(playerBackgroundRect.width/2.f, playerBackgroundRect.height/2.f);
@@ -46,7 +46,7 @@ void UIPlayerOverview::init() {
   this->playerFrame.setPosition(statsPos.x + statsSize.width*0.5 - playerFrameRect.width/2.f, windowSize.y * 0.14);
 
   sf::Vector2f playerFramePos = this->playerFrame.getPosition();
-  this->playerBackgroundTX.loadFromFile(RESOURCE_PATH "actor_landscape_backgrounds/forest.png");
+  this->playerBackgroundTX.loadFromFile(RESOURCES + "actor_landscape_backgrounds/forest.png");
   this->playerBackgroundSP.setTexture(this->playerBackgroundTX);
   sf::FloatRect playerBackgroundRect = this->playerBackgroundSP.getGlobalBounds();
   this->playerBackgroundSP.setOrigin(playerBackgroundRect.width/2.f, playerBackgroundRect.height/2.f);

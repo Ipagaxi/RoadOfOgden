@@ -1,7 +1,7 @@
 #include "UIElements/UIButton.hpp"
 
 void UIButton::init(std::string filePath) {
-  std::string buttonsPath = RESOURCE_PATH "buttons/";
+  std::string buttonsPath = RESOURCES + "buttons/";
   int sep_pos = filePath.find(".");
   std::string fileName = filePath.substr(0, sep_pos);
   std::string fileType = filePath.substr(sep_pos + 1);
@@ -14,7 +14,7 @@ void UIButton::init(std::string filePath) {
   this->hovered = false;
   this->pressed = false;
 
-  this->pressSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/tick.wav");
+  this->pressSoundBuffer.loadFromFile(RESOURCES + "test_sounds/tick.wav");
   //this->pressSoundBuffer.loadFromFile(RESOURCE_PATH "test_sounds/buttonAlpha2.wav");
   this->pressSound.setBuffer(this->pressSoundBuffer);
   //this->releaseSound.setBuffer(this->releaseSoundBuffer);
@@ -30,7 +30,7 @@ UIButton::UIButton(std::string labelText, std::string filePath) {
   this->init(filePath);
 
   sf::Vector2u buttonSize = this->basicTX.getSize();
-  this->font.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
+  this->font.loadFromFile(RESOURCES + "fonts/Avara-Bold.otf");
   this->label.setFont(this->font);
   this->label.setString(labelText);
   this->label.setCharacterSize(buttonSize.y * 0.5);

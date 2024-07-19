@@ -8,6 +8,7 @@
 #include "Global/Color.hpp"
 #include "Global/GenerateColorIMG.hpp"
 #include "Activities/FightActivity/FightStateEnum.hpp"
+#include "Global/Utility.hpp"
 
 enum PlayerPhase {
   PICK_COLOR,

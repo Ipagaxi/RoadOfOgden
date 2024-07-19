@@ -38,6 +38,6 @@ void generateTexture() {
   //int fileNum = std::rand() % 10;
   sf::Image colorIMG;
   colorIMG.create(GEN_IMG_WIDTH, GEN_IMG_HEIGHT, pixels);
-  colorIMG.saveToFile(RESOURCE_PATH "color_textures/colorPIC_new.png");
+  colorIMG.saveToFile(RESOURCES + "color_textures/colorPIC_new.png");
   delete[] pixels;
 }

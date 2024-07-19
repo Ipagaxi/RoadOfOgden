@@ -10,6 +10,7 @@
 #include "UIElements/UIBox.hpp"
 #include "Actors/Enemy.hpp"
 #include "System/Game.hpp"
+#include "Global/Utility.hpp"
 
 class UIEnemyOverview {
   public:

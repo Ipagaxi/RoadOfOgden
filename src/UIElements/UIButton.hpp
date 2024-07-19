@@ -8,8 +8,9 @@
 
 #include "System/GameEvents.hpp"
 #include "UIElements/UIElement.hpp"
-#include "config.hpp"
+#include "Global/Utility.hpp"
 #include "System/Game.hpp"
+#include "Global/Utility.hpp"
 
 class UIButton: public UIElement {
   private:

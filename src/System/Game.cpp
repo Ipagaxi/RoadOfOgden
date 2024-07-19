@@ -10,7 +10,7 @@ Game &Game::getInstance() {
 Game::Game(): gameWindow(*(new sf::RenderWindow(sf::VideoMode::getDesktopMode(), "Road of Ogden", sf::Style::Fullscreen))) {
   //sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Road of Ogden", sf::Style::Fullscreen);
   this->gameWindow.setFramerateLimit(60);
-  this->mainFont.loadFromFile(RESOURCE_PATH "fonts/Avara-Bold.otf");
+  this->mainFont.loadFromFile(RESOURCES + "fonts/Avara-Bold.otf");
 }
 
 Game::~Game() {

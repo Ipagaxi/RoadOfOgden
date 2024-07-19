@@ -7,7 +7,7 @@
 
 #include "System/Game.hpp"
 #include "UIElements/UIElement.hpp"
-#include "config.hpp"
+#include "Global/Utility.hpp"
 
 class UIBorderedImage: public UIElement {
     public:

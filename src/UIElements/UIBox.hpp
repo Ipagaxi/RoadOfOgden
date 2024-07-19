@@ -6,7 +6,7 @@
 #include <string>
 
 #include "UIElements/UIElement.hpp"
-#include "config.hpp"
+#include "Global/Utility.hpp"
 #include "System/Game.hpp"
 
 class UIBox : UIElement {

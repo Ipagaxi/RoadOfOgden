@@ -13,7 +13,6 @@ class Observer {
   public:
     Observer(Subject<T>& _subject): subject(_subject) {
         this->subject.attachObserver(*this);
-        std::cout << "Observer" << std::endl;
     }
 
     virtual ~Observer() {
@@ -26,7 +25,6 @@ class Observer {
     Observer& operator=(const Observer&) = delete;
 
     virtual void update(T entity) {
-        std::cout << "Got a notification" << std::endl;
     }
 
     void invalidateSubject() {

@@ -1,7 +1,7 @@
 #include "CharacterActivity.hpp"
 
 CharacterActivity::CharacterActivity(): Activity() {
-  this->backgroundTX.loadFromFile(RESOURCE_PATH "backgrounds/backgroundMenu.png");
+  this->backgroundTX.loadFromFile(RESOURCES + "backgrounds/backgroundMenu.png");
   this->backgroundSP.setTexture(this->backgroundTX);
 }
 

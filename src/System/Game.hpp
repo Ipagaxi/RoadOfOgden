@@ -8,7 +8,7 @@
 
 #include "Activities/ActivityEnum.hpp"
 //#include "Activities/Activity.hpp"
-#include "config.hpp"
+#include "Global/Utility.hpp"
 #include "Actors/Player.hpp"
 #include "System/GameEvents.hpp"
 #include "System/RenderEngine.hpp"

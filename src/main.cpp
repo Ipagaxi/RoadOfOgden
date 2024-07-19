@@ -6,6 +6,7 @@
 #include "Activities/FightActivity/FightActivity.hpp"
 #include "Activities/MenuActivity/MenuActivity.hpp"
 #include "Activities/ActivityEnum.hpp"
+#include "Global/Utility.hpp"
 
 
 std::unique_ptr<Activity> setCurrentActivity(ActivityEnum newActivityEnum) {
@@ -30,7 +31,6 @@ Game* Game::instance = nullptr;
 
 int main()
 {
-
 
   Game& game = Game::getInstance();
 

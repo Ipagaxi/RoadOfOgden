@@ -2,7 +2,7 @@
 
 PlayersTurn::PlayersTurn(FightEnv &fightEnv) {
   generateTexture();
-  this->newColorImage.loadFromFile(RESOURCE_PATH "color_textures/colorPIC_new.png");
+  this->newColorImage.loadFromFile(RESOURCES + "color_textures/colorPIC_new.png");
   this->oldColorImage = fightEnv.enemyOverview->colorPicker.colorIMG;
 }
 
