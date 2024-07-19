@@ -21,7 +21,7 @@ UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedIm
   sf::Vector2f creatureFramePos = sf::Vector2f(overviewPos.x + creatureFrameMargin, overviewPos.y + creatureFrameMargin);
   this->enemyBorderedImage.setPosition(creatureFramePos.x, creatureFramePos.y);
 
-  this->enemyIconBackgroundTX.loadFromFile(RESOURCES + "actor_landscape_backgrounds/forest.png");
+  this->enemyIconBackgroundTX.loadFromFile(RESOURCE_PATH + "actor_landscape_backgrounds/forest.png");
   this->enemyIconBackgroundSP.setTexture(this->enemyIconBackgroundTX);
   sf::FloatRect creatureBackgroundRect = this->enemyIconBackgroundSP.getGlobalBounds();
   this->enemyIconBackgroundSP.setOrigin(creatureBackgroundRect.width / 2.f, creatureBackgroundRect.height / 2.f);

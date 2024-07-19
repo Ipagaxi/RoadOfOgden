@@ -39,11 +39,6 @@ add_executable (
     ${SOURCES}
 )
 
-configure_file(
-    ${CMAKE_SOURCE_DIR}/config.hpp.in
-    ${CMAKE_SOURCE_DIR}/config.hpp
-)
-
 target_include_directories(${PROJECT_NAME} PRIVATE "src" "${CMAKE_SOURCE_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

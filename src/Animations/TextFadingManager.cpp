@@ -1,7 +1,7 @@
 #include "Animations/TextFadingManager.hpp"
 
 TextFading::TextFading() {
-    this->font.loadFromFile(RESOURCES + "fonts/Avara-Bold.otf");
+    this->font.loadFromFile(RESOURCE_PATH + "fonts/Avara-Bold.otf");
     this->text.setFont(this->font);
     this->text.setString("0");
     this->text.setCharacterSize(20);

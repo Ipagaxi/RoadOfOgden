@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <iostream>
 
-std::string getResourcePath();
-std::string const RESOURCES = getResourcePath();
+std::string getResourcesDirPath();
+std::string const RESOURCE_PATH = getResourcesDirPath();
 
 #endif

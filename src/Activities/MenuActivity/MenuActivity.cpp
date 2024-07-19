@@ -2,14 +2,14 @@
 
 MenuActivity::MenuActivity(): Activity() {
     Game& game = Game::getInstance();
-    this->backgroundTX.loadFromFile(RESOURCES + "backgrounds/backgroundMenu.png");
+    this->backgroundTX.loadFromFile(RESOURCE_PATH + "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
-    this->backgroundMusic.openFromFile(RESOURCES + "music/menu_background_music.wav");
+    this->backgroundMusic.openFromFile(RESOURCE_PATH + "music/menu_background_music.wav");
     this->backgroundMusic.setLoop(true);
     this->backgroundMusic.play();
 
-    this->buttonsBackgroundTX.loadFromFile(RESOURCES + "box_backgrounds/menu_border_with_name.png");
+    this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH + "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
 
     sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());

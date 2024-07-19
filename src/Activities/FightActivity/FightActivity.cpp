@@ -7,10 +7,10 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
   this->fightEnv.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
   this->fightEnv.playerOverview = std::make_unique<UIPlayerOverview>(Game::getInstance().player);
 
-  this->fightEnv.backgroundTX.loadFromFile(RESOURCES + "backgrounds/background_fight.png");
+  this->fightEnv.backgroundTX.loadFromFile(RESOURCE_PATH + "backgrounds/background_fight.png");
   this->fightEnv.backgroundSP.setTexture(this->fightEnv.backgroundTX);
 
-  this->fightEnv.backgroundMusic.openFromFile(RESOURCES + "music/fight_background_music.wav");
+  this->fightEnv.backgroundMusic.openFromFile(RESOURCE_PATH + "music/fight_background_music.wav");
   this->fightEnv.backgroundMusic.setLoop(true);
   this->fightEnv.backgroundMusic.play();
 
@@ -25,8 +25,8 @@ FightActivity::FightActivity() : Activity(), fightEnv(), currentFightState(std::
   std::uniform_int_distribution<int> dist(0, 1);
   this->fightEnv.isPlayersTurn = dist(gen);
 
-  this->fightEnv.playersTurnTX.loadFromFile(RESOURCES + "combat/turn_status_player.png");
-  this->fightEnv.enemiesTurnTX.loadFromFile(RESOURCES + "combat/turn_status_enemy.png");
+  this->fightEnv.playersTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_player.png");
+  this->fightEnv.enemiesTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_enemy.png");
 
   if (this->fightEnv.isPlayersTurn) {
     this->fightEnv.turnSP.setTexture(this->fightEnv.playersTurnTX);

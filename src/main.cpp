@@ -31,7 +31,7 @@ Game* Game::instance = nullptr;
 
 int main()
 {
-
+  std::cout << getResourcesDirPath() << std::endl;
   Game& game = Game::getInstance();
 
   sf::Vector2i mousePos;

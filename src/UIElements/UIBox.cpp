@@ -1,7 +1,7 @@
 #include "UIElements/UIBox.hpp"
 
 UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
-    this->borderTX.loadFromFile(RESOURCES + borderFilePath);
+    this->borderTX.loadFromFile(RESOURCE_PATH + borderFilePath);
 
     this->borderSP.setTexture(this->borderTX);
 
