@@ -14,9 +14,9 @@
  * Not an ideal solution
  */
 
-class FightEnv {
+class FightActivityUIObjects {
   public:
-    FightEnv();
+    FightActivityUIObjects();
 
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;

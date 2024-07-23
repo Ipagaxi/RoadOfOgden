@@ -10,12 +10,12 @@
 
 #include "Activities/Activity.hpp"
 #include "System/Game.hpp"
-#include "FightEnv.hpp"
 #include "FightStates/PlayersTurn.hpp"
 #include "FightStates/EnemiesTurn.hpp"
 #include "FightStates/TurnChangeState.hpp"
 #include "FightStates/FightState.hpp"
 #include "FightStateEnum.hpp"
+#include "FightActivityUIObjects.hpp"
 #include "Global/Utility.hpp"
 
 class FightActivity: public Activity {
@@ -30,7 +30,7 @@ class FightActivity: public Activity {
     /*
      * fightEnv is a personal current view state of FightActivity. Therefore, can not be included in Game.hpp or a derived class
     */
-    FightEnv fightEnv;
+    FightActivityUIObjects fightActivityUIObjects;
     FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
     std::shared_ptr<Enemy> enemy;
 

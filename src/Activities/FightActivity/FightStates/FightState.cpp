@@ -3,6 +3,6 @@
 FightState::~FightState() {
 }
 
-FightStateEnum FightState::run(FightEnv &fightEnv) {
+FightStateEnum FightState::run(FightActivityUIObjects &fightActivityUIObjects) {
   return FightStateEnum::TURN_CHANGE;
 }
