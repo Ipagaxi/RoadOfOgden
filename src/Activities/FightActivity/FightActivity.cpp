@@ -7,8 +7,7 @@ FightActivity::FightActivity() : Activity(), fightActivityUIObjects(), currentFi
   this->fightActivityUIObjects.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
   this->fightActivityUIObjects.playerOverview = std::make_unique<UIPlayerOverview>(Game::getInstance().player);
 
-  this->fightActivityUIObjects.backgroundTX.loadFromFile(RESOURCE_PATH + "backgrounds/background_fight.png");
-  this->fightActivityUIObjects.backgroundSP.setTexture(this->fightActivityUIObjects.backgroundTX);
+  game.gameUI.changeBackgroundTexture("background_fight.png");
 
   this->fightActivityUIObjects.backgroundMusic.openFromFile(RESOURCE_PATH + "music/fight_background_music.wav");
   this->fightActivityUIObjects.backgroundMusic.setLoop(true);
@@ -67,7 +66,8 @@ ActivityEnum FightActivity::executeActivity() {
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
   game.gameWindow.draw(this->fightActivityUIObjects.turnSP);
-  game.gameWindow.draw(this->fightActivityUIObjects.backgroundSP);
+  //game.gameWindow.draw(this->fightActivityUIObjects.backgroundSP);
+  game.gameWindow.draw(game.gameUI.backgroundSP);
   this->fightActivityUIObjects.playerOverview->draw();
   this->fightActivityUIObjects.enemyOverview->draw();
   this->exitButton.draw();

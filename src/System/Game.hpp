@@ -8,6 +8,7 @@
 
 #include "Activities/ActivityEnum.hpp"
 //#include "Activities/Activity.hpp"
+#include "System/GameUI.hpp"
 #include "Global/Utility.hpp"
 #include "Actors/Player.hpp"
 #include "System/GameEvents.hpp"
@@ -19,6 +20,7 @@ class Game {
     sf::Font mainFont;
     GameEvents gameEvents;
     GameStatus gameStatus;
+    GameUI gameUI;
     sf::RenderWindow& gameWindow;
 
     std::shared_ptr<Player> player = std::make_shared<Player>(Player("Ipagaxi", 100, 12, {100, 100, 100}, "default_actor_quer.png"));
