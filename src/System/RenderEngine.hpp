@@ -5,11 +5,19 @@
 
 class RenderEngine {
   public:
-    sf::RenderWindow* gameWindow;
+    sf::RenderWindow gameWindow;
 
-    RenderEngine(sf::RenderWindow* gameWindow);
+    static RenderEngine& getInstance();
+    RenderEngine(const RenderEngine&) = delete;
+    RenderEngine& operator=(const RenderEngine&) = delete;
+
+    //RenderEngine(sf::RenderWindow* gameWindow);
 
   private:
+    RenderEngine();
+    RenderEngine(sf::RenderWindow* game_window);
+    ~RenderEngine();
+    static RenderEngine* instance;
 
 };
 

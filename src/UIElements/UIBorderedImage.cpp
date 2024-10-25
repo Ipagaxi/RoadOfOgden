@@ -39,9 +39,9 @@ void UIBorderedImage::setImage(std::string imagePath) {
 }
 
 void UIBorderedImage::draw() {
-  Game& game = Game::getInstance();
-  game.gameWindow.draw(this->imageSP);
-  game.gameWindow.draw(this->borderSP);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  render_engine.gameWindow.draw(this->imageSP);
+  render_engine.gameWindow.draw(this->borderSP);
 }
 
 void UIBorderedImage::setPosition(float x, float y) {

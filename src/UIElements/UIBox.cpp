@@ -13,9 +13,9 @@ UIBox::UIBox(sf::Color fillColor, std::string borderFilePath) {
 }
 
 void UIBox::draw() {
-  Game& game = Game::getInstance();
-  game.gameWindow.draw(this->backgroundREC);
-  game.gameWindow.draw(this->borderSP);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  render_engine.gameWindow.draw(this->backgroundREC);
+  render_engine.gameWindow.draw(this->borderSP);
 }
 
 sf::FloatRect UIBox::getSize() {

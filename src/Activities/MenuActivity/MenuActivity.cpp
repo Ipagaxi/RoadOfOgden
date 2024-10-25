@@ -1,7 +1,7 @@
 #include "MenuActivity.hpp"
 
 MenuActivity::MenuActivity(): Activity() {
-    Game& game = Game::getInstance();
+    RenderEngine& render_engine = RenderEngine::getInstance();
     this->backgroundTX.loadFromFile(RESOURCE_PATH + "backgrounds/backgroundMenu.png");
     this->backgroundSP.setTexture(this->backgroundTX);
 
@@ -12,7 +12,7 @@ MenuActivity::MenuActivity(): Activity() {
     this->buttonsBackgroundTX.loadFromFile(RESOURCE_PATH + "box_backgrounds/menu_border_with_name.png");
     this->buttonsBackgroundSP.setTexture(this->buttonsBackgroundTX);
 
-    sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());
+    sf::Vector2f windowSize = static_cast<sf::Vector2f>(render_engine.gameWindow.getSize());
     sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->backgroundTX.getSize());
     sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
     this->backgroundSP.scale(backgroundScale);
@@ -33,12 +33,12 @@ MenuActivity::~MenuActivity() {
 }
 
 ActivityEnum MenuActivity::executeActivity() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
 
   ActivityEnum currentActivity = ActivityEnum::Menu;
 
-  game.gameWindow.draw(this->backgroundSP);
-  game.gameWindow.draw(this->buttonsBackgroundSP);
+  render_engine.gameWindow.draw(this->backgroundSP);
+  render_engine.gameWindow.draw(this->buttonsBackgroundSP);
 
   this->buttonFight.draw();
   this->buttonCharacter.draw();
@@ -55,9 +55,9 @@ ActivityEnum MenuActivity::executeActivity() {
   }
 
   if (buttonExit.clickListener()) {
-    Game& game = Game::getInstance();
+    RenderEngine& render_engine = RenderEngine::getInstance();
     this->backgroundMusic.stop();
-    game.gameWindow.close();
+    render_engine.gameWindow.close();
   }
   return currentActivity;
 }

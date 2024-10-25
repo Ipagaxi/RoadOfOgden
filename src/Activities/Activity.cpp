@@ -1,8 +1,8 @@
 #include "Activities/Activity.hpp"
 
 Activity::Activity() {
-  Game& game = Game::getInstance();
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
   sf::FloatRect buttonSize = this->exitButton.getSize();
   this->exitButton.setPosition(windowSize.x * 0.99 - buttonSize.width, windowSize.x * 0.01);
 }

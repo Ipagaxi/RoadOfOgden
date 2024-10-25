@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "System/Game.hpp"
+#include "Actors/Player.hpp"
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIBorderedImage.hpp"
 #include "UIElements/UIStats.hpp"

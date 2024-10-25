@@ -1,10 +1,10 @@
 #include "Activities/FightActivity/UIPlayerOverview.hpp"
 
 UIPlayerOverview::UIPlayerOverview(std::shared_ptr<Player> _player): uiPlayerStats(_player), playerFrame("monster_landscape_cut/" + _player->picPath, "actor_borders/fight_border.png") {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   this->player = *_player;
 
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
   sf::FloatRect boxRect = this->backgroundBox.getSize();
   this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
 
@@ -29,9 +29,9 @@ UIPlayerOverview::UIPlayerOverview(std::shared_ptr<Player> _player): uiPlayerSta
 
 
 void UIPlayerOverview::init() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
 
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
   sf::FloatRect boxRect = this->backgroundBox.getSize();
   this->backgroundBox.setPosition((windowSize.x * 0.49) - boxRect.width, windowSize.y * 0.1);
 
@@ -61,9 +61,9 @@ void UIPlayerOverview::changeHealth(int value) {
 }
 
 void UIPlayerOverview::draw() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   this->backgroundBox.draw();
   this->uiPlayerStats.draw();
-  game.gameWindow.draw(this->playerBackgroundSP);
+  render_engine.gameWindow.draw(this->playerBackgroundSP);
   this->playerFrame.draw();
 }

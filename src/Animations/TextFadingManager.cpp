@@ -24,8 +24,8 @@ TextFading::TextFading(std::string text, sf::Vector2f pos, sf::Color textColor, 
 }
 
 void TextFading::draw() {
-    Game& game = Game::getInstance();
-    game.gameWindow.draw(this->text);
+    RenderEngine& render_engine = RenderEngine::getInstance();
+    render_engine.gameWindow.draw(this->text);
 }
 
 float TextFading::computeParabel(float value) {

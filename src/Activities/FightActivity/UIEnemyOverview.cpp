@@ -2,9 +2,10 @@
 
 UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedImage("monster_landscape_cut/" + (*_enemy).picPath, "actor_borders/fight_border.png"), enemyStats(_enemy) {
   Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   this->enemy = *_enemy;
 
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
   sf::FloatRect boxRect = this->box.getSize();
   sf::Vector2f overviewPos = sf::Vector2f(windowSize.x * 0.51, windowSize.y * 0.1);
   this->box.setPosition(overviewPos.x, overviewPos.y);
@@ -37,7 +38,7 @@ UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedIm
 
   this->pickedColorText.setFont(game.mainFont);
   this->pickedColorText.setString("(0, 0, 0)");
-  this->pickedColorText.setCharacterSize(game.gameWindow.getSize().y * 0.04);
+  this->pickedColorText.setCharacterSize(render_engine.gameWindow.getSize().y * 0.04);
   this->pickedColorText.setFillColor(sf::Color::Yellow);
   sf::FloatRect textRec = this->pickedColorText.getGlobalBounds();
   this->pickedColorText.setOrigin(textRec.width/2, textRec.height/2);
@@ -45,12 +46,12 @@ UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedIm
 }
 
 void UIEnemyOverview::draw() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   this->box.draw();
   this->enemyStats.draw();
   this->colorPicker.draw();
-  game.gameWindow.draw(this->pickedColorText);
-  game.gameWindow.draw(this->enemyIconBackgroundSP);
+  render_engine.gameWindow.draw(this->pickedColorText);
+  render_engine.gameWindow.draw(this->enemyIconBackgroundSP);
   this->enemyBorderedImage.draw();
 }
 

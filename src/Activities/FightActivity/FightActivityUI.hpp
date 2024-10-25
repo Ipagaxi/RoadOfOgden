@@ -1,22 +1,24 @@
-#ifndef FIGHTEVENTS_HPP
-#define FIGHTEVENTS_HPP
+#ifndef FIGHTACTIVITYUI_HPP
+#define FIGHTACTIVITYUI_HPP
 
+#include <memory>
+#include <Animations/TextFadingManager.hpp>
 #include <SFML/Graphics.hpp>
-#include "UIElements/UIStats.hpp"
-#include "Activities/FightActivity/UIEnemyOverview.hpp"
-#include "Activities/FightActivity/UIPlayerOverview.hpp"
-#include "Animations/TextFadingManager.hpp"
-#include "Animations/IncomingBanner.hpp"
-#include "System/Game.hpp"
+
+#include "UIEnemyOverview.hpp"
+#include "UIPlayerOverview.hpp"
+#include "SFML/Audio/Music.hpp"
+
+
 
 /*
  * This class has the UI components and therefore provides these to the different fight phases
  * Not an ideal solution
  */
 
-class FightActivityUIObjects {
+class FightActivityUI {
   public:
-    FightActivityUIObjects();
+    FightActivityUI();
 
     sf::Texture backgroundTX;
     sf::Sprite backgroundSP;

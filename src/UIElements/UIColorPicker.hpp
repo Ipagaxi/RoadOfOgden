@@ -7,6 +7,8 @@
 
 #include "UIElements/UIElement.hpp"
 #include "Global/Utility.hpp"
+#include "SFML/Audio/Sound.hpp"
+#include "SFML/Audio/SoundBuffer.hpp"
 #include "System/GameEvents.hpp"
 #include "System/Game.hpp"
 

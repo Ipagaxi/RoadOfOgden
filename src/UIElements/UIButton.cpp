@@ -48,9 +48,9 @@ void UIButton::scale(float x, float y) {
 }
 
 void UIButton::draw() {
-  Game& game = Game::getInstance();
-  game.gameWindow.draw(this->buttonSP);
-  game.gameWindow.draw(this->label);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  render_engine.gameWindow.draw(this->buttonSP);
+  render_engine.gameWindow.draw(this->label);
 }
 
 void UIButton::setPosition(float x, float y) {
@@ -68,8 +68,8 @@ sf::Vector2f UIButton::getPosition() {
 }
 
 bool UIButton::buttonContainsMouse() {
-  Game& game = Game::getInstance();
-  sf::Vector2i mousePos = sf::Mouse::getPosition(game.gameWindow);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  sf::Vector2i mousePos = sf::Mouse::getPosition(render_engine.gameWindow);
   sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
   return this->buttonSP.getGlobalBounds().contains(mousePosF);
 }

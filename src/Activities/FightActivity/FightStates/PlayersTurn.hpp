@@ -5,11 +5,12 @@
 
 #include "Activities/FightActivity/FightStates/FightState.hpp"
 #include "System/Game.hpp"
+#include "System/GameUI.hpp"
 #include "Global/Color.hpp"
 #include "Global/GenerateColorIMG.hpp"
 #include "Activities/FightActivity/FightStateEnum.hpp"
 #include "Global/Utility.hpp"
-#include "Activities/FightActivity/FightActivityUIObjects.hpp"
+#include "Activities/FightActivity/FightActivityUI.hpp"
 
 enum PlayerPhase {
   PICK_COLOR,
@@ -20,9 +21,9 @@ enum PlayerPhase {
 
 class PlayersTurn: public FightState {
   public:
-    PlayersTurn(FightActivityUIObjects &fightActivityUIObjects);
+    PlayersTurn();
     ~PlayersTurn();
-    FightStateEnum run(FightActivityUIObjects &fightActivityUIObjects) override;
+    FightStateEnum run() override;
 
   private:
     PlayerPhase playerPhase = PlayerPhase::PICK_COLOR;
@@ -33,18 +34,18 @@ class PlayersTurn: public FightState {
     bool newColorImageSet = false;
     float passedMillSec = 0.0;
 
-    void processAttack(FightActivityUIObjects &fightActivityUIObjects);
-    void changeColoPickerImage(FightActivityUIObjects &fightActivityUIObjects);
+    void processAttack();
+    void changeColoPickerImage();
     double computeCurrentPixel(double formerPixel, double newPixel, float elapsedRatio);
 
     // Compute damage multiplier
     float mapInInterval(float value);
-    float calculateSingleMultPart(Color color, FightActivityUIObjects &fightActivityUIObjects);
-    float calculateAttackMult(FightActivityUIObjects &fightActivityUIObjects);
+    float calculateSingleMultPart(Color color);
+    float calculateAttackMult();
 
-    float sameColorMetric(Color color, FightActivityUIObjects &fightActivityUIObjects);
-    float counterColorMetric(Color color, FightActivityUIObjects &fightActivityUIObjects);
-    float tugOfWarMetric(Color color, FightActivityUIObjects &fightActivityUIObjects);
+    float sameColorMetric(Color color);
+    float counterColorMetric(Color color);
+    float tugOfWarMetric(Color color);
 };
 
 #endif

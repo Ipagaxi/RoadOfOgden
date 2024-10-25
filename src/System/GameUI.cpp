@@ -1,6 +1,13 @@
 #include "GameUI.hpp"
 
-#include "Game.hpp"
+GameUI* GameUI::instance = nullptr;
+
+GameUI& GameUI::getInstance() {
+  if (!instance) {
+    instance = new GameUI();
+  }
+  return *instance;
+}
 
 GameUI::GameUI() {
   this->backgroundTX.loadFromFile(RESOURCE_PATH + "backgrounds/backgroundMenu.png");

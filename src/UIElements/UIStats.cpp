@@ -5,7 +5,8 @@ UIStats::~UIStats() {
 
 UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subject<Actor> &>(*actor)) {
   Game& game = Game::getInstance();
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
   sf::Color statsValueFontColor = sf::Color::Yellow;
   sf::Color statsLabelFontColor = sf::Color::White;
   this->statsTextHeight = windowSize.y * 0.015;
@@ -55,15 +56,15 @@ UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subjec
 }
 
 void UIStats::draw() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   this->actorStatsBox.draw();
-  game.gameWindow.draw(this->actorName);
-  game.gameWindow.draw(this->actorHealthLabel);
-  game.gameWindow.draw(this->actorHealthValue);
-  game.gameWindow.draw(this->actorAttackStrengthLabel);
-  game.gameWindow.draw(this->actorAttackStrengthValue);
-  game.gameWindow.draw(this->actorRGBDefenseLabel);
-  game.gameWindow.draw(this->actorRGBDefenseValues);
+  render_engine.gameWindow.draw(this->actorName);
+  render_engine.gameWindow.draw(this->actorHealthLabel);
+  render_engine.gameWindow.draw(this->actorHealthValue);
+  render_engine.gameWindow.draw(this->actorAttackStrengthLabel);
+  render_engine.gameWindow.draw(this->actorAttackStrengthValue);
+  render_engine.gameWindow.draw(this->actorRGBDefenseLabel);
+  render_engine.gameWindow.draw(this->actorRGBDefenseValues);
 }
 
 sf::Vector2f UIStats::getPosition() {

@@ -6,7 +6,6 @@
 #include "UIElements/UIBox.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Actors/Actor.hpp"
-#include "System/Game.hpp"
 #include "ObserverPattern/Observer.hpp"
 
 class UIStats: public UIElement, Observer<Actor> {

@@ -1,37 +1,43 @@
 #include "Activities/FightActivity/FightStates/PlayersTurn.hpp"
 
-PlayersTurn::PlayersTurn(FightActivityUIObjects &fightActivityUIObjects) {
+#include <Animations/TextFadingManager.hpp>
+
+PlayersTurn::PlayersTurn() {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   generateTexture();
   this->newColorImage.loadFromFile(RESOURCE_PATH + "color_textures/colorPIC_new.png");
-  this->oldColorImage = fightActivityUIObjects.enemyOverview->colorPicker.colorIMG;
+  this->oldColorImage = fight_activity_ui.enemyOverview->colorPicker.colorIMG;
 }
 
 PlayersTurn::~PlayersTurn() {
 }
 
-FightStateEnum PlayersTurn::run(FightActivityUIObjects &fightActivityUIObjects) {
+FightStateEnum PlayersTurn::run() {
   Game& game = Game::getInstance();
+  GameUI& game_ui = GameUI::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  FightActivityUI& fight_activity_ui = game_ui.fight_activity_ui;
   FightStateEnum currentState = FightStateEnum::PLAYER_STATE;
   switch (this->playerPhase) {
     case PlayerPhase::PICK_COLOR:
-      if (fightActivityUIObjects.enemyOverview->colorPicker.clickListener(this->clickedPos) && !colorPicked) {
+      if (fight_activity_ui.enemyOverview->colorPicker.clickListener(this->clickedPos) && !colorPicked) {
         this->colorPicked = true;
-        fightActivityUIObjects.turnSP.setTexture(fightActivityUIObjects.playersTurnTX);
-        fightActivityUIObjects.pickedColor = fightActivityUIObjects.enemyOverview->colorPicker.getPixelColor(clickedPos);
-        fightActivityUIObjects.enemyOverview->updatePickedColorText("(" + std::to_string(fightActivityUIObjects.pickedColor.r) +  ", " + std::to_string(fightActivityUIObjects.pickedColor.g) + ", " + std::to_string(fightActivityUIObjects.pickedColor.b) + ")", fightActivityUIObjects.pickedColor);
-        float attackMultiplier = this->calculateAttackMult(fightActivityUIObjects);
+        fight_activity_ui.turnSP.setTexture(fight_activity_ui.playersTurnTX);
+        fight_activity_ui.pickedColor = fight_activity_ui.enemyOverview->colorPicker.getPixelColor(clickedPos);
+        fight_activity_ui.enemyOverview->updatePickedColorText("(" + std::to_string(fight_activity_ui.pickedColor.r) +  ", " + std::to_string(fight_activity_ui.pickedColor.g) + ", " + std::to_string(fight_activity_ui.pickedColor.b) + ")", fight_activity_ui.pickedColor);
+        float attackMultiplier = this->calculateAttackMult();
         int damage = game.player->attackStrength * attackMultiplier;
         int millSecToLive = 600;
-        fightActivityUIObjects.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, game.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
-        fightActivityUIObjects.enemyOverview->changeHealth(damage);
+        fight_activity_ui.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, render_engine.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
+        fight_activity_ui.enemyOverview->changeHealth(damage);
         this->playerPhase = PlayerPhase::ANIMATE_ATTACK;
       }
       break;
     case PlayerPhase::ANIMATE_ATTACK:
-      this->processAttack(fightActivityUIObjects);
+      this->processAttack();
       break;
     case PlayerPhase::CHANGE_COLOR:
-      this->changeColoPickerImage(fightActivityUIObjects);
+      this->changeColoPickerImage();
       break;
     case PlayerPhase::END_TURN:
       currentState = FightStateEnum::TURN_CHANGE;
@@ -40,19 +46,21 @@ FightStateEnum PlayersTurn::run(FightActivityUIObjects &fightActivityUIObjects) 
   return currentState;
 }
 
-void PlayersTurn::processAttack(FightActivityUIObjects &fightActivityUIObjects) {
-  if (fightActivityUIObjects.textFadingManager.fadingText.pastMillSec >= fightActivityUIObjects.textFadingManager.fadingText.millSecToLive) {
-    fightActivityUIObjects.textFadingManager.fadingText.pastMillSec = 0;
-    fightActivityUIObjects.isPlayersTurn = (fightActivityUIObjects.isPlayersTurn + 1) % 2;
-    fightActivityUIObjects.enemyDamageCalculated = false;
-    fightActivityUIObjects.turnSP.setTexture(fightActivityUIObjects.enemiesTurnTX);
+void PlayersTurn::processAttack() {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
+  if (fight_activity_ui.textFadingManager.fadingText.pastMillSec >= fight_activity_ui.textFadingManager.fadingText.millSecToLive) {
+    fight_activity_ui.textFadingManager.fadingText.pastMillSec = 0;
+    fight_activity_ui.isPlayersTurn = (fight_activity_ui.isPlayersTurn + 1) % 2;
+    fight_activity_ui.enemyDamageCalculated = false;
+    fight_activity_ui.turnSP.setTexture(fight_activity_ui.enemiesTurnTX);
     this->colorPicked = false;
     this->playerPhase = PlayerPhase::CHANGE_COLOR;
   }
 }
 
-void PlayersTurn::changeColoPickerImage(FightActivityUIObjects &fightActivityUIObjects) {
+void PlayersTurn::changeColoPickerImage() {
   Game& game = Game::getInstance();
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   static int changingMillSec = 2000;
   float elapsedRatio = this->passedMillSec/changingMillSec;
   for (int y = 0; y < GEN_IMG_HEIGHT; ++y) {
@@ -60,10 +68,10 @@ void PlayersTurn::changeColoPickerImage(FightActivityUIObjects &fightActivityUIO
       const double red = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).r, this->newColorImage.getPixel(x, y).r, elapsedRatio);
       const double green = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).g, this->newColorImage.getPixel(x, y).g, elapsedRatio);
       const double blue = this->computeCurrentPixel(this->oldColorImage.getPixel(x, y).b, this->newColorImage.getPixel(x, y).b, elapsedRatio);
-      fightActivityUIObjects.enemyOverview->colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
+      fight_activity_ui.enemyOverview->colorPicker.colorIMG.setPixel(x, y, sf::Color(red, green, blue));
     }
   }
-  fightActivityUIObjects.enemyOverview->colorPicker.refreshColorTX();
+  fight_activity_ui.enemyOverview->colorPicker.refreshColorTX();
   this->passedMillSec += game.gameStatus.elapsedTime.asMilliseconds();
   if (this->passedMillSec >= changingMillSec) {
     this->playerPhase = PlayerPhase::END_TURN;
@@ -79,21 +87,22 @@ float PlayersTurn::mapInInterval(float value) {
 }
 
 // This metric rewards for picking same as defense
-float PlayersTurn::sameColorMetric(Color color, FightActivityUIObjects &fightActivityUIObjects) {
+float PlayersTurn::sameColorMetric(Color color) {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   int pickedColorValue;
   int defenseColorValue;
   switch (color) {
     case RED:
-      pickedColorValue = fightActivityUIObjects.pickedColor.r;
-      defenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.red;
+      pickedColorValue = fight_activity_ui.pickedColor.r;
+      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
       break;
     case GREEN:
-      pickedColorValue = fightActivityUIObjects.pickedColor.g;
-      defenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.green;
+      pickedColorValue = fight_activity_ui.pickedColor.g;
+      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
       break;
     case BLUE:
-      pickedColorValue = fightActivityUIObjects.pickedColor.b;
-      defenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.blue;
+      pickedColorValue = fight_activity_ui.pickedColor.b;
+      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
       break;
     default:
       break;
@@ -104,21 +113,22 @@ float PlayersTurn::sameColorMetric(Color color, FightActivityUIObjects &fightAct
 }
 
 //This metric rewards when hitting the exact counter colors
-float PlayersTurn::counterColorMetric(Color color, FightActivityUIObjects &fightActivityUIObjects) {
+float PlayersTurn::counterColorMetric(Color color) {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   int pickedColorValue;
   int weakDefenseColorValue;
   switch (color) {
     case RED:
-      pickedColorValue = fightActivityUIObjects.pickedColor.r;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.green;
+      pickedColorValue = fight_activity_ui.pickedColor.r;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
       break;
     case GREEN:
-      pickedColorValue = fightActivityUIObjects.pickedColor.g;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.blue;
+      pickedColorValue = fight_activity_ui.pickedColor.g;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
       break;
     case BLUE:
-      pickedColorValue = fightActivityUIObjects.pickedColor.b;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.red;
+      pickedColorValue = fight_activity_ui.pickedColor.b;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
       break;
     default:
       break;
@@ -129,25 +139,26 @@ float PlayersTurn::counterColorMetric(Color color, FightActivityUIObjects &fight
 }
 
 // This metric rewards for hitting the weak spot but punishes high colors with their counter colors
-float PlayersTurn::tugOfWarMetric(Color color, FightActivityUIObjects &fightActivityUIObjects) {
+float PlayersTurn::tugOfWarMetric(Color color) {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   int pickedColorValue;
   int weakDefenseColorValue;
   int counterDefenseColorValue;
   switch (color) {
     case RED:
-      pickedColorValue = fightActivityUIObjects.pickedColor.r;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.green;
-      counterDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.blue;
+      pickedColorValue = fight_activity_ui.pickedColor.r;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
+      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
       break;
     case GREEN:
-      pickedColorValue = fightActivityUIObjects.pickedColor.g;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.blue;
-      counterDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.red;
+      pickedColorValue = fight_activity_ui.pickedColor.g;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
+      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
       break;
     case BLUE:
-      pickedColorValue = fightActivityUIObjects.pickedColor.b;
-      weakDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.red;
-      counterDefenseColorValue = fightActivityUIObjects.enemyOverview->enemy.defense.green;
+      pickedColorValue = fight_activity_ui.pickedColor.b;
+      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
+      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
       break;
     default:
       break;
@@ -161,15 +172,16 @@ float PlayersTurn::tugOfWarMetric(Color color, FightActivityUIObjects &fightActi
   return effectiveness;
 }
 
-float PlayersTurn::calculateSingleMultPart(Color color, FightActivityUIObjects &fightActivityUIObjects) {
+float PlayersTurn::calculateSingleMultPart(Color color) {
   // Here is decided with which metric to calculated the multiplier portion
-  float calulatedPortion = this->sameColorMetric(color, fightActivityUIObjects);
+  float calulatedPortion = this->sameColorMetric(color);
   return mapInInterval(calulatedPortion);
 }
 
-float PlayersTurn::calculateAttackMult(FightActivityUIObjects &fightActivityUIObjects) {
-  float redSummand = this->calculateSingleMultPart(RED, fightActivityUIObjects);
-  float greenSummand = this->calculateSingleMultPart(GREEN, fightActivityUIObjects);
-  float blueSummand = this->calculateSingleMultPart(BLUE, fightActivityUIObjects);
-  return (redSummand + greenSummand + blueSummand) * (fightActivityUIObjects.maxMultiplier/3.f);
+float PlayersTurn::calculateAttackMult() {
+  FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
+  float redSummand = this->calculateSingleMultPart(RED);
+  float greenSummand = this->calculateSingleMultPart(GREEN);
+  float blueSummand = this->calculateSingleMultPart(BLUE);
+  return (redSummand + greenSummand + blueSummand) * (fight_activity_ui.maxMultiplier/3.f);
 }

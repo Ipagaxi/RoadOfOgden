@@ -9,6 +9,7 @@
 #include "System/GameEvents.hpp"
 #include "UIElements/UIElement.hpp"
 #include "Global/Utility.hpp"
+#include "System/RenderEngine.hpp"
 #include "System/Game.hpp"
 #include "Global/Utility.hpp"
 

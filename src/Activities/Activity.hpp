@@ -4,6 +4,7 @@
 #include <string>
 #include "Activities/ActivityEnum.hpp"
 #include "UIElements/UIButton.hpp"
+#include <System/RenderEngine.hpp>
 
 class Game;
 

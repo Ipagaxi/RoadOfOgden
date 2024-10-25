@@ -13,7 +13,7 @@ UIColorPicker::UIColorPicker(std::string imagePath, std::string borderPath) {
   this->colorSP.setOrigin(colorRect.width/2, colorRect.height/2);
   this->colorSP.setPosition(borderPos.x + (borderSize.width*0.5), borderPos.y + (borderSize.height*0.5));
 
-  // For a save small overlap
+  // For a save small overlap, ugly: should be relative to window size
   this->borderSP.scale(0.97, 0.97);
 
   this->releaseSoundBuffer.loadFromFile(RESOURCE_PATH + "test_sounds/softair.wav");
@@ -38,9 +38,9 @@ UIColorPicker::UIColorPicker(sf::Image image, std::string borderPath) {
 }
 
 void UIColorPicker::draw() {
-  Game& game = Game::getInstance();
-  game.gameWindow.draw(this->colorSP);
-  game.gameWindow.draw(this->borderSP);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  render_engine.gameWindow.draw(this->colorSP);
+  render_engine.gameWindow.draw(this->borderSP);
 }
 
 void UIColorPicker::setPosition(float x, float y) {

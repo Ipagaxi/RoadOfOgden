@@ -1,14 +1,15 @@
 #include "Animations/IncomingBanner.hpp"
 
 void IncomingBanner::init() {
+  RenderEngine& render_engine = RenderEngine::getInstance();
   Game& game = Game::getInstance();
-  sf::Vector2u windowSize = game.gameWindow.getSize();
+  sf::Vector2u windowSize = render_engine.gameWindow.getSize();
 
   this->banner.setSize(sf::Vector2f(windowSize.x, windowSize.y * 0.2));
   this->banner.setFillColor(sf::Color(40, 40, 40, 210));
 
   this->bannerText.setFont(game.mainFont);
-  this->bannerText.setCharacterSize(game.gameWindow.getSize().y * 0.1);
+  this->bannerText.setCharacterSize(render_engine.gameWindow.getSize().y * 0.1);
   this->bannerText.setFillColor(sf::Color::White);
   sf::FloatRect textRec = this->bannerText.getGlobalBounds();
   this->bannerText.setOrigin(textRec.width * 0.5, textRec.height * 0.5);
@@ -36,11 +37,12 @@ void IncomingBanner::setNewLabel(std::string newLabel) {
 
 bool IncomingBanner::runAnimation() {
   Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   int changeTimeMillSec = 1000; // The entire screen time of the banner
   int bannerMovementime = 300; // The time only for movement of the banner => after movement ended banner is still on screen shortly
 
   float pastTimeRatio = std::min(this->pastMovementTime/static_cast<float>(bannerMovementime), 1.0f);
-  sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(render_engine.gameWindow.getSize());
   sf::FloatRect bannerSize = this->banner.getGlobalBounds();
   sf::Vector2f bannerPos = sf::Vector2f(-windowSize.x + pastTimeRatio * windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
   this->banner.setPosition(bannerPos.x, bannerPos.y);
@@ -62,7 +64,7 @@ bool IncomingBanner::runAnimation() {
 }
 
 void IncomingBanner::drawAnimation() {
-  Game& game = Game::getInstance();
-  game.gameWindow.draw(this->banner);
-  game.gameWindow.draw(this->bannerText);
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  render_engine.gameWindow.draw(this->banner);
+  render_engine.gameWindow.draw(this->bannerText);
 }

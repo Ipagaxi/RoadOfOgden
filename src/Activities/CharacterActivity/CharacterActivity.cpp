@@ -6,9 +6,9 @@ CharacterActivity::CharacterActivity(): Activity() {
 }
 
 ActivityEnum CharacterActivity::executeActivity() {
-  Game& game = Game::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
   ActivityEnum currentActivity = ActivityEnum::Character;
-  game.gameWindow.draw(this->backgroundSP);
+  render_engine.gameWindow.draw(this->backgroundSP);
   this->exitButton.draw();
   if (this->exitButton.clickListener()) {
     currentActivity = ActivityEnum::Menu;

@@ -4,12 +4,13 @@
 #include <random>
 #include "Activities/FightActivity/FightStates/FightState.hpp"
 #include "Activities/FightActivity/FightStateEnum.hpp"
-#include "Activities/FightActivity/FightActivityUIObjects.hpp"
+#include "Activities/FightActivity/FightActivityUI.hpp"
+#include "System/GameUI.hpp"
 
 class EnemiesTurn: public FightState {
   public:
     ~EnemiesTurn();
-    FightStateEnum run(FightActivityUIObjects &fightActivityUIObjects) override;
+    FightStateEnum run() override;
 
   private:
 };

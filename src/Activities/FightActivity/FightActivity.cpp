@@ -1,58 +1,61 @@
 #include "Activities/FightActivity/FightActivity.hpp"
 
 
-FightActivity::FightActivity() : Activity(), fightActivityUIObjects(), currentFightState(std::make_unique<TurnChangeState>(fightActivityUIObjects)) {
+FightActivity::FightActivity() : Activity(), currentFightState(std::make_unique<TurnChangeState>()) {
   Game& game = Game::getInstance();
+  GameUI& game_ui = GameUI::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  FightActivityUI &fight_activity_ui = game_ui.fight_activity_ui;
   this->enemy = std::make_shared<Enemy>(this->initEnemy());
-  this->fightActivityUIObjects.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
-  this->fightActivityUIObjects.playerOverview = std::make_unique<UIPlayerOverview>(Game::getInstance().player);
+  fight_activity_ui.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
+  fight_activity_ui.playerOverview = std::make_unique<UIPlayerOverview>(game.player);
 
-  game.gameUI.changeBackgroundTexture("background_fight.png");
+  game_ui.changeBackgroundTexture("background_fight.png");
 
-  this->fightActivityUIObjects.backgroundMusic.openFromFile(RESOURCE_PATH + "music/fight_background_music.wav");
-  this->fightActivityUIObjects.backgroundMusic.setLoop(true);
-  this->fightActivityUIObjects.backgroundMusic.play();
+  fight_activity_ui.backgroundMusic.openFromFile(RESOURCE_PATH + "music/fight_background_music.wav");
+  fight_activity_ui.backgroundMusic.setLoop(true);
+  fight_activity_ui.backgroundMusic.play();
 
-  sf::Vector2f windowSize = static_cast<sf::Vector2f>(game.gameWindow.getSize());
-  sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(this->fightActivityUIObjects.backgroundTX.getSize());
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(render_engine.gameWindow.getSize());
+  sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(fight_activity_ui.backgroundTX.getSize());
 
   sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
-  this->fightActivityUIObjects.backgroundSP.scale(backgroundScale);
+  fight_activity_ui.backgroundSP.scale(backgroundScale);
 
   std::random_device randSeed;
   std::mt19937 gen(randSeed());
   std::uniform_int_distribution<int> dist(0, 1);
-  this->fightActivityUIObjects.isPlayersTurn = dist(gen);
+  fight_activity_ui.isPlayersTurn = dist(gen);
 
-  this->fightActivityUIObjects.playersTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_player.png");
-  this->fightActivityUIObjects.enemiesTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_enemy.png");
+  fight_activity_ui.playersTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_player.png");
+  fight_activity_ui.enemiesTurnTX.loadFromFile(RESOURCE_PATH + "combat/turn_status_enemy.png");
 
-  if (this->fightActivityUIObjects.isPlayersTurn) {
-    this->fightActivityUIObjects.turnSP.setTexture(this->fightActivityUIObjects.playersTurnTX);
+  if (fight_activity_ui.isPlayersTurn) {
+    fight_activity_ui.turnSP.setTexture(fight_activity_ui.playersTurnTX);
   } else {
-    this->fightActivityUIObjects.turnSP.setTexture(this->fightActivityUIObjects.enemiesTurnTX);
+    fight_activity_ui.turnSP.setTexture(fight_activity_ui.enemiesTurnTX);
   }
-  sf::FloatRect turnStateSignSize = this->fightActivityUIObjects.turnSP.getGlobalBounds();
-  this->fightActivityUIObjects.turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
+  sf::FloatRect turnStateSignSize = fight_activity_ui.turnSP.getGlobalBounds();
+  fight_activity_ui.turnSP.setPosition((windowSize.x - turnStateSignSize.width) * 0.5 , -2.0);
   this->currentFightStateEnum = FightStateEnum::TURN_CHANGE;
 }
 
 FightActivity::~FightActivity() {
-  this->fightActivityUIObjects.backgroundMusic.stop();
+  GameUI::getInstance().fight_activity_ui.backgroundMusic.stop();
 }
 
-void FightActivity::runCurrentState(Game &game) {
-  FightStateEnum newStateFightEnum = this->currentFightState->run(this->fightActivityUIObjects);
+void FightActivity::runCurrentState() {
+  FightStateEnum newStateFightEnum = this->currentFightState->run();
   if (newStateFightEnum != this->currentFightStateEnum) {
     switch (newStateFightEnum) {
       case FightStateEnum::PLAYER_STATE:
-        this->currentFightState = std::move(std::make_unique<PlayersTurn>(this->fightActivityUIObjects));
+        this->currentFightState = std::move(std::make_unique<PlayersTurn>());
         break;
       case FightStateEnum::ENEMY_STATE:
         this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
         break;
       case FightStateEnum::TURN_CHANGE:
-        this->currentFightState = std::move(std::make_unique<TurnChangeState>(this->fightActivityUIObjects));
+        this->currentFightState = std::move(std::make_unique<TurnChangeState>());
         break;
       default:
         break;
@@ -62,18 +65,20 @@ void FightActivity::runCurrentState(Game &game) {
 }
 
 ActivityEnum FightActivity::executeActivity() {
-  Game& game = Game::getInstance();
+  GameUI& game_ui = GameUI::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  FightActivityUI& fight_activity_ui = game_ui.fight_activity_ui;
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
-  game.gameWindow.draw(this->fightActivityUIObjects.turnSP);
+  render_engine.gameWindow.draw(fight_activity_ui.turnSP);
   //game.gameWindow.draw(this->fightActivityUIObjects.backgroundSP);
-  game.gameWindow.draw(game.gameUI.backgroundSP);
-  this->fightActivityUIObjects.playerOverview->draw();
-  this->fightActivityUIObjects.enemyOverview->draw();
+  render_engine.gameWindow.draw(game_ui.backgroundSP);
+  fight_activity_ui.playerOverview->draw();
+  fight_activity_ui.enemyOverview->draw();
   this->exitButton.draw();
-  this->fightActivityUIObjects.textFadingManager.run();
+  fight_activity_ui.textFadingManager.run();
 
-  this->runCurrentState(game);
+  this->runCurrentState();
 
   if (this->exitButton.clickListener()) {
 
