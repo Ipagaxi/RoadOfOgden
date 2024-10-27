@@ -20,8 +20,6 @@ class FightActivityUI {
   public:
     FightActivityUI();
 
-    sf::Texture backgroundTX;
-    sf::Sprite backgroundSP;
     std::unique_ptr<UIEnemyOverview> enemyOverview;
     std::unique_ptr<UIPlayerOverview> playerOverview;
     TextFadingManager textFadingManager;

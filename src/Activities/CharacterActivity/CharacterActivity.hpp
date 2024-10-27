@@ -13,8 +13,7 @@ class CharacterActivity : public Activity {
 
 
     private :
-        sf::Texture backgroundTX;
-        sf::Sprite backgroundSP;
+        void draw_ui();
 };
 
 #endif

@@ -17,10 +17,7 @@ FightActivity::FightActivity() : Activity(), currentFightState(std::make_unique<
   fight_activity_ui.backgroundMusic.play();
 
   sf::Vector2f windowSize = static_cast<sf::Vector2f>(render_engine.gameWindow.getSize());
-  sf::Vector2f backgroundSize = static_cast<sf::Vector2f>(fight_activity_ui.backgroundTX.getSize());
 
-  sf::Vector2f backgroundScale = sf::Vector2f(windowSize.x / backgroundSize.x, windowSize.y / backgroundSize.y);
-  fight_activity_ui.backgroundSP.scale(backgroundScale);
 
   std::random_device randSeed;
   std::mt19937 gen(randSeed());
@@ -71,7 +68,6 @@ ActivityEnum FightActivity::executeActivity() {
   ActivityEnum currentActivity = ActivityEnum::Fight;
 
   render_engine.gameWindow.draw(fight_activity_ui.turnSP);
-  //game.gameWindow.draw(this->fightActivityUIObjects.backgroundSP);
   render_engine.gameWindow.draw(game_ui.backgroundSP);
   fight_activity_ui.playerOverview->draw();
   fight_activity_ui.enemyOverview->draw();
