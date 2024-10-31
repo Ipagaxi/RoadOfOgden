@@ -22,6 +22,8 @@ CharacterActivityUI_Inventory::CharacterActivityUI_Inventory() {
   this->right_content_box.setFillColor(sf::Color(0, 0, 0, 180));
 
   this->size = sf::Vector2f(content_box_size.x * 3 + this->content_box_gap * 2, content_box_size.y);
+
+  inventory_item_list.set_position(this->position.x, this->position.y);
 }
 
 void CharacterActivityUI_Inventory::draw() {
@@ -30,6 +32,8 @@ void CharacterActivityUI_Inventory::draw() {
   render_engine.gameWindow.draw(this->left_content_box);
   render_engine.gameWindow.draw(this->middle_content_box);
   render_engine.gameWindow.draw(this->right_content_box);
+
+  this->inventory_item_list.draw();
 }
 
 void CharacterActivityUI_Inventory::set_position(sf::Vector2f new_pos) {

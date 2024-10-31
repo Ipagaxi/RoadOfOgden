@@ -1,7 +1,5 @@
 #include "CharacterActivity.hpp"
 
-#include <System/GameUI.hpp>
-
 CharacterActivity::CharacterActivity(): Activity() {
   GameUI& game_ui = GameUI::getInstance();
   RenderEngine& render_engine = RenderEngine::getInstance();

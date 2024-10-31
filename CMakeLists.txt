@@ -9,6 +9,7 @@ file(GLOB source_files
     "src/Activities/FightActivity/FightStates/*.cpp"
     "src/Activities/MenuActivity/*.cpp"
     "src/Activities/CharacterActivity/*.cpp"
+    "src/Activities/CharacterActivity/Character_Inventory/*.cpp"
     "src/Actors/*.cpp"
     "src/Animations/*.cpp"
     "src/Global/*.cpp"

@@ -3,7 +3,7 @@
 
 #include <UIElements/UIButton.hpp>
 
-#include "Activities/CharacterActivity/CharacterActivityUI_Inventory.hpp"
+#include "Character_Inventory/CharacterActivityUI_Inventory.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 
 class CharacterActivityUI {

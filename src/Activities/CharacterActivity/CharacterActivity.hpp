@@ -4,6 +4,8 @@
 #include "Activities/Activity.hpp"
 #include "Global/Utility.hpp"
 #include "System/Game.hpp"
+#include "System/GameUI.hpp"
+#include "Character_Inventory/CharacterActivityUI_Inventory.hpp"
 
 class CharacterActivity : public Activity {
     public :

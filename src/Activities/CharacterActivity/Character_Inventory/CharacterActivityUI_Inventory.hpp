@@ -1,7 +1,7 @@
 #ifndef CHARACTERACTIVITYUIINVENTORY_HPP
 #define CHARACTERACTIVITYUIINVENTORY_HPP
 
-#include "cmake-build-debug/_deps/sfml-src/src/SFML/Window/Win32/CursorImpl.hpp"
+#include "Inventory_Item_List.hpp"
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
 
@@ -16,6 +16,8 @@ class CharacterActivityUI_Inventory {
     sf::RectangleShape left_content_box;
     sf::RectangleShape middle_content_box;
     sf::RectangleShape right_content_box;
+
+    Inventory_Item_List inventory_item_list;
 
     void draw();
     void set_position(sf::Vector2f new_pos);
