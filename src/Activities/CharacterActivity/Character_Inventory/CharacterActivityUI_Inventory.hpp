@@ -1,9 +1,12 @@
 #ifndef CHARACTERACTIVITYUIINVENTORY_HPP
 #define CHARACTERACTIVITYUIINVENTORY_HPP
 
+#include <iostream>
+
 #include "Inventory_Item_List.hpp"
 #include "SFML/Graphics/Rect.hpp"
 #include "SFML/Graphics/RectangleShape.hpp"
+
 
 class CharacterActivityUI_Inventory {
 

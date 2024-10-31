@@ -23,6 +23,7 @@ CharacterActivityUI_Inventory::CharacterActivityUI_Inventory() {
 
   this->size = sf::Vector2f(content_box_size.x * 3 + this->content_box_gap * 2, content_box_size.y);
 
+  std::cout << "this->position" << this->position.x << " " << this->position.y << std::endl;
   inventory_item_list.set_position(this->position.x, this->position.y);
 }
 
@@ -38,6 +39,9 @@ void CharacterActivityUI_Inventory::draw() {
 
 void CharacterActivityUI_Inventory::set_position(sf::Vector2f new_pos) {
   sf::FloatRect content_box_size = this->left_content_box.getGlobalBounds();
+
+  this->position = new_pos;
+  this->inventory_item_list.set_position(new_pos.x, new_pos.y);
 
   this->left_content_box.setPosition(new_pos);
   this->middle_content_box.setPosition(new_pos.x + content_box_size.width + this->content_box_gap, new_pos.y);

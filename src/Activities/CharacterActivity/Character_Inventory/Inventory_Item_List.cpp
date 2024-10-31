@@ -30,13 +30,14 @@ void Inventory_Item_List::draw() {
   for (std::list<Item>::iterator it=this->items.begin(); it != items.end() && item_name.getPosition().y + item_font_size < this->position.y + this->size.y; ++it) {
     item_name.setString(it->name);
     game_window.draw(item_name);
-    std::cout << "Item drawn to : " << item_name.getPosition().y << std::endl;
+    std::cout << "Item drawn to : " << item_name.getPosition().x << std::endl;
     item_name.move(0, item_font_size + item_gap);
   }
 }
 
 
 void Inventory_Item_List::set_position(float x_pos, float y_pos) {
+  std::cout << "set size: " << x_pos << " " << y_pos << std::endl;
   this->position = sf::Vector2f(x_pos, y_pos);
 }
 
