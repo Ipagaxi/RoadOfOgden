@@ -9,6 +9,11 @@
 #include "Global/Utility.hpp"
 #include "System/Game.hpp"
 
+/*
+ *  An UIBox consist of an rectangle (often used with a transparent color) and a border
+ *
+ */
+
 class UIBox : UIElement {
   public:
     UIBox(sf::Color fillColor, std::string borderFilePath);

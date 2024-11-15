@@ -13,6 +13,14 @@ CharacterActivityUI_Inventory::CharacterActivityUI_Inventory() {
   this->left_content_box.setPosition(this->position);
   this->left_content_box.setFillColor(sf::Color(0, 0, 0, 180));
 
+  double left_content_box_width = this->left_content_box.getGlobalBounds().width;
+  double item_image_width = this->item_image.getSize().width;
+  double item_image_scale = (0.45 * left_content_box_width) / item_image_width;
+  this->item_image.scale(item_image_scale, item_image_scale);
+  sf::Vector2f left_content_box_pos = this->left_content_box.getPosition();
+  sf::Vector2f item_image_position = sf::Vector2f(left_content_box_pos.x + this->left_content_box.getGlobalBounds().width * 0.5, left_content_box_pos.y * this->left_content_box.getGlobalBounds().height * 0.1);
+  this->item_image.setPosition(0.0, 0.0);
+
   this->middle_content_box.setSize(content_box_size);
   this->middle_content_box.setPosition(this->position.x + content_box_size.x + this->content_box_gap, this->position.y);
   this->middle_content_box.setFillColor(sf::Color(0, 0, 0, 180));
@@ -23,7 +31,6 @@ CharacterActivityUI_Inventory::CharacterActivityUI_Inventory() {
 
   this->size = sf::Vector2f(content_box_size.x * 3 + this->content_box_gap * 2, content_box_size.y);
 
-  std::cout << "this->position" << this->position.x << " " << this->position.y << std::endl;
   inventory_item_list.set_position(this->position.x, this->position.y);
 }
 
@@ -33,6 +40,8 @@ void CharacterActivityUI_Inventory::draw() {
   render_engine.gameWindow.draw(this->left_content_box);
   render_engine.gameWindow.draw(this->middle_content_box);
   render_engine.gameWindow.draw(this->right_content_box);
+
+  this->item_image.draw();
 
   this->inventory_item_list.draw();
 }

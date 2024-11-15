@@ -2,6 +2,7 @@
 #define CHARACTERACTIVITYUIINVENTORY_HPP
 
 #include <iostream>
+#include <UIElements/UIBorderedImage.hpp>
 
 #include "Inventory_Item_List.hpp"
 #include "SFML/Graphics/Rect.hpp"
@@ -17,6 +18,8 @@ class CharacterActivityUI_Inventory {
     sf::Vector2f size = sf::Vector2f(0.0, 0.0);
 
     sf::RectangleShape left_content_box;
+    UIBorderedImage item_image = UIBorderedImage("monster_landscape_cut/default_actor_quer.png", "borders/color_picker_border.png");
+
     sf::RectangleShape middle_content_box;
     sf::RectangleShape right_content_box;
 
