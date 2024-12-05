@@ -1,12 +1,11 @@
 #include <iostream>
 
 #include "System/Game.hpp"
-#include "../cmake-build-debug/_deps/sfml-src/include/SFML/Graphics.hpp"
-#include "../cmake-build-debug/_deps/sfml-src/include/SFML/Audio.hpp"
 #include "Activities/FightActivity/FightActivity.hpp"
 #include "Activities/MenuActivity/MenuActivity.hpp"
 #include "Activities/ActivityEnum.hpp"
 #include "Global/Utility.hpp"
+#include "Global/Save.hpp"
 
 
 std::unique_ptr<Activity> setCurrentActivity(ActivityEnum newActivityEnum) {
@@ -44,6 +43,8 @@ int main()
   std::unique_ptr<Activity> currentActivity = std::make_unique<MenuActivity>();
   ActivityEnum currentActivityEnum = ActivityEnum::Menu;
   ActivityEnum oldActivityEnum = ActivityEnum::Menu;
+
+  SaveState::create_game_state_if_no_exist();
 
   sf::Clock clock;
   sf::Time time;
