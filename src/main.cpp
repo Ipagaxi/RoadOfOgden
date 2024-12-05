@@ -44,7 +44,7 @@ int main()
   ActivityEnum currentActivityEnum = ActivityEnum::Menu;
   ActivityEnum oldActivityEnum = ActivityEnum::Menu;
 
-  SaveState::create_game_state_if_no_exist();
+  SaveState::check_game_state();
 
   sf::Clock clock;
   sf::Time time;

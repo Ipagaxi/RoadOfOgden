@@ -3,13 +3,26 @@
 
 #include <filesystem>
 #include <iostream>
+#include <fstream>
+#include "Lib/nlohmann_json/json.hpp"
 
 #include "Global/Utility.hpp"
 
 namespace fs = std::filesystem;
 
+std::string get_save_dir_path();
+std::string const SAVE_PATH = get_save_dir_path();
+
+std::string get_game_state_save_dir_path();
+std::string const GAME_STATE_SAVE_PATH = get_game_state_save_dir_path();
+
+std::string get_player_save_dir_path();
+std::string const PLAYER_SAVE_PATH = get_player_save_dir_path();
+
+
 namespace SaveState {
-    void create_game_state_if_no_exist();
+    void write_save_state(std::string file_path, nlohmann::json json_data);
+    void check_game_state();
 }
 
 #endif

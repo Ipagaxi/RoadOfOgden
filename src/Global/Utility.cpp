@@ -38,7 +38,3 @@ std::string get_bundle_dir_path() {
 std::string getResourcesDirPath() {
   return get_bundle_dir_path() + "resources/";
 }
-
-std::string get_save_dir_path() {
-  return get_bundle_dir_path() + "save/";
-}
