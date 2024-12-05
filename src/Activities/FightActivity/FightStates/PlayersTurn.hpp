@@ -11,6 +11,7 @@
 #include "Activities/FightActivity/FightStateEnum.hpp"
 #include "Global/Utility.hpp"
 #include "Activities/FightActivity/FightActivityUI.hpp"
+#include "System/GameState.hpp"
 
 enum PlayerPhase {
   PICK_COLOR,

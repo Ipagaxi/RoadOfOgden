@@ -14,6 +14,7 @@ PlayersTurn::~PlayersTurn() {
 
 FightStateEnum PlayersTurn::run() {
   Game& game = Game::getInstance();
+  GameState& game_state = GameState::getInstance();
   GameUI& game_ui = GameUI::getInstance();
   RenderEngine& render_engine = RenderEngine::getInstance();
   FightActivityUI& fight_activity_ui = game_ui.fight_activity_ui;
@@ -26,7 +27,7 @@ FightStateEnum PlayersTurn::run() {
         fight_activity_ui.pickedColor = fight_activity_ui.enemyOverview->colorPicker.getPixelColor(clickedPos);
         fight_activity_ui.enemyOverview->updatePickedColorText("(" + std::to_string(fight_activity_ui.pickedColor.r) +  ", " + std::to_string(fight_activity_ui.pickedColor.g) + ", " + std::to_string(fight_activity_ui.pickedColor.b) + ")", fight_activity_ui.pickedColor);
         float attackMultiplier = this->calculateAttackMult();
-        int damage = game.player->attackStrength * attackMultiplier;
+        int damage = game_state.player->attackStrength * attackMultiplier;
         int millSecToLive = 600;
         fight_activity_ui.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, render_engine.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
         fight_activity_ui.enemyOverview->changeHealth(damage);

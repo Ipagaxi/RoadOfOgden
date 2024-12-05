@@ -19,6 +19,7 @@
 #include "Global/Utility.hpp"
 #include "Activities/FightActivity/UIEnemyOverview.hpp"
 #include "Activities/FightActivity/UIPlayerOverview.hpp"
+#include "System/GameState.hpp"
 
 class FightActivity: public Activity {
   public:

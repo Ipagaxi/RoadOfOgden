@@ -3,12 +3,13 @@
 
 FightActivity::FightActivity() : Activity(), currentFightState(std::make_unique<TurnChangeState>()) {
   Game& game = Game::getInstance();
+  GameState& game_state = GameState::getInstance();
   GameUI& game_ui = GameUI::getInstance();
   RenderEngine& render_engine = RenderEngine::getInstance();
   FightActivityUI &fight_activity_ui = game_ui.fight_activity_ui;
   this->enemy = std::make_shared<Enemy>(this->initEnemy());
   fight_activity_ui.enemyOverview = std::make_unique<UIEnemyOverview>(this->enemy);
-  fight_activity_ui.playerOverview = std::make_unique<UIPlayerOverview>(game.player);
+  fight_activity_ui.playerOverview = std::make_unique<UIPlayerOverview>(game_state.player);
 
   game_ui.changeBackgroundTexture("background_fight.png");
 

@@ -8,10 +8,13 @@ Player::Player() {
     this->picPath = "default_actor_quer.png";
 }
 
-Player::Player(std::string _name, int _health, int _attackStrength, RGB _defense, std::string _picFilePath) {
+Player::Player(std::string _name, int _level, int _experience, std::string _picFilePath) {
     this->name = _name;
-    this->health = _health;
-    this->attackStrength = _attackStrength;
-    this->defense = _defense;
+    this->level = _level;
+    this->experience = _experience;
+
+    this->health = 70 + _level * 5;
+    this->attackStrength = 10 + _level;
+    this->defense = {100, 100, 100};
     this->picPath = _picFilePath;
 }

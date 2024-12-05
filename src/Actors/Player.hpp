@@ -8,8 +8,11 @@ class Player: public Actor {
     private:
 
   public:
+    int level;
+    int experience;
+
       Player();
-      Player(std::string name, int health, int attackStrength, RGB defense, std::string picFilePath);
+      Player(std::string name, int level, int experience, std::string picFilePath);
 
 
 };
