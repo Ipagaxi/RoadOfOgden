@@ -27,7 +27,7 @@ FightStateEnum PlayersTurn::run() {
         fight_activity_ui.pickedColor = fight_activity_ui.enemyOverview->colorPicker.getPixelColor(clickedPos);
         fight_activity_ui.enemyOverview->updatePickedColorText("(" + std::to_string(fight_activity_ui.pickedColor.r) +  ", " + std::to_string(fight_activity_ui.pickedColor.g) + ", " + std::to_string(fight_activity_ui.pickedColor.b) + ")", fight_activity_ui.pickedColor);
         float attackMultiplier = this->calculateAttackMult();
-        int damage = game_state.player->attackStrength * attackMultiplier;
+        int damage = game_state.player->get_attack_strength() * attackMultiplier;
         int millSecToLive = 600;
         fight_activity_ui.textFadingManager.startAnimation(std::to_string(damage), clickedPos, sf::Color::Yellow, render_engine.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
         fight_activity_ui.enemyOverview->changeHealth(damage);
@@ -92,18 +92,19 @@ float PlayersTurn::sameColorMetric(Color color) {
   FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   int pickedColorValue;
   int defenseColorValue;
+  RGB enemy_defense =fight_activity_ui.enemyOverview->enemy.get_defense();
   switch (color) {
     case RED:
       pickedColorValue = fight_activity_ui.pickedColor.r;
-      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
+      defenseColorValue = enemy_defense.red;
       break;
     case GREEN:
       pickedColorValue = fight_activity_ui.pickedColor.g;
-      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
+      defenseColorValue = enemy_defense.green;
       break;
     case BLUE:
       pickedColorValue = fight_activity_ui.pickedColor.b;
-      defenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
+      defenseColorValue = enemy_defense.blue;
       break;
     default:
       break;
@@ -118,18 +119,19 @@ float PlayersTurn::counterColorMetric(Color color) {
   FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   int pickedColorValue;
   int weakDefenseColorValue;
+  RGB enemy_defense =fight_activity_ui.enemyOverview->enemy.get_defense();
   switch (color) {
     case RED:
       pickedColorValue = fight_activity_ui.pickedColor.r;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
+      weakDefenseColorValue = enemy_defense.green;
       break;
     case GREEN:
       pickedColorValue = fight_activity_ui.pickedColor.g;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
+      weakDefenseColorValue = enemy_defense.blue;
       break;
     case BLUE:
       pickedColorValue = fight_activity_ui.pickedColor.b;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
+      weakDefenseColorValue = enemy_defense.red;
       break;
     default:
       break;
@@ -145,21 +147,22 @@ float PlayersTurn::tugOfWarMetric(Color color) {
   int pickedColorValue;
   int weakDefenseColorValue;
   int counterDefenseColorValue;
+  RGB enemy_defense =fight_activity_ui.enemyOverview->enemy.get_defense();
   switch (color) {
     case RED:
       pickedColorValue = fight_activity_ui.pickedColor.r;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
-      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
+      weakDefenseColorValue = enemy_defense.green;
+      counterDefenseColorValue = enemy_defense.blue;
       break;
     case GREEN:
       pickedColorValue = fight_activity_ui.pickedColor.g;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.blue;
-      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
+      weakDefenseColorValue = enemy_defense.blue;
+      counterDefenseColorValue = enemy_defense.red;
       break;
     case BLUE:
       pickedColorValue = fight_activity_ui.pickedColor.b;
-      weakDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.red;
-      counterDefenseColorValue = fight_activity_ui.enemyOverview->enemy.defense.green;
+      weakDefenseColorValue = enemy_defense.red;
+      counterDefenseColorValue = enemy_defense.green;
       break;
     default:
       break;

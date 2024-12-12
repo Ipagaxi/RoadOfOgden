@@ -15,6 +15,8 @@ class GameState {
 
         GameState(const GameState&) = delete;
         GameState& operator=(const GameState&) = delete;
+
+        void update_player(Player player);
     
     private:
         GameState(Player player);

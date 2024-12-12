@@ -1,6 +1,6 @@
 #include <Activities/FightActivity/UIEnemyOverview.hpp>
 
-UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedImage("monster_landscape_cut/" + (*_enemy).picPath, "actor_borders/fight_border.png"), enemyStats(_enemy) {
+UIEnemyOverview::UIEnemyOverview(std::shared_ptr<Enemy> _enemy): enemyBorderedImage("monster_landscape_cut/" + _enemy->get_pic_path(), "actor_borders/fight_border.png"), enemyStats(_enemy) {
   Game& game = Game::getInstance();
   RenderEngine& render_engine = RenderEngine::getInstance();
   this->enemy = *_enemy;
@@ -56,9 +56,8 @@ void UIEnemyOverview::draw() {
 }
 
 void UIEnemyOverview::changeHealth(int lostHealth) {
-  int newHealth = std::max(this->enemy.health - lostHealth, 0);
-  this->enemy.health = newHealth;
-  this->enemy.notify(this->enemy);
+  int newHealth = std::max(this->enemy.get_health() - lostHealth, 0);
+  this->enemy.set_health(newHealth);
 }
 
 void UIEnemyOverview::updatePickedColorText(std::string newText, sf::Color pickedColor) {

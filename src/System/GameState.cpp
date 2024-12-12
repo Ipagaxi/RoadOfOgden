@@ -23,4 +23,8 @@ GameState &GameState::getInstance(Player player) {
     return *instance;
 }
 
+void GameState::update_player(Player new_player) {
+  this->player = std::make_shared<Player>(new_player);
+}
+
 GameState* GameState::instance = nullptr;

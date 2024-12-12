@@ -45,6 +45,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE "src" "${CMAKE_SOURCE_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
+option(JSON_ImplicitConversions ON)
+
 if(WIN32)
     add_custom_command(
         TARGET ${PROJECT_NAME}

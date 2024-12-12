@@ -18,7 +18,7 @@ UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subjec
   this->actorStatsBox.setBackgroundMargin(actorStatsBoxSize.width * 0.1, actorStatsBoxSize.height * 0.04);
 
   this->actorName.setFont(game.mainFont);
-  this->actorName.setString(actor->name);
+  this->actorName.setString(actor->get_name());
   this->actorName.setCharacterSize(windowSize.y*0.02);
   this->actorName.setFillColor(sf::Color::White);
 
@@ -28,7 +28,7 @@ UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subjec
   this->actorHealthLabel.setFillColor(statsLabelFontColor);
 
   this->actorHealthValue.setFont(game.mainFont);
-  this->actorHealthValue.setString(std::to_string(actor->health));
+  this->actorHealthValue.setString(std::to_string(actor->get_health()));
   this->actorHealthValue.setCharacterSize(statsTextHeight);
   this->actorHealthValue.setFillColor(statsValueFontColor);
 
@@ -38,7 +38,7 @@ UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subjec
   this->actorAttackStrengthLabel.setFillColor(statsLabelFontColor);
 
   this->actorAttackStrengthValue.setFont(game.mainFont);
-  this->actorAttackStrengthValue.setString(std::to_string(actor->attackStrength));
+  this->actorAttackStrengthValue.setString(std::to_string(actor->get_attack_strength()));
   this->actorAttackStrengthValue.setCharacterSize(statsTextHeight);
   this->actorAttackStrengthValue.setFillColor(statsValueFontColor);
 
@@ -48,7 +48,7 @@ UIStats::UIStats(std::shared_ptr<Actor> actor): Observer(reinterpret_cast<Subjec
   this->actorRGBDefenseLabel.setFillColor(statsLabelFontColor);
 
   this->actorRGBDefenseValues.setFont(game.mainFont);
-  this->actorRGBDefenseValues.setString("(" + std::to_string(actor->defense.red) + ", " + std::to_string(actor->defense.green) + ", " + std::to_string(actor->defense.blue) + ")");
+  this->actorRGBDefenseValues.setString("(" + std::to_string(actor->get_defense().red) + ", " + std::to_string(actor->get_defense().green) + ", " + std::to_string(actor->get_defense().blue) + ")");
   this->actorRGBDefenseValues.setCharacterSize(statsTextHeight);
   this->actorRGBDefenseValues.setFillColor(statsValueFontColor);
 
@@ -95,6 +95,6 @@ sf::FloatRect UIStats::getSize() {
   return this->actorStatsBox.getSize();
 }
 
-void UIStats::update(Actor newActor) {
-  this->actorHealthValue.setString(std::to_string(newActor.health));
+void UIStats::on_notify(Actor newActor) {
+  this->actorHealthValue.setString(std::to_string(newActor.get_health()));
 }

@@ -17,7 +17,7 @@ class UIStats: public UIElement, Observer<Actor> {
     void setPosition(float x, float y) override;
     sf::FloatRect getSize() override;
 
-    void update(Actor newActor) override;
+    void on_notify(Actor newActor) override;
 
   private:
       UIBox actorStatsBox = UIBox(sf::Color(51, 25, 0, 150), "borders/border_stats.png");

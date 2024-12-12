@@ -33,6 +33,7 @@ int main()
   Game& game = Game::getInstance();
   RenderEngine& render_engine = RenderEngine::getInstance();
   GameUI& game_ui = GameUI::getInstance();
+  GameState::getInstance(Player());
 
   sf::Vector2i mousePos;
   sf::Vector2f mousePosF;

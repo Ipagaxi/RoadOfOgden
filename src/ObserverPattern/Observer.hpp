@@ -24,7 +24,7 @@ class Observer {
     Observer(const Observer&) = delete; // rule of three
     Observer& operator=(const Observer&) = delete;
 
-    virtual void update(T entity) {
+    virtual void on_notify(T entity) {
     }
 
     void invalidateSubject() {
@@ -59,7 +59,7 @@ class Subject {
 
     virtual void notify(T entity) const {
         for (const auto& obs: observers) {
-            obs.get().update(entity);
+            obs.get().on_notify(entity);
         }
     }
 

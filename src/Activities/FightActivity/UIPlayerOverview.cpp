@@ -1,6 +1,6 @@
 #include "Activities/FightActivity/UIPlayerOverview.hpp"
 
-UIPlayerOverview::UIPlayerOverview(std::shared_ptr<Player> _player): uiPlayerStats(_player), playerFrame("monster_landscape_cut/" + _player->picPath, "actor_borders/fight_border.png") {
+UIPlayerOverview::UIPlayerOverview(std::shared_ptr<Player> _player): uiPlayerStats(_player), playerFrame("monster_landscape_cut/" + _player->get_pic_path(), "actor_borders/fight_border.png") {
   RenderEngine& render_engine = RenderEngine::getInstance();
   this->player = *_player;
 
@@ -55,9 +55,8 @@ void UIPlayerOverview::init() {
 }
 
 void UIPlayerOverview::changeHealth(int value) {
-  int newHealth = std::max(this->player.health - value, 0);
-  this->player.health = newHealth;
-  this->player.notify(this->player);
+  int newHealth = std::max(this->player.get_health() - value, 0);
+  this->player.set_health(newHealth);
 }
 
 void UIPlayerOverview::draw() {

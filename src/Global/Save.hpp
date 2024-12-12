@@ -9,6 +9,7 @@
 #include "Global/Utility.hpp"
 #include "Actors/Player.hpp"
 #include "System/GameState.hpp"
+#include "Items/Item.hpp"
 
 namespace fs = std::filesystem;
 
