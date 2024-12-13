@@ -4,8 +4,8 @@ nlohmann::json starting_player_stats = {
   {"name", "Arnold"},
   {"level", 1},
   {"experience", 0},
-  {"equipped_items", {}},
-  {"inventory_items", {}}
+  {"equipped_items", nlohmann::json::array()},
+  {"inventory_items", nlohmann::json::array()}
 };
 
 std::string get_save_dir_path() {
@@ -67,6 +67,8 @@ void load_player_from_file() {
     // A template structure would be beneficial for the structure of the stats json
     nlohmann::json player_stats_json = SaveState::read_save_state(PLAYER_STATS_SAVE_PATH);
     //Player player = Player(player_stats_json["name"], player_stats_json["level"], player_stats_json["experience"], "default_actor_quer.png");
+
+
     game_state.player->set_name(player_stats_json["name"].template get<std::string>());
     game_state.player->set_level(player_stats_json["level"].template get<int>());
     game_state.player->set_experience(player_stats_json["experience"].template get<int>());
