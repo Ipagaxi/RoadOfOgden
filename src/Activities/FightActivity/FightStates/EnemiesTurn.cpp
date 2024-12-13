@@ -2,6 +2,10 @@
 
 #include <Animations/TextFadingManager.hpp>
 
+EnemiesTurn::EnemiesTurn(FightData& fight_data): fight_data(fight_data) {
+
+}
+
 EnemiesTurn::~EnemiesTurn() {
 }
 
@@ -28,6 +32,7 @@ FightStateEnum EnemiesTurn::run() {
     fight_activity_ui.enemyDamageCalculated = true;
     if (fight_activity_ui.playerOverview->player.get_health() == 0) {
       currentState = FightStateEnum::FIGHT_END;
+      this->fight_data.winning_party = WinningParty::ENEMY;
     }
   }
   if (fight_activity_ui.textFadingManager.fadingText.pastMillSec >= fight_activity_ui.textFadingManager.fadingText.millSecToLive) {

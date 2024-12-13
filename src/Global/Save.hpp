@@ -29,6 +29,9 @@ std::string const PLAYER_STATS_SAVE_PATH = get_player_stats_save_path();
 namespace SaveState {
     void write_save_state(std::string file_path, nlohmann::json json_data);
     nlohmann::json read_save_state(std::string file_path);
+
+    void save_player_state();
+
     void check_game_state();
 }
 

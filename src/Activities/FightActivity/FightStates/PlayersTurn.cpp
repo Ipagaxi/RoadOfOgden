@@ -2,7 +2,7 @@
 
 #include <Animations/TextFadingManager.hpp>
 
-PlayersTurn::PlayersTurn() {
+PlayersTurn::PlayersTurn(FightData& fight_data): fight_data(fight_data) {
   FightActivityUI& fight_activity_ui = GameUI::getInstance().fight_activity_ui;
   generateTexture();
   this->newColorImage.loadFromFile(RESOURCE_PATH + "color_textures/colorPIC_new.png");
@@ -60,6 +60,7 @@ void PlayersTurn::processAttack() {
     this->colorPicked = false;
     if (fight_activity_ui.enemyOverview->enemy.get_health() == 0) {
       this->playerPhase = PlayerPhase::END_FIGHT;
+      this->fight_data.winning_party = WinningParty::PLAYER;
     } else {
       this->playerPhase = PlayerPhase::CHANGE_COLOR;
     }

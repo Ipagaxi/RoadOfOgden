@@ -24,3 +24,12 @@ Enemy::Enemy(std::string _name, int _health, int _attackStrength, RGB _defense, 
 void Enemy::init() {
 
 }
+
+int Enemy::get_level() {
+    return this->level;
+}
+
+void Enemy::set_level(int new_level) {
+    this->level = new_level;
+    this->notify(*this);
+}

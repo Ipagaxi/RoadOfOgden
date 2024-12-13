@@ -12,6 +12,7 @@
 #include "Global/Utility.hpp"
 #include "Activities/FightActivity/FightActivityUI.hpp"
 #include "System/GameState.hpp"
+#include "Activities/FightActivity/FightData.hpp"
 
 enum PlayerPhase {
   PICK_COLOR,
@@ -23,7 +24,7 @@ enum PlayerPhase {
 
 class PlayersTurn: public FightState {
   public:
-    PlayersTurn();
+    PlayersTurn(FightData& fight_data);
     ~PlayersTurn();
     FightStateEnum run() override;
 
@@ -35,6 +36,8 @@ class PlayersTurn: public FightState {
     sf::Image newColorImage;
     bool newColorImageSet = false;
     float passedMillSec = 0.0;
+
+    FightData& fight_data;
 
     void processAttack();
     void changeColoPickerImage();

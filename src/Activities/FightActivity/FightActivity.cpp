@@ -47,16 +47,16 @@ void FightActivity::runCurrentState() {
   if (newStateFightEnum != this->currentFightStateEnum) {
     switch (newStateFightEnum) {
       case FightStateEnum::PLAYER_STATE:
-        this->currentFightState = std::move(std::make_unique<PlayersTurn>());
+        this->currentFightState = std::move(std::make_unique<PlayersTurn>(this->fight_data));
         break;
       case FightStateEnum::ENEMY_STATE:
-        this->currentFightState = std::move(std::make_unique<EnemiesTurn>());
+        this->currentFightState = std::move(std::make_unique<EnemiesTurn>(this->fight_data));
         break;
       case FightStateEnum::TURN_CHANGE:
         this->currentFightState = std::move(std::make_unique<TurnChangeState>());
         break;
       case FightStateEnum::FIGHT_END:
-        this->currentFightState = std::move(std::make_unique<FightEndState>());
+        this->currentFightState = std::move(std::make_unique<FightEndState>(this->fight_data));
         break;
       default:
         break;

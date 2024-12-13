@@ -58,6 +58,19 @@ nlohmann::json SaveState::read_save_state(std::string file_path) {
     return json_data;
 }
 
+void SaveState::save_player_state() {
+    GameState& game_state = GameState::getInstance();
+    Player player = *(game_state.player);
+    nlohmann::json player_stats = {
+        {"name", player.get_name()},
+        {"level", player.get_level()},
+        {"experience", player.get_experience()},
+        {"equipped_items", player.get_equipped_items()},
+        {"inventory_items", player.get_inventory_items()}
+    };
+    SaveState::write_save_state(PLAYER_STATS_SAVE_PATH, player_stats);
+}
+
 void create_player_save_state() {
     SaveState::write_save_state(PLAYER_STATS_SAVE_PATH, starting_player_stats);
 }

@@ -21,6 +21,7 @@
 #include "Activities/FightActivity/UIEnemyOverview.hpp"
 #include "Activities/FightActivity/UIPlayerOverview.hpp"
 #include "System/GameState.hpp"
+#include "Activities/FightActivity/FightData.hpp"
 
 class FightActivity: public Activity {
   public:
@@ -30,10 +31,10 @@ class FightActivity: public Activity {
     ActivityEnum executeActivity() override;
     void runCurrentState();
 
+    FightData fight_data = FightData();
+
   private:
-    /*
-     * fightEnv is a personal current view state of FightActivity. Therefore, can not be included in Game.hpp or a derived class
-    */
+
     FightStateEnum currentFightStateEnum = FightStateEnum::TURN_CHANGE;
     std::shared_ptr<Enemy> enemy;
 
