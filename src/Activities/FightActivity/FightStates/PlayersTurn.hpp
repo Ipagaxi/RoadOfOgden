@@ -17,7 +17,8 @@ enum PlayerPhase {
   PICK_COLOR,
   ANIMATE_ATTACK,
   CHANGE_COLOR,
-  END_TURN
+  END_TURN,
+  END_FIGHT
 };
 
 class PlayersTurn: public FightState {

@@ -26,6 +26,9 @@ FightStateEnum EnemiesTurn::run() {
     fight_activity_ui.textFadingManager.startAnimation(std::to_string(enemyDamage), damagePos, sf::Color::Yellow, render_engine.gameWindow.getSize().y * 0.05, AnimationPath::Parabel, millSecToLive);
     fight_activity_ui.playerOverview->changeHealth(enemyDamage);
     fight_activity_ui.enemyDamageCalculated = true;
+    if (fight_activity_ui.playerOverview->player.get_health() == 0) {
+      currentState = FightStateEnum::FIGHT_END;
+    }
   }
   if (fight_activity_ui.textFadingManager.fadingText.pastMillSec >= fight_activity_ui.textFadingManager.fadingText.millSecToLive) {
     fight_activity_ui.textFadingManager.fadingText.pastMillSec = 0;

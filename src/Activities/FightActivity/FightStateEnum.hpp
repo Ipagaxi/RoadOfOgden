@@ -4,7 +4,8 @@
 enum FightStateEnum {
   PLAYER_STATE,
   ENEMY_STATE,
-  TURN_CHANGE
+  TURN_CHANGE,
+  FIGHT_END
 };
 
 #endif

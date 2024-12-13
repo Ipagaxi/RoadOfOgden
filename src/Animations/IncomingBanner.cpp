@@ -54,11 +54,11 @@ bool IncomingBanner::runAnimation() {
   }
   if (this->pastTimeInMillSec >= changeTimeMillSec) {
     this->animationStillActive = false;
-    bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
+    /*bannerPos = sf::Vector2f(-windowSize.x, (windowSize.y - bannerSize.height) * 0.5f);
     this->banner.setPosition(bannerPos.x, bannerPos.y);
     this->bannerText.setPosition(bannerPos.x + bannerSize.width * 0.5, bannerPos.y + bannerSize.height * 0.5);
     this->pastTimeInMillSec = 0;
-    this->pastMovementTime = 0;
+    this->pastMovementTime = 0;*/
   }
   return animationStillActive;
 }

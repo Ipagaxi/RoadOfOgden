@@ -55,6 +55,9 @@ void FightActivity::runCurrentState() {
       case FightStateEnum::TURN_CHANGE:
         this->currentFightState = std::move(std::make_unique<TurnChangeState>());
         break;
+      case FightStateEnum::FIGHT_END:
+        this->currentFightState = std::move(std::make_unique<FightEndState>());
+        break;
       default:
         break;
     }

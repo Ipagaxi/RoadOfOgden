@@ -13,6 +13,7 @@
 #include "FightStates/PlayersTurn.hpp"
 #include "FightStates/EnemiesTurn.hpp"
 #include "FightStates/TurnChangeState.hpp"
+#include "FightStates/FightEndState.hpp"
 #include "FightStates/FightState.hpp"
 #include "FightStateEnum.hpp"
 #include "FightActivityUI.hpp"

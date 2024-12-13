@@ -43,6 +43,9 @@ FightStateEnum PlayersTurn::run() {
     case PlayerPhase::END_TURN:
       currentState = FightStateEnum::TURN_CHANGE;
       break;
+    case PlayerPhase::END_FIGHT:
+      currentState = FightStateEnum::FIGHT_END;
+      break;
   }
   return currentState;
 }
@@ -55,7 +58,11 @@ void PlayersTurn::processAttack() {
     fight_activity_ui.enemyDamageCalculated = false;
     fight_activity_ui.turnSP.setTexture(fight_activity_ui.enemiesTurnTX);
     this->colorPicked = false;
-    this->playerPhase = PlayerPhase::CHANGE_COLOR;
+    if (fight_activity_ui.enemyOverview->enemy.get_health() == 0) {
+      this->playerPhase = PlayerPhase::END_FIGHT;
+    } else {
+      this->playerPhase = PlayerPhase::CHANGE_COLOR;
+    }
   }
 }
 
