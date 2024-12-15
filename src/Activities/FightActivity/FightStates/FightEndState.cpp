@@ -2,6 +2,8 @@
 
 FightEndState::FightEndState(FightData& fight_data): fight_data(fight_data) {
   GameState& game_state = GameState::getInstance();
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  sf::Vector2f windowSize = static_cast<sf::Vector2f>(render_engine.gameWindow.getSize());
   int current_exp = game_state.player->get_experience();
   switch (fight_data.winning_party) {
       case WinningParty::ENEMY:
@@ -18,7 +20,9 @@ FightEndState::FightEndState(FightData& fight_data): fight_data(fight_data) {
       default:
         break;
     }
-  
+
+  this->transparent_background_layer.setSize(windowSize);
+  this->transparent_background_layer.setFillColor(sf::Color(0, 0, 0));
 }
 
 int FightEndState::calculate_full_exp_reward() {
@@ -52,6 +56,14 @@ FightStateEnum FightEndState::run() {
         break;
     }
     SaveState::save_player_state();
+    this->show_fight_results();
   }
   return currentFightState;
+}
+
+void FightEndState::show_fight_results() {
+  RenderEngine& render_engine = RenderEngine::getInstance();
+  sf::Color transparent_background_layer_color = this->transparent_background_layer.getFillColor();
+  this->transparent_background_layer.setFillColor(sf::Color(transparent_background_layer_color.r, transparent_background_layer_color.g, transparent_background_layer_color.b, this->transparent_background_layer_fader.fade()));
+  render_engine.gameWindow.draw(this->transparent_background_layer);
 }

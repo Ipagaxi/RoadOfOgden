@@ -65,6 +65,8 @@ bool IncomingBanner::runAnimation() {
 
 void IncomingBanner::drawAnimation() {
   RenderEngine& render_engine = RenderEngine::getInstance();
-  render_engine.gameWindow.draw(this->banner);
-  render_engine.gameWindow.draw(this->bannerText);
+  if (this->animationStillActive) {
+    render_engine.gameWindow.draw(this->banner);
+    render_engine.gameWindow.draw(this->bannerText);
+  }
 }

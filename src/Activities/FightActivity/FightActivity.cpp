@@ -100,7 +100,7 @@ Enemy FightActivity::initEnemy() {
       // Zucchini
       randomEnemy.set_name(enemyNames[randomNum]);
       randomEnemy.set_attack_strength((std::rand() % 5) + 8);
-      randomEnemy.set_health((std::rand() % 30) + 50);
+      randomEnemy.set_health((std::rand() % 30) + 10);
       randomEnemy.set_defense({std::rand() % 150, (std::rand() % 50) + 120, std::rand() % 100});
       randomEnemy.set_pic_path("zucchini_demon_quer.png");
       randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -109,7 +109,7 @@ Enemy FightActivity::initEnemy() {
       // Assel
       randomEnemy.set_name(enemyNames[randomNum]);
       randomEnemy.set_attack_strength((std::rand() % 3) + 3);
-      randomEnemy.set_health((std::rand() % 20) + 110);
+      randomEnemy.set_health((std::rand() % 20) + 10);
       randomEnemy.set_defense({(std::rand() % 255), std::rand() % 255, std::rand() % 255});
       randomEnemy.set_pic_path("assel_quer.png");
       randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -127,7 +127,7 @@ Enemy FightActivity::initEnemy() {
       // Mantis Warrior
       randomEnemy.set_name(enemyNames[randomNum]);
       randomEnemy.set_attack_strength((std::rand() % 6) + 11);
-      randomEnemy.set_health((std::rand() % 15) + 90);
+      randomEnemy.set_health((std::rand() % 15) + 10);
       randomEnemy.set_defense({std::rand() % 255, std::rand() % 255, std::rand() % 255});
       randomEnemy.set_pic_path("mantis_warrior_quer.png");
       randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
@@ -136,7 +136,7 @@ Enemy FightActivity::initEnemy() {
       // Flesh-Fungus
       randomEnemy.set_name(enemyNames[randomNum]);
       randomEnemy.set_attack_strength((std::rand() % 10) + 7);
-      randomEnemy.set_health((std::rand() % 2) + 20);
+      randomEnemy.set_health((std::rand() % 2) + 10);
       randomEnemy.set_defense({std::rand() % 80, std::rand() % 250, std::rand() % 150});
       randomEnemy.set_pic_path("hamster_fungus_quer.png");
       randomEnemy.colorPicPath = "colorPIC_" + std::to_string(randomNum) + ".png";
