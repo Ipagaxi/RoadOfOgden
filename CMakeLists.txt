@@ -3,21 +3,30 @@ set(PROJECT_NAME PnC)
 project(${PROJECT_NAME} LANGUAGES CXX)
 
 file(GLOB source_files
-    "src/main/*.cpp"
-    "src/main/Activities/*.cpp"
-    "src/main/UIElements/*.cpp"
-    "src/main/Actors/*.cpp"
-    "src/main/Animations/*.cpp"
-    "src/main/UIObjects/*.cpp"
-    "src/main/FightStates/*.cpp"
+    "src/*.cpp"
+    "src/Activities/*.cpp"
+    "src/Activities/FightActivity/*.cpp"
+    "src/Activities/FightActivity/FightStates/*.cpp"
+    "src/Activities/MenuActivity/*.cpp"
+    "src/Activities/CharacterActivity/*.cpp"
+    "src/Activities/CharacterActivity/Character_Inventory/*.cpp"
+    "src/Actors/*.cpp"
+    "src/Animations/*.cpp"
+    "src/Global/*.cpp"
+    "src/ObserverPattern/*.cpp"
+    "src/System/*.cpp"
+    "src/UIElements/*.cpp"
 )
 set(SOURCES ${source_files})
 
-set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/project_build)
+set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR}/build)
+set(RESOURCE_DIR "${CMAKE_SOURCE_DIR}/resources")
+
 message (STATUS "CMAKE_INSTALL_PREFIX: ${CMAKE_INSTALL_PREFIX}")
 
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+file(MAKE_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/save)
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 
@@ -32,9 +41,11 @@ add_executable (
     ${SOURCES}
 )
 
-target_include_directories(${PROJECT_NAME} PRIVATE "src/include")
+target_include_directories(${PROJECT_NAME} PRIVATE "src" "${CMAKE_SOURCE_DIR}")
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+
+option(JSON_ImplicitConversions OFF)
 
 if(WIN32)
     add_custom_command(
@@ -47,8 +58,8 @@ endif()
 add_custom_command(
     TARGET ${PROJECT_NAME}
     COMMENT "Copy resources"
-    PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/src/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
+    PRE_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
     VERBATIM)
 
 install(TARGETS ${PROJECT_NAME})
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/resources DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/resources DESTINATION ${CMAKE_INSTALL_PREFIX}/bin)
